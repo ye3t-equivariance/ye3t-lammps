@@ -121,8 +121,9 @@ cmake --build "$PWD/lammps-build-cuda" --parallel 4
 Replace `Kokkos_ARCH_ADA89` with the `Kokkos_ARCH_*` option for the
 destination GPU. Run the device style with the usual Kokkos switches, for
 example `lmp -k on g 1 -pk kokkos neigh half -sf kk -in in.ye3t.direct`.
-`KOKKOS_LAYOUT` is part of an AUTO replay's identity, so recalibrate after
-changing it.
+Both the `legacy` and `default` Kokkos layouts build; `legacy` is the
+validated one. `KOKKOS_LAYOUT` is part of an AUTO replay's identity, so
+recalibrate after changing it.
 
 ### Optional ML-PACE comparison build
 
@@ -223,8 +224,9 @@ After patching, the examples are in `lammps/examples/PACKAGES/ye3t`
   models under `cost_comparison/`, each with PACE/YE3T same-model, tagged,
   finite-difference, and NVE inputs and reference logs.
 
-`run_examples.sh` runs the Ta decks and the rank-16 fixture; it takes no
-command-line arguments and is configured through environment variables:
+`run_examples.sh` runs the Ta decks (and, with `YE3T_WITH_HIGH_RANK=yes`,
+the rank-16 fixture); it takes no command-line arguments and is configured
+through environment variables:
 `YE3T_LMP` (required), `YE3T_MPI_RANKS`, `YE3T_MPIEXEC`,
 `YE3T_EXAMPLE_OUTPUT`, `YE3T_EXAMPLE_TIMEOUT`, `YE3T_WITH_PACE`,
 `YE3T_WITH_NUMDIFF`, `YE3T_WITH_HIGH_RANK`, `YE3T_WITH_KOKKOS`, and

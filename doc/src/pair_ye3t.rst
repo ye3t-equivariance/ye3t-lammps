@@ -94,8 +94,8 @@ compiled polynomial and explicit adjoint used by Python training are consumed
 by the native evaluator. If ``readout_binding.payload.reference_terms``
 contains ZBL, it is included in energies, forces and virials: do not add an
 external ZBL overlay. The earlier overlay example is for residual-only legacy
-bundles without bound references. V4 is rejected by ``ye3t/kk`` until the
-pair-specific source/reference path is qualified on the device.
+bundles without bound references. V4 bundles are rejected by ``ye3t/kk``;
+run them with the CPU pair style.
 
 The *plan* keyword names a compiled execution-plan manifest for a *yace*
 model. The plan is produced by the ``ye3t`` compiler together with the
@@ -175,7 +175,8 @@ backend only; there is no *ye3t/kk/host* variant. CUDA is the validated
 device backend. Composite tagged-Cauchy manifests are evaluated on the CPU
 only. For native tagged-Cauchy bundles, *ye3t/kk* accepts only
 *block_policy direct* and requires angular degrees l <= 8, at most 128 basis
-components, 16 radial functions, and 32 factors per term. Lifted-Cauchy
+components, and 32 factors per term; bundles older than the physical-image
+V3 format are additionally limited to 16 radial functions. Lifted-Cauchy
 models accept only *block_policy direct*.
 
 Related commands

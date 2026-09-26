@@ -50,8 +50,7 @@ source-package route above does not use it.
 
 | Option | Default | Purpose |
 | --- | --- | --- |
-| `ML_YE3T_RUNTIME_SOURCE` | | path to a `ye3t` checkout providing `ye3t/runtime/csrc` (supported route) |
-| `ML_YE3T_RUNTIME_ROOT` | | installed `ye3t` runtime prefix, an alternative to the source route |
+| `ML_YE3T_RUNTIME_SOURCE` | `../ye3t` | path to a `ye3t` checkout providing `ye3t/runtime/csrc`; defaults to a sibling checkout |
 | `ML_YE3T_BUILD_CPU_RUNTIME` | `ON` | build the standalone CPU model evaluator |
 | `ML_YE3T_BUILD_NATIVE_CPU_TESTS` | `OFF` | build the native-CPU evaluator tests (see `tests/native_cpu/README.md`) |
 | `ML_YE3T_BUILD_LAMMPS_PLUGIN` | `OFF` | build the loadable PairYE3T CPU plugin |
@@ -60,10 +59,15 @@ source-package route above does not use it.
 | `ML_YE3T_LAMMPS_MPI` | `OFF` | build the plugin for an MPI LAMMPS host instead of the serial stubs |
 | `ML_YE3T_ENABLE_NATIVE_CPU` | `OFF` | compile for the build machine's CPU |
 | `ML_YE3T_ENABLE_IPO` | `OFF` | enable interprocedural optimization |
-| `ML_YE3T_BUILD_PACE_ORACLE` | `OFF` | build the PACE oracle used by the comparison tests |
+| `ML_YE3T_BUILD_PACE_ORACLE` | `OFF` | build the PACE oracle used by the comparison tests; requires `ML_YE3T_PACE_SOURCE` (a clean `lammps-user-pace` checkout) and `ML_YE3T_PACE_REVISION` (its expected git revision) |
 
 The plugin host must include the LAMMPS PLUGIN package, and an MPI plugin
 must use the same MPI implementation and toolchain as the host.
+
+The LAMMPS build itself is configured through the installed module
+`cmake/ML-YE3T.cmake`, which accepts `ML_YE3T_RUNTIME_SOURCE` (a `ye3t`
+source checkout, the supported route) or `ML_YE3T_RUNTIME_ROOT` (an
+installed runtime prefix with `include/ye3t` and `lib`; experimental).
 
 ## Kokkos type names
 

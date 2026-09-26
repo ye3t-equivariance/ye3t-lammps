@@ -7,7 +7,7 @@ tests/test_patch_lammps.sh "$PWD"
 python3 tests/test_patch_lammps_uninstall.py -v
 python3 tests/test_gpu_scaling_runner.py
 python3 tests/test_source_contracts.py
-python3 tests/test_public_example_verifier.py
+pytest tests/test_public_example_verifier.py
 ```
 
 `pytest tests/` runs the Python suite; tests that need the `ye3t` or
