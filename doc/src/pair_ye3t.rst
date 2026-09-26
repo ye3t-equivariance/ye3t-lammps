@@ -171,9 +171,12 @@ This pair style requires :doc:`metal units <units>` and
 
 The *ye3t/kk* variant requires a Kokkos build with double precision and a
 half neighbor list (``-pk kokkos neigh half``). It executes on the device
-backend only; there is no *ye3t/kk/host* variant. Composite tagged-Cauchy
-manifests are evaluated on the CPU only. Lifted-Cauchy models accept only
-*block_policy direct*.
+backend only; there is no *ye3t/kk/host* variant. CUDA is the validated
+device backend. Composite tagged-Cauchy manifests are evaluated on the CPU
+only. For native tagged-Cauchy bundles, *ye3t/kk* accepts only
+*block_policy direct* and requires angular degrees l <= 8, at most 128 basis
+components, 16 radial functions, and 32 factors per term. Lifted-Cauchy
+models accept only *block_policy direct*.
 
 Related commands
 """"""""""""""""
