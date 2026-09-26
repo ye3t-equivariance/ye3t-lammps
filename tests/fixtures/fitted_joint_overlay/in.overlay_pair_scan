@@ -1,0 +1,36 @@
+# Two-atom close-range probe for the fitted hybrid/overlay model.
+
+variable plugin_path index none
+variable plugin_setup index plugin.dynamic.inc
+variable ordinary_model index ordinary.yace
+variable lifted_model index model.ye3t.json
+variable source_realization index factorized
+variable pair_setup index none
+variable separation index 2.0
+
+include ${plugin_setup}
+
+units metal
+atom_style atomic
+atom_modify map array
+boundary p p p
+
+region cell block 0 20 0 20 0 20 units box
+create_box 1 cell
+create_atoms 1 single 8.0 10.0 10.0 units box
+variable x2 equal 8.0+v_separation
+create_atoms 1 single ${x2} 10.0 10.0 units box
+mass 1 180.94788
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+newton on
+
+include ${pair_setup}
+
+thermo 1
+thermo_style custom step pe
+run 0
+print "YE3T_OVERLAY_PAIR_R ${separation}"
+print "YE3T_OVERLAY_PAIR_PE $(pe:%.17g)"
+print "YE3T_OVERLAY_PAIR_FX1 $(fx[1]:%.17g)"

@@ -1,0 +1,131 @@
+{
+  "families": {
+    "pace_product": {
+      "evaluator": "product",
+      "pair_style": "pace"
+    },
+    "ye3t_mixed": {
+      "calibration_centers": 128,
+      "calibration_neighbors_per_center": 16,
+      "calibration_repeats": 11,
+      "candidate_evaluators": [
+        "compiled_direct",
+        "generic_dag",
+        "symmetric_power",
+        "block"
+      ],
+      "evaluator": "auto",
+      "fallback_forbidden": true,
+      "pair_style": "ye3t",
+      "selection_rule": "candidate_q75_lt_0.92_direct_q25"
+    },
+    "ye3t_symmetric": {
+      "compiled_plan_required": true,
+      "evaluator": "auto",
+      "fallback_forbidden": true,
+      "pair_style": "ye3t",
+      "same_yace_as_pace": true
+    }
+  },
+  "schema": "ye3t_three_way_cost_comparison_config_v1",
+  "systems": [
+    "Li",
+    "Mo",
+    "Cu",
+    "Ni",
+    "Si",
+    "Ge"
+  ],
+  "timing_protocol_by_system": {
+    "Cu": {
+      "cache_state": "model_loaded_and_warmup_complete_before_timed_loop",
+      "cells_per_axis": 6,
+      "fixed_positions": true,
+      "interleaving_policy": "cyclic_model_rotation_within_rank_and_repetition",
+      "mpi_ranks": [
+        1,
+        4
+      ],
+      "neighbor_list_once": true,
+      "omp_threads": 1,
+      "repetitions": 5,
+      "timed_steps": 150,
+      "warmup_steps": 20
+    },
+    "Ge": {
+      "cache_state": "model_loaded_and_warmup_complete_before_timed_loop",
+      "cells_per_axis": 6,
+      "fixed_positions": true,
+      "interleaving_policy": "cyclic_model_rotation_within_rank_and_repetition",
+      "mpi_ranks": [
+        1,
+        4
+      ],
+      "neighbor_list_once": true,
+      "omp_threads": 1,
+      "repetitions": 5,
+      "timed_steps": 150,
+      "warmup_steps": 20
+    },
+    "Li": {
+      "cache_state": "model_loaded_and_warmup_complete_before_timed_loop",
+      "cells_per_axis": 6,
+      "fixed_positions": true,
+      "interleaving_policy": "cyclic_model_rotation_within_rank_and_repetition",
+      "mpi_ranks": [
+        1,
+        4
+      ],
+      "neighbor_list_once": true,
+      "omp_threads": 1,
+      "repetitions": 5,
+      "timed_steps": 150,
+      "warmup_steps": 20
+    },
+    "Mo": {
+      "cache_state": "model_loaded_and_warmup_complete_before_timed_loop",
+      "cells_per_axis": 6,
+      "fixed_positions": true,
+      "interleaving_policy": "cyclic_model_rotation_within_rank_and_repetition",
+      "mpi_ranks": [
+        1,
+        4
+      ],
+      "neighbor_list_once": true,
+      "omp_threads": 1,
+      "repetitions": 5,
+      "timed_steps": 150,
+      "warmup_steps": 20
+    },
+    "Ni": {
+      "cache_state": "model_loaded_and_warmup_complete_before_timed_loop",
+      "cells_per_axis": 6,
+      "fixed_positions": true,
+      "interleaving_policy": "cyclic_model_rotation_within_rank_and_repetition",
+      "mpi_ranks": [
+        1,
+        4
+      ],
+      "neighbor_list_once": true,
+      "omp_threads": 1,
+      "repetitions": 5,
+      "timed_steps": 150,
+      "warmup_steps": 20
+    },
+    "Si": {
+      "cache_state": "model_loaded_and_warmup_complete_before_timed_loop",
+      "cells_per_axis": 6,
+      "fixed_positions": true,
+      "interleaving_policy": "cyclic_model_rotation_within_rank_and_repetition",
+      "mpi_ranks": [
+        1,
+        4
+      ],
+      "neighbor_list_once": true,
+      "omp_threads": 1,
+      "repetitions": 5,
+      "timed_steps": 250,
+      "warmup_steps": 20
+    }
+  }
+}

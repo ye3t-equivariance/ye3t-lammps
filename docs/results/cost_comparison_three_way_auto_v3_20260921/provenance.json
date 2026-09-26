@@ -1,0 +1,40 @@
+{
+  "output_root": "ye3t-workflows/MLIP/mlearn_linear_cost_comparison/render_staging/three_way_pace_ye3t_auto_v3_20260921",
+  "renderer": "ye3t-ace/examples/publication/cost_comparison/workflow/render_self_contained_publication.py",
+  "renderer_sha256": "de0ddc25045b633bcfd5260f7f90ba4a519a4799ad50355863562b30d96b3650",
+  "schema": "ye3t_three_way_cost_comparison_provenance_v1",
+  "source_mode": "retained_promoted_raw",
+  "study_root": "ye3t-workflows/MLIP/mlearn_linear_cost_comparison",
+  "timing_executables": {
+    "Cu": {
+      "lammps_sha256": "639071686118c06ac5f637bd6a2ad08f71c82113bf37d6d55ebc97cecdfb6ce9",
+      "model_matrix_sha256": "341ab719196837ce35dfb3a2070a2ac22effb8c93ba72e598ee80673866e3f78",
+      "mpiexec_sha256": "008870e2b58d73c574f8c70d27ecdb07219e3c3f2d74d97272cd72973995f07b"
+    },
+    "Ge": {
+      "lammps_sha256": "639071686118c06ac5f637bd6a2ad08f71c82113bf37d6d55ebc97cecdfb6ce9",
+      "model_matrix_sha256": "502eeb6c59b1d0164d4274ca427d9b55d0055523cca1a2174a5f5567c1166359",
+      "mpiexec_sha256": "008870e2b58d73c574f8c70d27ecdb07219e3c3f2d74d97272cd72973995f07b"
+    },
+    "Li": {
+      "lammps_sha256": "639071686118c06ac5f637bd6a2ad08f71c82113bf37d6d55ebc97cecdfb6ce9",
+      "model_matrix_sha256": "7c83bbfc244c53473a480d44433830770edbedfcf91d3bb3073364b6da280ab6",
+      "mpiexec_sha256": "008870e2b58d73c574f8c70d27ecdb07219e3c3f2d74d97272cd72973995f07b"
+    },
+    "Mo": {
+      "lammps_sha256": "639071686118c06ac5f637bd6a2ad08f71c82113bf37d6d55ebc97cecdfb6ce9",
+      "model_matrix_sha256": "adaa957cadc9f6ad931d8584246ae545dcc038cc96e1147e48ae96154af9d5ca",
+      "mpiexec_sha256": "008870e2b58d73c574f8c70d27ecdb07219e3c3f2d74d97272cd72973995f07b"
+    },
+    "Ni": {
+      "lammps_sha256": "639071686118c06ac5f637bd6a2ad08f71c82113bf37d6d55ebc97cecdfb6ce9",
+      "model_matrix_sha256": "8c1906d6df94a12ca79c521a017d7990383dd390d8c6d5233ea3b4a6f378119e",
+      "mpiexec_sha256": "008870e2b58d73c574f8c70d27ecdb07219e3c3f2d74d97272cd72973995f07b"
+    },
+    "Si": {
+      "lammps_sha256": "639071686118c06ac5f637bd6a2ad08f71c82113bf37d6d55ebc97cecdfb6ce9",
+      "model_matrix_sha256": "475b972bbbb11b6bc9613399c925841fa9e03a023a7a2083530ade5a11e29fde",
+      "mpiexec_sha256": "008870e2b58d73c574f8c70d27ecdb07219e3c3f2d74d97272cd72973995f07b"
+    }
+  }
+}

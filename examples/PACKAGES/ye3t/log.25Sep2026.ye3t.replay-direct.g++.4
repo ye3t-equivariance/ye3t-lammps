@@ -1,0 +1,89 @@
+LAMMPS (22 Jul 2025 - Update 4)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread.
+  using 1 OpenMP thread(s) per MPI task
+# Fixed-position replay for a standalone PACE-compatible YACE model.
+
+variable model index models/ta_l8_compact/model.yace
+variable dump_path index dump.ye3t.replay-direct
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+variable a equal 3.300
+lattice bcc ${a}
+lattice bcc 3.3
+Lattice spacing in x,y,z = 3.3 3.3 3.3
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+Created orthogonal box = (0 0 0) to (9.9 9.9 9.9)
+  2 by 1 by 2 MPI processor grid
+create_atoms 1 box
+Created 54 atoms
+  using lattice units in orthogonal box = (0 0 0) to (9.9 9.9 9.9)
+  create_atoms CPU = 0.000 seconds
+mass 1 180.94788
+reset_atoms id sort yes
+Resetting atom IDs ...
+WARNING: Communication cutoff is 0.0. No ghost atoms will be generated. Energies and forces may be wrong and atoms may get lost. (src/comm_brick.cpp:212)
+
+group displaced id 1
+1 atoms in group displaced
+displace_atoms displaced move 0.13 -0.07 0.09 units box
+Displacing atoms ...
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t chunksize 256
+YE3T configuration: model_family yace, source_realization model_default, chunksize 256, block_policy direct, plan none, auto_replay none
+pair_coeff * * ${model} Ta
+pair_coeff * * models/ta_l8_compact/model.yace Ta
+YE3T CPU dispatch: PACE-compatible spline/half-complex source with split-real harmonics, exact signed-m expansion/collapse, tiled split-real symmetric-power forward/adjoint, source_model a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56, direct_logical_plan 7c86be4203d2aa73769ee77a6e850a3012c93c3bf09a8be740b0861b1b20960d
+YE3T CPU source schedule: complete environments in 8/16-center batches, soft cache target 1048576 bytes (819 edges), no source-table replay; chunksize is an outer packing limit, not a memory limit
+Loaded YE3T YACE potential models/ta_l8_compact/model.yace
+	Ta: 78 full channels, 48 source channels, 514 shared monomials, 140 cached powers, 719 binary product-DAG nodes (balanced-reverse-channel-order), rank <= 8
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+compute pair_pressure all pressure NULL pair
+compute force_sum all reduce sum fx fy fz
+
+dump replay all custom 1 ${dump_path} id type x y z c_atom_energy   c_atom_stress[1] c_atom_stress[2] c_atom_stress[3]   c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz
+dump replay all custom 1 dump.ye3t.replay-direct id type x y z c_atom_energy   c_atom_stress[1] c_atom_stress[2] c_atom_stress[3]   c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz
+dump_modify replay sort id format float %.17g
+
+thermo 1
+thermo_style custom step atoms vol pe c_pair_pressure[1]   c_pair_pressure[2] c_pair_pressure[3] c_pair_pressure[4]   c_pair_pressure[5] c_pair_pressure[6] c_force_sum[1]   c_force_sum[2] c_force_sum[3]
+thermo_modify format float %.17g
+
+# No time-integration fix is installed, so positions remain unchanged.
+run 5 post no
+WARNING: No fixes with time integration, atoms won't move
+For more information see https://docs.lammps.org/err0028 (src/verlet.cpp:60)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.97637
+  ghost atom cutoff = 4.97637
+  binsize = 2.488185, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair ye3t, perpetual
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 7.166 | 7.225 | 7.285 Mbytes
+   Step        Atoms        Volume         PotEng     c_pair_pressure[1] c_pair_pressure[2] c_pair_pressure[3] c_pair_pressure[4] c_pair_pressure[5] c_pair_pressure[6] c_force_sum[1] c_force_sum[2] c_force_sum[3]
+         0          54  970.29899999999964 -639.78580595280084 34606.148613127189 34753.976983910754 34706.800639339832 -247.81574294879283 312.96446182686321 -192.61448526026311 8.8817841970012523e-16 3.6082248300317588e-16 1.3877787807814457e-15
+         1          54  970.29899999999964 -639.78580595280084 34606.148613127189 34753.976983910754 34706.800639339832 -247.81574294879283 312.96446182686321 -192.61448526026311 8.8817841970012523e-16 3.6082248300317588e-16 1.3877787807814457e-15
+         2          54  970.29899999999964 -639.78580595280084 34606.148613127189 34753.976983910754 34706.800639339832 -247.81574294879283 312.96446182686321 -192.61448526026311 8.8817841970012523e-16 3.6082248300317588e-16 1.3877787807814457e-15
+         3          54  970.29899999999964 -639.78580595280084 34606.148613127189 34753.976983910754 34706.800639339832 -247.81574294879283 312.96446182686321 -192.61448526026311 8.8817841970012523e-16 3.6082248300317588e-16 1.3877787807814457e-15
+         4          54  970.29899999999964 -639.78580595280084 34606.148613127189 34753.976983910754 34706.800639339832 -247.81574294879283 312.96446182686321 -192.61448526026311 8.8817841970012523e-16 3.6082248300317588e-16 1.3877787807814457e-15
+         5          54  970.29899999999964 -639.78580595280084 34606.148613127189 34753.976983910754 34706.800639339832 -247.81574294879283 312.96446182686321 -192.61448526026311 8.8817841970012523e-16 3.6082248300317588e-16 1.3877787807814457e-15
+Loop time of 0.00119642 on 4 procs for 5 steps with 54 atoms
+
+undump replay
+Total wall time: 0:00:00

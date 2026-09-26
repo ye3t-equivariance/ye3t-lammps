@@ -1,0 +1,64 @@
+# Domain-crossing ghost and reverse-force check for lifted PairYE3T.
+
+variable load_plugin index 0
+variable plugin_path index none
+if "${load_plugin} == 1" then "plugin load ${plugin_path}"
+
+variable model index model.ye3t.json
+variable source_realization index factorized
+variable mpi_ranks index 4
+variable newton_mode index on
+variable initial_dump_path index lifted.mpi.initial.dump
+variable final_dump_path index lifted.mpi.final.dump
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton ${newton_mode}
+processors ${mpi_ranks} 1 1
+
+variable a equal 3.300
+lattice bcc ${a}
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+reset_atoms id sort yes
+
+region mover_region sphere 4.95 1.65 1.65 0.10 units box
+group mover region mover_region
+displace_atoms mover move -0.10 0.0 0.0 units box
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t model_family lifted_cauchy &
+  source_realization ${source_realization} chunksize 16
+pair_coeff * * ${model} Ta
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+compute pair_pressure all pressure NULL pair
+compute force_sum all reduce sum fx fy fz
+
+thermo 1
+thermo_style custom step atoms vol pe c_pair_pressure[1] &
+  c_pair_pressure[2] c_pair_pressure[3] c_pair_pressure[4] &
+  c_pair_pressure[5] c_pair_pressure[6] c_force_sum[1] &
+  c_force_sum[2] c_force_sum[3]
+thermo_modify format float %.17g
+
+run 0 post yes
+write_dump all custom ${initial_dump_path} id type proc x y z c_atom_energy &
+  c_atom_stress[1] c_atom_stress[2] c_atom_stress[3] &
+  c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz &
+  modify sort id format float %.17g
+
+timestep 0.001
+fix migrate mover move linear 200.0 0.0 0.0 units box
+run 1 post yes
+write_dump all custom ${final_dump_path} id type proc x y z c_atom_energy &
+  c_atom_stress[1] c_atom_stress[2] c_atom_stress[3] &
+  c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz &
+  modify sort id format float %.17g

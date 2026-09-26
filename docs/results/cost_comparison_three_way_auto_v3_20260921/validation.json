@@ -1,0 +1,46 @@
+{
+  "all_claim_checks_passed": true,
+  "auto_fallback_rows": 0,
+  "figure_dimensions": {
+    "high_order_auto_microcatalogue": {
+      "height_pixels": 1408,
+      "pdf_present": true,
+      "width_pixels": 2653
+    },
+    "joint_kappa_lambda_causal_ablation": {
+      "height_pixels": 1545,
+      "pdf_present": true,
+      "width_pixels": 3626
+    },
+    "matched_127_accuracy_runtime_tradeoff": {
+      "height_pixels": 1247,
+      "pdf_present": true,
+      "width_pixels": 3387
+    },
+    "self_contained_lammps_qualification": {
+      "height_pixels": 2221,
+      "pdf_present": true,
+      "width_pixels": 3204
+    },
+    "three_way_energy_accuracy_runtime_pareto": {
+      "height_pixels": 2466,
+      "pdf_present": true,
+      "width_pixels": 3889
+    },
+    "three_way_force_accuracy_runtime_pareto": {
+      "height_pixels": 2466,
+      "pdf_present": true,
+      "width_pixels": 3893
+    }
+  },
+  "schema": "ye3t_three_way_cost_comparison_validation_v1",
+  "visual_inspection": "passed_2026-09-21",
+  "visual_inspection_scope": [
+    "three_way_force_accuracy_runtime_pareto",
+    "three_way_energy_accuracy_runtime_pareto",
+    "matched_127_accuracy_runtime_tradeoff",
+    "joint_kappa_lambda_causal_ablation",
+    "self_contained_lammps_qualification",
+    "high_order_auto_microcatalogue"
+  ]
+}

@@ -1,0 +1,3394 @@
+{
+  "carrier_layouts": [
+    {
+      "axis_order": [
+        "channel_or_multiplicity",
+        "tableau_t",
+        "magnetic_M"
+      ],
+      "channel_count": 1,
+      "key": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          16
+        ],
+        "rank": 16,
+        "rotation_L": 0
+      },
+      "magnetic_count": 1,
+      "tableau_count": 1,
+      "width": 1
+    },
+    {
+      "axis_order": [
+        "channel_or_multiplicity",
+        "tableau_t",
+        "magnetic_M"
+      ],
+      "channel_count": 1,
+      "key": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          24
+        ],
+        "rank": 24,
+        "rotation_L": 0
+      },
+      "magnetic_count": 1,
+      "tableau_count": 1,
+      "width": 1
+    },
+    {
+      "axis_order": [
+        "channel_or_multiplicity",
+        "tableau_t",
+        "magnetic_M"
+      ],
+      "channel_count": 1,
+      "key": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          32
+        ],
+        "rank": 32,
+        "rotation_L": 0
+      },
+      "magnetic_count": 1,
+      "tableau_count": 1,
+      "width": 1
+    }
+  ],
+  "certificate": {
+    "all_paths_compiled_before_runtime": true,
+    "passed": true,
+    "scope": "diagnostic_high_rank_cpu_execution_ladder",
+    "yace_output_bindings": {
+      "records": [
+        {
+          "central_type": 0,
+          "channel_index": 0,
+          "feature_id": "5fd416cf623dd9472ce8a2cc95562eba728a786a7c8e03e0fbc30dd3d205ddac",
+          "function_index": 58,
+          "instruction_hash": "3480ba027bfca8e1ef08c55268f4573b34b2228baf445ce99110ae5f7c33ee59",
+          "instruction_id": "ta_r16_h_hierarchical_repeated_block_analysis",
+          "magnetic_index": 0,
+          "scale": [
+            1.7556062762505721e-10,
+            0.0
+          ],
+          "schema": "ye3t_yace_plan_output_binding_v1",
+          "source_yace_sha256": "7ac6c5e316534d24df12361a9f461ed10c1d2737c45355dfa342c38459bb852f",
+          "tableau_index": 0
+        },
+        {
+          "central_type": 0,
+          "channel_index": 0,
+          "feature_id": "19389e109b6d8987cf775673e5caf7d03ce087cb70b9eaa08a8ef3437b454221",
+          "function_index": 59,
+          "instruction_hash": "0d2cdeeac220a2cca3be2ae4e6dbe0077a4a61d8e10447f2bbf294ed01dc08ec",
+          "instruction_id": "ta_r24_h_hierarchical_repeated_block_analysis",
+          "magnetic_index": 0,
+          "scale": [
+            3.6779912481236286e-11,
+            0.0
+          ],
+          "schema": "ye3t_yace_plan_output_binding_v1",
+          "source_yace_sha256": "7ac6c5e316534d24df12361a9f461ed10c1d2737c45355dfa342c38459bb852f",
+          "tableau_index": 0
+        },
+        {
+          "central_type": 0,
+          "channel_index": 0,
+          "feature_id": "77721305d632ec8d520ab724d5e56ce536f2fb835c8ced0c0f5b272a1a72e051",
+          "function_index": 60,
+          "instruction_hash": "e90d119c689ef382dbf6385f82cb9ca95567106db070d411e5ef138106d1d1a4",
+          "instruction_id": "ta_r32_h_hierarchical_repeated_block_analysis",
+          "magnetic_index": 0,
+          "scale": [
+            1.7705623276515164e-12,
+            0.0
+          ],
+          "schema": "ye3t_yace_plan_output_binding_v1",
+          "source_yace_sha256": "7ac6c5e316534d24df12361a9f461ed10c1d2737c45355dfa342c38459bb852f",
+          "tableau_index": 0
+        }
+      ],
+      "schema": "ye3t_yace_plan_output_bindings_v1"
+    }
+  },
+  "coefficient_hash": "c552dbde6432e7363d7b4e555c8213f4e4ea0aff8f0c2128e89000fa145e5ae2",
+  "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+  "factorized_angular_plans": [],
+  "forward_schedule": [
+    "ta_r16_h_hierarchical_repeated_block_analysis",
+    "ta_r24_h_hierarchical_repeated_block_analysis",
+    "ta_r32_h_hierarchical_repeated_block_analysis"
+  ],
+  "instructions": [
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "factorized_angular_plan_id": null,
+      "input_carriers": [],
+      "instruction_id": "ta_r16_h_hierarchical_repeated_block_analysis",
+      "metadata": {
+        "block_power_plans": [
+          {
+            "block_index": 0,
+            "output_L": 0,
+            "plan": {
+              "active_descriptor_indices": [
+                0
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "cb02c9f8561dc83b",
+              "descriptor_count": 1,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 9,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        16,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -16.000000000000004,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        14,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        112.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        12,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -448.00000000000006,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        10,
+                        3
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        1120.0000000000002,
+                        0.0
+                      ],
+                      "exponents": [
+                        4,
+                        8,
+                        4
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -1792.0000000000002,
+                        0.0
+                      ],
+                      "exponents": [
+                        5,
+                        6,
+                        5
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        1792.0000000000002,
+                        0.0
+                      ],
+                      "exponents": [
+                        6,
+                        4,
+                        6
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -1024.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        7,
+                        2,
+                        7
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        255.99999999999997,
+                        0.0
+                      ],
+                      "exponents": [
+                        8,
+                        0,
+                        8
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      15,
+                      0
+                    ],
+                    [
+                      0,
+                      14,
+                      1
+                    ],
+                    [
+                      1,
+                      13,
+                      1
+                    ],
+                    [
+                      1,
+                      14,
+                      0
+                    ],
+                    [
+                      1,
+                      12,
+                      2
+                    ],
+                    [
+                      2,
+                      11,
+                      2
+                    ],
+                    [
+                      2,
+                      12,
+                      1
+                    ],
+                    [
+                      2,
+                      10,
+                      3
+                    ],
+                    [
+                      3,
+                      9,
+                      3
+                    ],
+                    [
+                      3,
+                      10,
+                      2
+                    ],
+                    [
+                      3,
+                      8,
+                      4
+                    ],
+                    [
+                      4,
+                      7,
+                      4
+                    ],
+                    [
+                      4,
+                      8,
+                      3
+                    ],
+                    [
+                      4,
+                      6,
+                      5
+                    ],
+                    [
+                      5,
+                      5,
+                      5
+                    ],
+                    [
+                      5,
+                      6,
+                      4
+                    ],
+                    [
+                      5,
+                      4,
+                      6
+                    ],
+                    [
+                      6,
+                      3,
+                      6
+                    ],
+                    [
+                      6,
+                      4,
+                      5
+                    ],
+                    [
+                      6,
+                      2,
+                      7
+                    ],
+                    [
+                      7,
+                      1,
+                      7
+                    ],
+                    [
+                      7,
+                      2,
+                      6
+                    ],
+                    [
+                      7,
+                      0,
+                      8
+                    ],
+                    [
+                      8,
+                      0,
+                      7
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 0,
+                  "power": 16,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 95883264,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 9,
+                      "occupancy_dimension": 153,
+                      "policy": "auto",
+                      "power": 16,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 9,
+                    "lower_degree_monomial_count": 24,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:16",
+                "rotation": {
+                  "L_R": 0,
+                  "M_R_values": [
+                    0
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 0,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 1,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n1_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 1
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r16_h_hierarchical_block_0_L0"
+          }
+        ],
+        "blocks": [
+          {
+            "block_index": 0,
+            "block_partition": [
+              16
+            ],
+            "input_L": 1,
+            "power": 16,
+            "slot_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n1_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 1
+              }
+            }
+          }
+        ],
+        "canonical_induced_row": 0,
+        "coefficient_materialization": "auto",
+        "fast_route_certificates": [
+          {
+            "absolute_tolerance": 2e-12,
+            "adjoint_rule": "reverse_multiplication_schedule_and_quadratic_product_without_division",
+            "analysis_orientation": "conjugate_transpose",
+            "basis_certificate_schema": "ye3t_exact_symbolic_occupancy_basis_v1",
+            "basis_certificate_sha256": "09bade2f5b8eb0f62575f535503d653dcd494948e59ff6959ce71ac19094a999",
+            "basis_convention": "complex_magnetic",
+            "block_index": 0,
+            "block_plan_id": "ta_r16_h_hierarchical_block_0_L0",
+            "carrier": "ACE_density",
+            "certificate_sha256": "17565b2a73d49a756823a188981eef36b33e2617c5ee09ad88bc13e67dbe6eee",
+            "channel_indices": [
+              0,
+              1,
+              2
+            ],
+            "coefficient_identity_passed": true,
+            "component_index": 0,
+            "descriptor_index": 0,
+            "factor_basis": "A",
+            "forward_schedule": [
+              "quadratic_base",
+              "q_pow_2",
+              "q_pow_4",
+              "q_pow_8",
+              "intrinsic_scale"
+            ],
+            "full_support_checked": true,
+            "input_L": 1,
+            "intrinsic_output_scale": [
+              0.9999999999999989,
+              0.0
+            ],
+            "magnetic_order": [
+              -1,
+              0,
+              1
+            ],
+            "maximum_absolute_residual": 4.547473508864641e-13,
+            "maximum_relative_residual": 1.1102230246251565e-15,
+            "maximum_scaled_residual": 5.5166361472057466e-05,
+            "multiplication_schedule": [
+              {
+                "left_exponent": 1,
+                "node_id": "q_pow_2",
+                "output_exponent": 2,
+                "right_exponent": 1
+              },
+              {
+                "left_exponent": 2,
+                "node_id": "q_pow_4",
+                "output_exponent": 4,
+                "right_exponent": 2
+              },
+              {
+                "left_exponent": 4,
+                "node_id": "q_pow_8",
+                "output_exponent": 8,
+                "right_exponent": 4
+              }
+            ],
+            "multiplicity_index": 0,
+            "normalization_convention": "none",
+            "outer_power": 8,
+            "output_L": 0,
+            "parent_partition": [
+              16
+            ],
+            "parent_rank": 16,
+            "passed": true,
+            "physical_source_binding_sha256": "59065663873063dd149a374e8dbc03ee4c87ab2722bfa74f6965e20472b8c842",
+            "quadratic_base_sha256": "4527ca36cb7e4ef687bb7e332e8267d31dea23288ea7300b69a534f32b2cbef1",
+            "quadratic_source_component_sha256": "9c3af8c482a5439acea87a42a34b34486faab6e00580b6b60474c10d6430d4ef",
+            "quadratic_source_plan_convention_hash": "53aee54959251403",
+            "quadratic_source_plan_sha256": "580cb22569a2bde5e29484418de8cf2640e126ef212ad7841462cf02a419d639",
+            "quadratic_terms": [
+              {
+                "coefficient": [
+                  1.0,
+                  0.0
+                ],
+                "exponents": [
+                  0,
+                  2,
+                  0
+                ]
+              },
+              {
+                "coefficient": [
+                  -2.0000000000000004,
+                  0.0
+                ],
+                "exponents": [
+                  1,
+                  0,
+                  1
+                ]
+              }
+            ],
+            "relative_tolerance": 2e-11,
+            "reverse_schedule": [
+              "intrinsic_scale",
+              "q_pow_8",
+              "q_pow_4",
+              "q_pow_2",
+              "quadratic_base"
+            ],
+            "runtime_path_discovery": false,
+            "schema": "ye3t_scalar_invariant_power_certificate_v1",
+            "source_binding_sha256": "9abe4fe8f50840326cfc3a1c3ae80225ba63081edc1a8f39f94ea3f445acd5ce",
+            "source_power_plan_convention_hash": "cb02c9f8561dc83b",
+            "source_power_plan_sha256": "e9e266bf2f87887e2ff03acf45c400393b1596c41d436c127e73ef5affddb6b3",
+            "support_equal": true,
+            "target_component_sha256": "5e36a93fbf86f0b36044897f162701429e5063ef02225c5d7f8ea19d7e40af97",
+            "zero_safe_adjoint": true
+          }
+        ],
+        "hierarchical_coefficient_hash": "0d313f83776f4ec8",
+        "joint_multiplicity": 1,
+        "lr_multiplicity": 1,
+        "lr_synthesis_table_id": "ta_r16_h_hierarchical_lr_synthesis",
+        "maximum_exact_symbolic_bytes": 134217728,
+        "parent_tableau_count": 1,
+        "raw_angular_tree_forest_materialized": false,
+        "routes": [
+          {
+            "angular_synthesis_table_id": null,
+            "block_multiplicity_indices": [
+              0
+            ],
+            "block_output_Ls": [
+              0
+            ],
+            "route_index": 0
+          }
+        ],
+        "runtime_path_discovery": false,
+        "schema": "ye3t_hierarchical_repeated_angular_blocks_v1",
+        "target_L": 0,
+        "target_parity": 1
+      },
+      "opcode": "block_symmetric_power",
+      "output_carrier": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          16
+        ],
+        "rank": 16,
+        "rotation_L": 0
+      },
+      "source_assembly_id": "ta_r16_h_hierarchical_repeated_block_source",
+      "synthesis_table_id": "ta_r16_h_hierarchical_lr_synthesis"
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "factorized_angular_plan_id": null,
+      "input_carriers": [],
+      "instruction_id": "ta_r24_h_hierarchical_repeated_block_analysis",
+      "metadata": {
+        "block_power_plans": [
+          {
+            "block_index": 0,
+            "output_L": 0,
+            "plan": {
+              "active_descriptor_indices": [
+                0
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "9436851d0a54e862",
+              "descriptor_count": 1,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 13,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        0.19999999999999996,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        24,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -4.799999999999998,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        22,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        52.79999999999999,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        20,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -351.99999999999994,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        18,
+                        3
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        1583.9999999999995,
+                        0.0
+                      ],
+                      "exponents": [
+                        4,
+                        16,
+                        4
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -5068.799999999999,
+                        0.0
+                      ],
+                      "exponents": [
+                        5,
+                        14,
+                        5
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        11827.199999999999,
+                        0.0
+                      ],
+                      "exponents": [
+                        6,
+                        12,
+                        6
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -20275.199999999997,
+                        0.0
+                      ],
+                      "exponents": [
+                        7,
+                        10,
+                        7
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        25344.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        8,
+                        8,
+                        8
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -22528.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        9,
+                        6,
+                        9
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        13516.800000000003,
+                        0.0
+                      ],
+                      "exponents": [
+                        10,
+                        4,
+                        10
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -4915.2,
+                        0.0
+                      ],
+                      "exponents": [
+                        11,
+                        2,
+                        11
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        819.2,
+                        0.0
+                      ],
+                      "exponents": [
+                        12,
+                        0,
+                        12
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      23,
+                      0
+                    ],
+                    [
+                      0,
+                      22,
+                      1
+                    ],
+                    [
+                      1,
+                      21,
+                      1
+                    ],
+                    [
+                      1,
+                      22,
+                      0
+                    ],
+                    [
+                      1,
+                      20,
+                      2
+                    ],
+                    [
+                      2,
+                      19,
+                      2
+                    ],
+                    [
+                      2,
+                      20,
+                      1
+                    ],
+                    [
+                      2,
+                      18,
+                      3
+                    ],
+                    [
+                      3,
+                      17,
+                      3
+                    ],
+                    [
+                      3,
+                      18,
+                      2
+                    ],
+                    [
+                      3,
+                      16,
+                      4
+                    ],
+                    [
+                      4,
+                      15,
+                      4
+                    ],
+                    [
+                      4,
+                      16,
+                      3
+                    ],
+                    [
+                      4,
+                      14,
+                      5
+                    ],
+                    [
+                      5,
+                      13,
+                      5
+                    ],
+                    [
+                      5,
+                      14,
+                      4
+                    ],
+                    [
+                      5,
+                      12,
+                      6
+                    ],
+                    [
+                      6,
+                      11,
+                      6
+                    ],
+                    [
+                      6,
+                      12,
+                      5
+                    ],
+                    [
+                      6,
+                      10,
+                      7
+                    ],
+                    [
+                      7,
+                      9,
+                      7
+                    ],
+                    [
+                      7,
+                      10,
+                      6
+                    ],
+                    [
+                      7,
+                      8,
+                      8
+                    ],
+                    [
+                      8,
+                      7,
+                      8
+                    ],
+                    [
+                      8,
+                      8,
+                      7
+                    ],
+                    [
+                      8,
+                      6,
+                      9
+                    ],
+                    [
+                      9,
+                      5,
+                      9
+                    ],
+                    [
+                      9,
+                      6,
+                      8
+                    ],
+                    [
+                      9,
+                      4,
+                      10
+                    ],
+                    [
+                      10,
+                      3,
+                      10
+                    ],
+                    [
+                      10,
+                      4,
+                      9
+                    ],
+                    [
+                      10,
+                      2,
+                      11
+                    ],
+                    [
+                      11,
+                      1,
+                      11
+                    ],
+                    [
+                      11,
+                      2,
+                      10
+                    ],
+                    [
+                      11,
+                      0,
+                      12
+                    ],
+                    [
+                      12,
+                      0,
+                      11
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 0,
+                  "power": 24,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "orthogonal",
+                      "construction_tolerance": 1e-12,
+                      "input_L": 1,
+                      "irrep_dimension": 325,
+                      "maximum_highest_weight_residual": 1.2658490090568385e-15,
+                      "maximum_ladder_residual": 8.938041786890078e-14,
+                      "maximum_norm_residual": 4.440892098500626e-16,
+                      "maximum_orthogonality_residual": 0.0,
+                      "maximum_rejected_singular_value": 0.0,
+                      "minimum_retained_singular_value": 2.449489742783178,
+                      "multiplicities_match": true,
+                      "occupancy_dimension": 325,
+                      "passed": true,
+                      "power": 24,
+                      "rank_gap_ratio": 2449489742783.1777,
+                      "schema": "ye3t_homogeneous_numeric_basis_validation_v1",
+                      "validation_tolerance": 1e-10
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_certified_numeric_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 432640000,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": true,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 13,
+                      "occupancy_dimension": 325,
+                      "policy": "auto",
+                      "power": 24,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "certified_numeric_orthogonal_occupancy"
+                    },
+                    "component_term_count": 13,
+                    "lower_degree_monomial_count": 36,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:24",
+                "rotation": {
+                  "L_R": 0,
+                  "M_R_values": [
+                    0
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 0,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 1,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n1_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 1
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r24_h_hierarchical_block_0_L0"
+          }
+        ],
+        "blocks": [
+          {
+            "block_index": 0,
+            "block_partition": [
+              24
+            ],
+            "input_L": 1,
+            "power": 24,
+            "slot_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n1_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 1
+              }
+            }
+          }
+        ],
+        "canonical_induced_row": 0,
+        "coefficient_materialization": "auto",
+        "fast_route_certificates": [
+          {
+            "absolute_tolerance": 2e-12,
+            "adjoint_rule": "reverse_multiplication_schedule_and_quadratic_product_without_division",
+            "analysis_orientation": "conjugate_transpose",
+            "basis_certificate_schema": "ye3t_homogeneous_numeric_basis_validation_v1",
+            "basis_certificate_sha256": "12af563e7a3ae904ef40bc21259b73ef35be4ee88083e394afb6ae541c748c67",
+            "basis_convention": "complex_magnetic",
+            "block_index": 0,
+            "block_plan_id": "ta_r24_h_hierarchical_block_0_L0",
+            "carrier": "ACE_density",
+            "certificate_sha256": "e47a7227592ff381c2bd5dcfad5621f3f01a94b4d7e763f387d8addda94b3311",
+            "channel_indices": [
+              0,
+              1,
+              2
+            ],
+            "coefficient_identity_passed": true,
+            "component_index": 0,
+            "descriptor_index": 0,
+            "factor_basis": "A",
+            "forward_schedule": [
+              "quadratic_base",
+              "q_pow_2",
+              "q_pow_4",
+              "q_pow_8",
+              "q_pow_12",
+              "intrinsic_scale"
+            ],
+            "full_support_checked": true,
+            "input_L": 1,
+            "intrinsic_output_scale": [
+              0.19999999999999965,
+              0.0
+            ],
+            "magnetic_order": [
+              -1,
+              0,
+              1
+            ],
+            "maximum_absolute_residual": 3.637978807091713e-12,
+            "maximum_relative_residual": 1.5265566588595906e-15,
+            "maximum_scaled_residual": 6.715904874859172e-05,
+            "multiplication_schedule": [
+              {
+                "left_exponent": 1,
+                "node_id": "q_pow_2",
+                "output_exponent": 2,
+                "right_exponent": 1
+              },
+              {
+                "left_exponent": 2,
+                "node_id": "q_pow_4",
+                "output_exponent": 4,
+                "right_exponent": 2
+              },
+              {
+                "left_exponent": 4,
+                "node_id": "q_pow_8",
+                "output_exponent": 8,
+                "right_exponent": 4
+              },
+              {
+                "left_exponent": 8,
+                "node_id": "q_pow_12",
+                "output_exponent": 12,
+                "right_exponent": 4
+              }
+            ],
+            "multiplicity_index": 0,
+            "normalization_convention": "none",
+            "outer_power": 12,
+            "output_L": 0,
+            "parent_partition": [
+              24
+            ],
+            "parent_rank": 24,
+            "passed": true,
+            "physical_source_binding_sha256": "59065663873063dd149a374e8dbc03ee4c87ab2722bfa74f6965e20472b8c842",
+            "quadratic_base_sha256": "4527ca36cb7e4ef687bb7e332e8267d31dea23288ea7300b69a534f32b2cbef1",
+            "quadratic_source_component_sha256": "9c3af8c482a5439acea87a42a34b34486faab6e00580b6b60474c10d6430d4ef",
+            "quadratic_source_plan_convention_hash": "53aee54959251403",
+            "quadratic_source_plan_sha256": "580cb22569a2bde5e29484418de8cf2640e126ef212ad7841462cf02a419d639",
+            "quadratic_terms": [
+              {
+                "coefficient": [
+                  1.0,
+                  0.0
+                ],
+                "exponents": [
+                  0,
+                  2,
+                  0
+                ]
+              },
+              {
+                "coefficient": [
+                  -2.0000000000000004,
+                  0.0
+                ],
+                "exponents": [
+                  1,
+                  0,
+                  1
+                ]
+              }
+            ],
+            "relative_tolerance": 2e-11,
+            "reverse_schedule": [
+              "intrinsic_scale",
+              "q_pow_12",
+              "q_pow_8",
+              "q_pow_4",
+              "q_pow_2",
+              "quadratic_base"
+            ],
+            "runtime_path_discovery": false,
+            "schema": "ye3t_scalar_invariant_power_certificate_v1",
+            "source_binding_sha256": "d0fa0fccef1d7c3614f46bea654384aa003d80865753d46689191ef89fb58a8e",
+            "source_power_plan_convention_hash": "9436851d0a54e862",
+            "source_power_plan_sha256": "32fa69ecf584e2eab126a58e461528cfdbe420e827cc4eccfd9ca4a7a431bd85",
+            "support_equal": true,
+            "target_component_sha256": "db8a276ed6af7633826ad92b0dde51ef16f4bfd34f848da2e0a6d732a4e15c74",
+            "zero_safe_adjoint": true
+          }
+        ],
+        "hierarchical_coefficient_hash": "5a83a1dc03f6617e",
+        "joint_multiplicity": 1,
+        "lr_multiplicity": 1,
+        "lr_synthesis_table_id": "ta_r24_h_hierarchical_lr_synthesis",
+        "maximum_exact_symbolic_bytes": 134217728,
+        "parent_tableau_count": 1,
+        "raw_angular_tree_forest_materialized": false,
+        "routes": [
+          {
+            "angular_synthesis_table_id": null,
+            "block_multiplicity_indices": [
+              0
+            ],
+            "block_output_Ls": [
+              0
+            ],
+            "route_index": 0
+          }
+        ],
+        "runtime_path_discovery": false,
+        "schema": "ye3t_hierarchical_repeated_angular_blocks_v1",
+        "target_L": 0,
+        "target_parity": 1
+      },
+      "opcode": "block_symmetric_power",
+      "output_carrier": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          24
+        ],
+        "rank": 24,
+        "rotation_L": 0
+      },
+      "source_assembly_id": "ta_r24_h_hierarchical_repeated_block_source",
+      "synthesis_table_id": "ta_r24_h_hierarchical_lr_synthesis"
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "factorized_angular_plan_id": null,
+      "input_carriers": [],
+      "instruction_id": "ta_r32_h_hierarchical_repeated_block_analysis",
+      "metadata": {
+        "block_power_plans": [
+          {
+            "block_index": 0,
+            "output_L": 0,
+            "plan": {
+              "active_descriptor_indices": [
+                0
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "d12933afb59da236",
+              "descriptor_count": 1,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 17,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        0.17407765595569777,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        32,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -5.5704849905823295,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        30,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        83.55727485873494,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        28,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -779.8678986815262,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        26,
+                        3
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        5069.141341429918,
+                        0.0
+                      ],
+                      "exponents": [
+                        4,
+                        24,
+                        4
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -24331.878438863612,
+                        0.0
+                      ],
+                      "exponents": [
+                        5,
+                        22,
+                        5
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        89216.8876091666,
+                        0.0
+                      ],
+                      "exponents": [
+                        6,
+                        20,
+                        6
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -254905.3931690473,
+                        0.0
+                      ],
+                      "exponents": [
+                        7,
+                        18,
+                        7
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        573537.1346303566,
+                        0.0
+                      ],
+                      "exponents": [
+                        8,
+                        16,
+                        8
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -1019621.5726761896,
+                        0.0
+                      ],
+                      "exponents": [
+                        9,
+                        14,
+                        9
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        1427470.2017466656,
+                        0.0
+                      ],
+                      "exponents": [
+                        10,
+                        12,
+                        10
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -1557240.2200872716,
+                        0.0
+                      ],
+                      "exponents": [
+                        11,
+                        10,
+                        11
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        1297700.1834060596,
+                        0.0
+                      ],
+                      "exponents": [
+                        12,
+                        8,
+                        12
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -798584.7282498828,
+                        0.0
+                      ],
+                      "exponents": [
+                        13,
+                        6,
+                        13
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        342250.5978213784,
+                        0.0
+                      ],
+                      "exponents": [
+                        14,
+                        4,
+                        14
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -91266.8260857009,
+                        0.0
+                      ],
+                      "exponents": [
+                        15,
+                        2,
+                        15
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        11408.353260712613,
+                        0.0
+                      ],
+                      "exponents": [
+                        16,
+                        0,
+                        16
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      31,
+                      0
+                    ],
+                    [
+                      0,
+                      30,
+                      1
+                    ],
+                    [
+                      1,
+                      29,
+                      1
+                    ],
+                    [
+                      1,
+                      30,
+                      0
+                    ],
+                    [
+                      1,
+                      28,
+                      2
+                    ],
+                    [
+                      2,
+                      27,
+                      2
+                    ],
+                    [
+                      2,
+                      28,
+                      1
+                    ],
+                    [
+                      2,
+                      26,
+                      3
+                    ],
+                    [
+                      3,
+                      25,
+                      3
+                    ],
+                    [
+                      3,
+                      26,
+                      2
+                    ],
+                    [
+                      3,
+                      24,
+                      4
+                    ],
+                    [
+                      4,
+                      23,
+                      4
+                    ],
+                    [
+                      4,
+                      24,
+                      3
+                    ],
+                    [
+                      4,
+                      22,
+                      5
+                    ],
+                    [
+                      5,
+                      21,
+                      5
+                    ],
+                    [
+                      5,
+                      22,
+                      4
+                    ],
+                    [
+                      5,
+                      20,
+                      6
+                    ],
+                    [
+                      6,
+                      19,
+                      6
+                    ],
+                    [
+                      6,
+                      20,
+                      5
+                    ],
+                    [
+                      6,
+                      18,
+                      7
+                    ],
+                    [
+                      7,
+                      17,
+                      7
+                    ],
+                    [
+                      7,
+                      18,
+                      6
+                    ],
+                    [
+                      7,
+                      16,
+                      8
+                    ],
+                    [
+                      8,
+                      15,
+                      8
+                    ],
+                    [
+                      8,
+                      16,
+                      7
+                    ],
+                    [
+                      8,
+                      14,
+                      9
+                    ],
+                    [
+                      9,
+                      13,
+                      9
+                    ],
+                    [
+                      9,
+                      14,
+                      8
+                    ],
+                    [
+                      9,
+                      12,
+                      10
+                    ],
+                    [
+                      10,
+                      11,
+                      10
+                    ],
+                    [
+                      10,
+                      12,
+                      9
+                    ],
+                    [
+                      10,
+                      10,
+                      11
+                    ],
+                    [
+                      11,
+                      9,
+                      11
+                    ],
+                    [
+                      11,
+                      10,
+                      10
+                    ],
+                    [
+                      11,
+                      8,
+                      12
+                    ],
+                    [
+                      12,
+                      7,
+                      12
+                    ],
+                    [
+                      12,
+                      8,
+                      11
+                    ],
+                    [
+                      12,
+                      6,
+                      13
+                    ],
+                    [
+                      13,
+                      5,
+                      13
+                    ],
+                    [
+                      13,
+                      6,
+                      12
+                    ],
+                    [
+                      13,
+                      4,
+                      14
+                    ],
+                    [
+                      14,
+                      3,
+                      14
+                    ],
+                    [
+                      14,
+                      4,
+                      13
+                    ],
+                    [
+                      14,
+                      2,
+                      15
+                    ],
+                    [
+                      15,
+                      1,
+                      15
+                    ],
+                    [
+                      15,
+                      2,
+                      14
+                    ],
+                    [
+                      15,
+                      0,
+                      16
+                    ],
+                    [
+                      16,
+                      0,
+                      15
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 0,
+                  "power": 32,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "orthogonal",
+                      "construction_tolerance": 1e-12,
+                      "input_L": 1,
+                      "irrep_dimension": 561,
+                      "maximum_highest_weight_residual": 2.7822109252321576e-15,
+                      "maximum_ladder_residual": 1.179968095574246e-13,
+                      "maximum_norm_residual": 4.440892098500626e-16,
+                      "maximum_orthogonality_residual": 0.0,
+                      "maximum_rejected_singular_value": 0.0,
+                      "minimum_retained_singular_value": 2.449489742783178,
+                      "multiplicities_match": true,
+                      "occupancy_dimension": 561,
+                      "passed": true,
+                      "power": 32,
+                      "rank_gap_ratio": 2449489742783.1777,
+                      "schema": "ye3t_homogeneous_numeric_basis_validation_v1",
+                      "validation_tolerance": 1e-10
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_certified_numeric_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 1289097216,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": true,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 17,
+                      "occupancy_dimension": 561,
+                      "policy": "auto",
+                      "power": 32,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "certified_numeric_orthogonal_occupancy"
+                    },
+                    "component_term_count": 17,
+                    "lower_degree_monomial_count": 48,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:32",
+                "rotation": {
+                  "L_R": 0,
+                  "M_R_values": [
+                    0
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 0,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 1,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n1_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 1
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r32_h_hierarchical_block_0_L0"
+          }
+        ],
+        "blocks": [
+          {
+            "block_index": 0,
+            "block_partition": [
+              32
+            ],
+            "input_L": 1,
+            "power": 32,
+            "slot_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n1_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 1
+              }
+            }
+          }
+        ],
+        "canonical_induced_row": 0,
+        "coefficient_materialization": "auto",
+        "fast_route_certificates": [
+          {
+            "absolute_tolerance": 2e-12,
+            "adjoint_rule": "reverse_multiplication_schedule_and_quadratic_product_without_division",
+            "analysis_orientation": "conjugate_transpose",
+            "basis_certificate_schema": "ye3t_homogeneous_numeric_basis_validation_v1",
+            "basis_certificate_sha256": "5e63c8df5fbd77920e78c7e2bbea5291108c2d32fbccb643ffb37463d693a813",
+            "basis_convention": "complex_magnetic",
+            "block_index": 0,
+            "block_plan_id": "ta_r32_h_hierarchical_block_0_L0",
+            "carrier": "ACE_density",
+            "certificate_sha256": "1701b4b2bc6c60956a4d2519ee8a34408f92c52bacf2c6c8400c3941b0aecd0e",
+            "channel_indices": [
+              0,
+              1,
+              2
+            ],
+            "coefficient_identity_passed": true,
+            "component_index": 0,
+            "descriptor_index": 0,
+            "factor_basis": "A",
+            "forward_schedule": [
+              "quadratic_base",
+              "q_pow_2",
+              "q_pow_4",
+              "q_pow_8",
+              "q_pow_16",
+              "intrinsic_scale"
+            ],
+            "full_support_checked": true,
+            "input_L": 1,
+            "intrinsic_output_scale": [
+              0.17407765595569744,
+              -0.0
+            ],
+            "magnetic_order": [
+              -1,
+              0,
+              1
+            ],
+            "maximum_absolute_residual": 5.820766091346741e-10,
+            "maximum_relative_residual": 1.913323714976444e-15,
+            "maximum_scaled_residual": 9.397909573963062e-05,
+            "multiplication_schedule": [
+              {
+                "left_exponent": 1,
+                "node_id": "q_pow_2",
+                "output_exponent": 2,
+                "right_exponent": 1
+              },
+              {
+                "left_exponent": 2,
+                "node_id": "q_pow_4",
+                "output_exponent": 4,
+                "right_exponent": 2
+              },
+              {
+                "left_exponent": 4,
+                "node_id": "q_pow_8",
+                "output_exponent": 8,
+                "right_exponent": 4
+              },
+              {
+                "left_exponent": 8,
+                "node_id": "q_pow_16",
+                "output_exponent": 16,
+                "right_exponent": 8
+              }
+            ],
+            "multiplicity_index": 0,
+            "normalization_convention": "none",
+            "outer_power": 16,
+            "output_L": 0,
+            "parent_partition": [
+              32
+            ],
+            "parent_rank": 32,
+            "passed": true,
+            "physical_source_binding_sha256": "59065663873063dd149a374e8dbc03ee4c87ab2722bfa74f6965e20472b8c842",
+            "quadratic_base_sha256": "4527ca36cb7e4ef687bb7e332e8267d31dea23288ea7300b69a534f32b2cbef1",
+            "quadratic_source_component_sha256": "9c3af8c482a5439acea87a42a34b34486faab6e00580b6b60474c10d6430d4ef",
+            "quadratic_source_plan_convention_hash": "53aee54959251403",
+            "quadratic_source_plan_sha256": "580cb22569a2bde5e29484418de8cf2640e126ef212ad7841462cf02a419d639",
+            "quadratic_terms": [
+              {
+                "coefficient": [
+                  1.0,
+                  0.0
+                ],
+                "exponents": [
+                  0,
+                  2,
+                  0
+                ]
+              },
+              {
+                "coefficient": [
+                  -2.0000000000000004,
+                  0.0
+                ],
+                "exponents": [
+                  1,
+                  0,
+                  1
+                ]
+              }
+            ],
+            "relative_tolerance": 2e-11,
+            "reverse_schedule": [
+              "intrinsic_scale",
+              "q_pow_16",
+              "q_pow_8",
+              "q_pow_4",
+              "q_pow_2",
+              "quadratic_base"
+            ],
+            "runtime_path_discovery": false,
+            "schema": "ye3t_scalar_invariant_power_certificate_v1",
+            "source_binding_sha256": "6964a72a2c6157f5c4407bbdae749f3c26bcbb428fb87e6d4ad7f55a32c6f471",
+            "source_power_plan_convention_hash": "d12933afb59da236",
+            "source_power_plan_sha256": "5da028b5483f42734addb81a4f70b6bf3b4d3a6e6384a9f2cde857046748890f",
+            "support_equal": true,
+            "target_component_sha256": "5a9bfdd0df885f0b8323a1cc8d0147fa39f1d74575246a419ef2223b0a8c7335",
+            "zero_safe_adjoint": true
+          }
+        ],
+        "hierarchical_coefficient_hash": "5324d4c43ddfd16e",
+        "joint_multiplicity": 1,
+        "lr_multiplicity": 1,
+        "lr_synthesis_table_id": "ta_r32_h_hierarchical_lr_synthesis",
+        "maximum_exact_symbolic_bytes": 134217728,
+        "parent_tableau_count": 1,
+        "raw_angular_tree_forest_materialized": false,
+        "routes": [
+          {
+            "angular_synthesis_table_id": null,
+            "block_multiplicity_indices": [
+              0
+            ],
+            "block_output_Ls": [
+              0
+            ],
+            "route_index": 0
+          }
+        ],
+        "runtime_path_discovery": false,
+        "schema": "ye3t_hierarchical_repeated_angular_blocks_v1",
+        "target_L": 0,
+        "target_parity": 1
+      },
+      "opcode": "block_symmetric_power",
+      "output_carrier": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          32
+        ],
+        "rank": 32,
+        "rotation_L": 0
+      },
+      "source_assembly_id": "ta_r32_h_hierarchical_repeated_block_source",
+      "synthesis_table_id": "ta_r32_h_hierarchical_lr_synthesis"
+    }
+  ],
+  "plan_hash": "f54e8604f2f64a8907c2078860e4a962a066027a1941cf013097ed8c52a5cd1d",
+  "provenance": {
+    "aggregate": "YE3TExecutionPlanWiring",
+    "analysis_orientation": "conjugate_transpose",
+    "api": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+    "compiler_owner": "ye3t",
+    "runtime_path_discovery": false
+  },
+  "reverse_schedule": [
+    "ta_r32_h_hierarchical_repeated_block_analysis",
+    "ta_r24_h_hierarchical_repeated_block_analysis",
+    "ta_r16_h_hierarchical_repeated_block_analysis"
+  ],
+  "schema_version": "ye3t_execution_plan_v2",
+  "second_order_schedule": [
+    "ta_r16_h_hierarchical_repeated_block_analysis",
+    "ta_r24_h_hierarchical_repeated_block_analysis",
+    "ta_r32_h_hierarchical_repeated_block_analysis"
+  ],
+  "source_assemblies": [
+    {
+      "assembly_id": "ta_r16_h_hierarchical_repeated_block_source",
+      "column_indices": [
+        0
+      ],
+      "induced_dimension": 1,
+      "normalization": "canonical_block_coordinate",
+      "provenance": {
+        "raw_coset_or_angular_tree_forest_materialized": false,
+        "source_assembly_schema": "ye3t_source_assembly_v2",
+        "source_coordinate_records": [
+          {
+            "child_tableau_indices": [
+              0
+            ],
+            "content_tuple": [
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ]
+            ],
+            "coset_representative": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "source_index": 0
+          }
+        ],
+        "source_coordinate_semantics": "canonical_ordinary_density_block_tuple",
+        "subgroup_partitions": [
+          [
+            16
+          ]
+        ]
+      },
+      "row_indices": [
+        0
+      ],
+      "source_dimension": 1,
+      "source_realization": {
+        "automorphisms": [],
+        "content": [
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ]
+        ],
+        "injective": false,
+        "kind": "ordinary_density",
+        "metadata": {},
+        "rank": 16,
+        "retain_role_order": false,
+        "role_labels": []
+      },
+      "validation_report": {
+        "block_count": 1,
+        "passed": true,
+        "scope": "hierarchical_source_binding",
+        "slot_coverage_complete": true
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "assembly_id": "ta_r24_h_hierarchical_repeated_block_source",
+      "column_indices": [
+        0
+      ],
+      "induced_dimension": 1,
+      "normalization": "canonical_block_coordinate",
+      "provenance": {
+        "raw_coset_or_angular_tree_forest_materialized": false,
+        "source_assembly_schema": "ye3t_source_assembly_v2",
+        "source_coordinate_records": [
+          {
+            "child_tableau_indices": [
+              0
+            ],
+            "content_tuple": [
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ]
+            ],
+            "coset_representative": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23
+            ],
+            "source_index": 0
+          }
+        ],
+        "source_coordinate_semantics": "canonical_ordinary_density_block_tuple",
+        "subgroup_partitions": [
+          [
+            24
+          ]
+        ]
+      },
+      "row_indices": [
+        0
+      ],
+      "source_dimension": 1,
+      "source_realization": {
+        "automorphisms": [],
+        "content": [
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ]
+        ],
+        "injective": false,
+        "kind": "ordinary_density",
+        "metadata": {},
+        "rank": 24,
+        "retain_role_order": false,
+        "role_labels": []
+      },
+      "validation_report": {
+        "block_count": 1,
+        "passed": true,
+        "scope": "hierarchical_source_binding",
+        "slot_coverage_complete": true
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "assembly_id": "ta_r32_h_hierarchical_repeated_block_source",
+      "column_indices": [
+        0
+      ],
+      "induced_dimension": 1,
+      "normalization": "canonical_block_coordinate",
+      "provenance": {
+        "raw_coset_or_angular_tree_forest_materialized": false,
+        "source_assembly_schema": "ye3t_source_assembly_v2",
+        "source_coordinate_records": [
+          {
+            "child_tableau_indices": [
+              0
+            ],
+            "content_tuple": [
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ]
+            ],
+            "coset_representative": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "source_index": 0
+          }
+        ],
+        "source_coordinate_semantics": "canonical_ordinary_density_block_tuple",
+        "subgroup_partitions": [
+          [
+            32
+          ]
+        ]
+      },
+      "row_indices": [
+        0
+      ],
+      "source_dimension": 1,
+      "source_realization": {
+        "automorphisms": [],
+        "content": [
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ]
+        ],
+        "injective": false,
+        "kind": "ordinary_density",
+        "metadata": {},
+        "rank": 32,
+        "retain_role_order": false,
+        "role_labels": []
+      },
+      "validation_report": {
+        "block_count": 1,
+        "passed": true,
+        "scope": "hierarchical_source_binding",
+        "slot_coverage_complete": true
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "synthesis_tables": [
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "ad83d8937a64727ab51a9d261a2e7e0891a05365ed3eedb68ad1833fa8afd9c5",
+      "column_indices": [
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 1,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "source": "exact_two_block_lr_recoupler"
+      },
+      "row_indices": [
+        0
+      ],
+      "table_id": "ta_r16_h_hierarchical_lr_synthesis",
+      "validation_report": {
+        "passed": true,
+        "scope": "canonical_hierarchical_lr_row"
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "ad83d8937a64727ab51a9d261a2e7e0891a05365ed3eedb68ad1833fa8afd9c5",
+      "column_indices": [
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 1,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "source": "exact_two_block_lr_recoupler"
+      },
+      "row_indices": [
+        0
+      ],
+      "table_id": "ta_r24_h_hierarchical_lr_synthesis",
+      "validation_report": {
+        "passed": true,
+        "scope": "canonical_hierarchical_lr_row"
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "ad83d8937a64727ab51a9d261a2e7e0891a05365ed3eedb68ad1833fa8afd9c5",
+      "column_indices": [
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 1,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "source": "exact_two_block_lr_recoupler"
+      },
+      "row_indices": [
+        0
+      ],
+      "table_id": "ta_r32_h_hierarchical_lr_synthesis",
+      "validation_report": {
+        "passed": true,
+        "scope": "canonical_hierarchical_lr_row"
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "wiring": {
+    "buffer_widths": [
+      {
+        "buffer_id": "yace_block_outputs",
+        "width": 3
+      }
+    ],
+    "instruction_input_bindings": [],
+    "instruction_output_bindings": [
+      {
+        "instruction_id": "ta_r16_h_hierarchical_repeated_block_analysis",
+        "slice_id": "ta_r16_h:output"
+      },
+      {
+        "instruction_id": "ta_r24_h_hierarchical_repeated_block_analysis",
+        "slice_id": "ta_r24_h:output"
+      },
+      {
+        "instruction_id": "ta_r32_h_hierarchical_repeated_block_analysis",
+        "slice_id": "ta_r32_h:output"
+      }
+    ],
+    "metadata": {
+      "compiler_owner": "ye3t",
+      "output_write_semantics": "zero_then_accumulate",
+      "source_inputs": "opaque_A_multiplet_bindings"
+    },
+    "packed_slices": [
+      {
+        "buffer_id": "yace_block_outputs",
+        "carrier_layout": {
+          "axis_order": [
+            "channel_or_multiplicity",
+            "tableau_t",
+            "magnetic_M"
+          ],
+          "channel_count": 1,
+          "key": {
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "group": "S_N_x_O3",
+            "parity": 1,
+            "partition": [
+              16
+            ],
+            "rank": 16,
+            "rotation_L": 0
+          },
+          "magnetic_count": 1,
+          "tableau_count": 1,
+          "width": 1
+        },
+        "metadata": {
+          "feature_id": "ta_r16_h"
+        },
+        "slice_id": "ta_r16_h:output",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "buffer_id": "yace_block_outputs",
+        "carrier_layout": {
+          "axis_order": [
+            "channel_or_multiplicity",
+            "tableau_t",
+            "magnetic_M"
+          ],
+          "channel_count": 1,
+          "key": {
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "group": "S_N_x_O3",
+            "parity": 1,
+            "partition": [
+              24
+            ],
+            "rank": 24,
+            "rotation_L": 0
+          },
+          "magnetic_count": 1,
+          "tableau_count": 1,
+          "width": 1
+        },
+        "metadata": {
+          "feature_id": "ta_r24_h"
+        },
+        "slice_id": "ta_r24_h:output",
+        "start": 1,
+        "stop": 2
+      },
+      {
+        "buffer_id": "yace_block_outputs",
+        "carrier_layout": {
+          "axis_order": [
+            "channel_or_multiplicity",
+            "tableau_t",
+            "magnetic_M"
+          ],
+          "channel_count": 1,
+          "key": {
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "group": "S_N_x_O3",
+            "parity": 1,
+            "partition": [
+              32
+            ],
+            "rank": 32,
+            "rotation_L": 0
+          },
+          "magnetic_count": 1,
+          "tableau_count": 1,
+          "width": 1
+        },
+        "metadata": {
+          "feature_id": "ta_r32_h"
+        },
+        "slice_id": "ta_r32_h:output",
+        "start": 2,
+        "stop": 3
+      }
+    ],
+    "schema_version": "ye3t_execution_plan_wiring_v1",
+    "wiring_id": "task55_high_rank_cpu_ladder_wiring"
+  }
+}

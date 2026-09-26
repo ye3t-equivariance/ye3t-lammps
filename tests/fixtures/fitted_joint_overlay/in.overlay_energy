@@ -1,0 +1,46 @@
+# Central-difference energy probe for the fitted hybrid/overlay model.
+
+variable plugin_path index none
+variable plugin_setup index plugin.dynamic.inc
+variable ordinary_model index ordinary.yace
+variable lifted_model index model.ye3t.json
+variable source_realization index factorized
+variable pair_setup index none
+variable delta index 1.0e-5
+
+include ${plugin_setup}
+
+units metal
+atom_style atomic
+atom_modify map array
+boundary p p p
+
+lattice bcc 3.3
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+
+group displaced id 1
+displace_atoms displaced move 0.07 -0.04 0.03 units box
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+newton on
+
+include ${pair_setup}
+
+thermo 1
+thermo_style custom step pe
+run 0
+print "YE3T_OVERLAY_INITIAL_PE $(pe:%.17g)"
+print "YE3T_OVERLAY_INITIAL_FX $(fx[1]:%.17g)"
+
+displace_atoms displaced move ${delta} 0.0 0.0 units box
+run 0
+print "YE3T_OVERLAY_PLUS_PE $(pe:%.17g)"
+
+variable twice_delta equal -2.0*v_delta
+displace_atoms displaced move ${twice_delta} 0.0 0.0 units box
+run 0
+print "YE3T_OVERLAY_MINUS_PE $(pe:%.17g)"

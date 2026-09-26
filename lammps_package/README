@@ -1,0 +1,37 @@
+ML-YE3T package for LAMMPS
+==========================
+
+This package provides pair_style ye3t and its Kokkos variant pair_style
+ye3t/kk. They evaluate linear Young-E(3)-tensor (YE3T) potentials: ordinary
+linear ACE potentials in the standard .yace file format (the same files used
+by pair_style pace), optional compiled execution plans for those potentials,
+and native YE3T bundles whose basis functions carry nontrivial permutation
+intermediates (tagged-Cauchy and lifted-Cauchy families).
+
+The package is inference-only. Coupling compilation, model fitting, and
+export belong to the ye3t and ye3t-ace Python packages. Hash-bound plans and
+composite manifests are validated once during pair_coeff; no JSON parsing or
+hashing happens during a timestep.
+
+The package requires the ye3t runtime sources. Configure with one of these
+explicit runtime locations:
+
+    -D PKG_ML-YE3T=yes -D ML_YE3T_RUNTIME_SOURCE=/path/to/ye3t
+
+or
+
+    -D PKG_ML-YE3T=yes -D ML_YE3T_RUNTIME_ROOT=/installed/ye3t/prefix
+
+The installed-runtime route is experimental; the source route is the
+supported portable route. Both must resolve to the same version used to
+export the model. No runtime source is downloaded or silently vendored.
+
+For pair_style ye3t/kk, also enable PKG_KOKKOS with an accelerator backend
+and architecture and KOKKOS_PREC=double. KOKKOS_LAYOUT=legacy is the
+validated layout; a calibrated AUTO replay is bound to the layout it was
+recorded with. The device path requires newton pair on and half neighbor
+lists. See the pair_style ye3t documentation page (doc/src/pair_ye3t.rst)
+for the keywords, restrictions, and examples, and examples/PACKAGES/ye3t for
+runnable inputs.
+
+Contributing author: James M. Goff (Sandia National Laboratories)

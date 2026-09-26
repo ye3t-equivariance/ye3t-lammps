@@ -1,0 +1,57 @@
+# Portable Kokkos benchmark for a calibrated PairYE3T AUTO replay.
+
+variable model index models/ta_l8_compact/model.yace
+variable plan_manifest index models/ta_l8_compact/manifest.json
+variable auto_replay index models/ta_l8_compact/kokkos_auto_replay.json
+variable ye3t_chunksize index 4096
+variable element index Ta
+variable lattice_constant index 3.300
+variable cells_x index 10
+variable cells_y index 10
+variable cells_z index 10
+variable warmup_steps index 20
+variable timed_steps index 300
+variable parity_dump index parity.auto.dump
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+lattice bcc ${lattice_constant}
+region cell block 0 ${cells_x} 0 ${cells_y} 0 ${cells_z} units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+
+group displaced id 1
+displace_atoms displaced move 0.13 -0.07 0.09 units box
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t plan ${plan_manifest} block_policy auto auto_replay ${auto_replay} chunksize ${ye3t_chunksize}
+pair_coeff * * ${model} ${element}
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+
+velocity all create 300.0 1701 mom yes rot no dist gaussian loop all
+timestep 0.0005
+fix integrate all nve
+
+thermo ${timed_steps}
+thermo_style custom step atoms temp pe etotal press
+thermo_modify lost error flush yes
+run 0 post no
+write_dump all custom ${parity_dump} id type x y z c_atom_energy &
+  c_atom_stress[1] c_atom_stress[2] c_atom_stress[3] &
+  c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz &
+  modify sort id format float %.17g
+timer full sync
+
+print "YE3T_GPU_BENCHMARK evaluator=auto-replay cells=${cells_x}x${cells_y}x${cells_z} warmup=${warmup_steps} measured=${timed_steps}"
+run ${warmup_steps} post no
+reset_timestep 0
+run ${timed_steps}

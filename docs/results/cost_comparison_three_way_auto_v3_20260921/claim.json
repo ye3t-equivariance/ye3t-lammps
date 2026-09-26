@@ -1,0 +1,24 @@
+{
+  "claim_id": "tagged_ye3t_cost_comparison_three_way_auto_v3_20260921",
+  "datasets_and_splits": "Fixed published mlearn train/test splits for Li, Mo, Cu, Ni, Si, and Ge; training-only model selection.",
+  "interpretation": "Tagged YE3T adds measured force accuracy/runtime Pareto points; ordinary YE3T AUTO isolates pair-style execution on the same ACE model.",
+  "known_confounds": [
+    "Mixed and symmetric series use different descriptor families.",
+    "The joint permutation/rotation causal ablation is currently Cu-60."
+  ],
+  "limitations": [
+    "The result is CPU-only; composite tagged Kokkos currently fails closed.",
+    "AUTO choices are catalogue- and hardware-specific; the fitted catalogues selected compiled-direct on this CPU.",
+    "The tagged portfolio is catalogue-global rather than a per-descriptor mixed route schedule.",
+    "The current portfolio is the LegacyMomentV2 execution representation, not the complete V3 physical-image runtime."
+  ],
+  "matched_variables": "Byte-identical ordinary .yace for PACE product and YE3T-symmetric; common cells, ZBL reference, precision, rank count, warmup, and timed steps.",
+  "models": [
+    "PACE product",
+    "YE3T-symmetric AUTO",
+    "YE3T-mixed AUTO"
+  ],
+  "primary_metric": "held-out force RMSE versus measured one-rank CPU time per atom-step",
+  "statistical_test_or_interval": "Five interleaved timing repetitions per retained row; fixed-test model errors.",
+  "status": "conditional"
+}

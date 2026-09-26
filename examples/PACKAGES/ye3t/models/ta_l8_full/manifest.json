@@ -1,0 +1,86 @@
+{
+  "canonical_encoding": "ye3t_sorted_json_indent2_lf_v1",
+  "capabilities": {
+    "required": [
+      "ace_coupled_product_dag_adjoint_v1",
+      "ace_coupled_product_dag_forward_v1",
+      "energy_v1",
+      "evaluator_candidate_vector_v1",
+      "explicit_ctilde_forward_adjoint_v1",
+      "force_v1",
+      "linear_readout_v1",
+      "ordinary_density_v1",
+      "pace_cheb_exp_cos_uniform_cubic_hermite_v1",
+      "pace_complex_magnetic_y00_1",
+      "pace_linear_embedding_v1",
+      "virial_v1",
+      "yace_candidate_readout_v1",
+      "ye3t_execution_plan_v3"
+    ]
+  },
+  "compiler": {
+    "api": "ye3t.couplings.compile_execution_plan",
+    "coefficient_hash": "eacb788481589d0aee7441c573b36f4425084a44b973bb8e110d1ea346bf3a25",
+    "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+    "execution_plan_schema": "ye3t_execution_plan_v3",
+    "plan_hash": "cb13322e12f3a7a607775ea7533077b6cc91aff3a3ebccb1b39e4a49583ee2ef",
+    "ye3t": {
+      "dirty": true,
+      "revision": "28163985b1ef2c1fd5d7e93ad46981fff89be59c",
+      "status_sha256": "b0e156e70265d32e7481c739d334b5bf1a5c06b3cb7cac55e26b8a753640a841",
+      "tracked_patch_sha256": "86d4e2f94cb69efe4c1defb24d5d0a783c2f1253f44958ce855d16e1e99db5c0"
+    },
+    "ye3t_ace": {
+      "dirty": true,
+      "revision": "19600bc96a77aaf315d75af4f93659b0fc283472",
+      "status_sha256": "a659def7725092883334f45ebd85f6ac56dca9452309b4828a85408b1d5fb38d",
+      "tracked_patch_sha256": "f758bebeab26c31baa7c636b952fa3392d9d38a40fc3cfb325ee15ad71d81caa"
+    }
+  },
+  "conventions": {
+    "analysis_orientation": "conjugate_transpose",
+    "angular_source_basis": "pace_complex_magnetic_y00_1",
+    "angular_transform": {
+      "kind": "none",
+      "payload": null
+    },
+    "atomic_base_normalization": "none",
+    "byte_order": "little",
+    "factor_normalization": "none",
+    "linear_feature_transform": {
+      "kind": "none",
+      "payload": null
+    },
+    "radial_basis": "pace_cheb_exp_cos_uniform_cubic_hermite_v1",
+    "scalar_type": "float64"
+  },
+  "dispatch": {
+    "fallback_policy": "forbid_unlisted",
+    "requested_route": "ye3t_evaluator_candidate_vector_v1"
+  },
+  "inputs": {
+    "per_atom": []
+  },
+  "payloads": {
+    "execution_plan": {
+      "path": "execution_plan.json",
+      "schema": "ye3t_execution_plan_v3",
+      "sha256": "127c154e61708fdcd1717f7c9bdf75dbc5e86f24d010c4b6350ea19a689042ed"
+    },
+    "yace_function_map": {
+      "path": "yace_function_map.json",
+      "schema": "ye3t_yace_function_map_v3",
+      "sha256": "f64f16172965ab30df9d32adc58e14d404209991f4c4924a20c8a8a2c78bcc48"
+    }
+  },
+  "schema": "ye3t_lammps_sidecar_v3",
+  "semantic_ledger": "task55_semantic_ledger_v1",
+  "source_yace": {
+    "compatibility_profile": "lammps_pace_linear_v1",
+    "lammps_units": "metal",
+    "ordered_elements": [
+      "Ta"
+    ],
+    "sha256": "3f194cf921c5ebf7a9333c2fb9425478484f405e5a9fee9bf25e44106f7962c8"
+  }
+}

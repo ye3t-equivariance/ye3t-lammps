@@ -1,0 +1,52 @@
+# One homogeneous-strain stress point for cubic fitted-model validation.
+
+variable plugin_path index none
+variable plugin_setup index plugin.dynamic.inc
+variable ordinary_model index ordinary.yace
+variable lifted_model index model.ye3t.json
+variable source_realization index factorized
+variable pair_setup index none
+variable a index 3.314
+variable mode index xx
+variable strain index 1.0e-4
+
+include ${plugin_setup}
+
+units metal
+atom_style atomic
+boundary p p p
+
+lattice bcc ${a}
+region cell prism 0 4 0 4 0 4 0 0 0 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+
+variable scale equal 1.0+v_strain
+variable tilt_x equal v_strain*ly
+variable tilt_y equal v_strain*lz
+if "${mode} == xx" then "change_box all x scale ${scale} remap units box"
+if "${mode} == yy" then "change_box all y scale ${scale} remap units box"
+if "${mode} == zz" then "change_box all z scale ${scale} remap units box"
+if "${mode} == xy" then "change_box all xy delta ${tilt_x} remap units box"
+if "${mode} == xz" then "change_box all xz delta ${tilt_y} remap units box"
+if "${mode} == yz" then "change_box all yz delta ${tilt_y} remap units box"
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+newton on
+
+include ${pair_setup}
+
+thermo 1
+thermo_style custom step atoms pe press pxx pyy pzz pxy pxz pyz
+thermo_modify format float %.17g
+run 0
+print "YE3T_ELASTIC_MODE ${mode}"
+print "YE3T_ELASTIC_STRAIN ${strain}"
+print "YE3T_ELASTIC_PXX $(pxx:%.17g)"
+print "YE3T_ELASTIC_PYY $(pyy:%.17g)"
+print "YE3T_ELASTIC_PZZ $(pzz:%.17g)"
+print "YE3T_ELASTIC_PXY $(pxy:%.17g)"
+print "YE3T_ELASTIC_PXZ $(pxz:%.17g)"
+print "YE3T_ELASTIC_PYZ $(pyz:%.17g)"

@@ -1,0 +1,996 @@
+{
+  "carrier_layouts": [
+    {
+      "axis_order": [
+        "channel_or_multiplicity",
+        "tableau_t",
+        "magnetic_M"
+      ],
+      "channel_count": 2,
+      "key": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": -1,
+        "partition": [
+          1
+        ],
+        "rank": 1,
+        "rotation_L": 1
+      },
+      "magnetic_count": 3,
+      "tableau_count": 1,
+      "width": 6
+    },
+    {
+      "axis_order": [
+        "channel_or_multiplicity",
+        "tableau_t",
+        "magnetic_M"
+      ],
+      "channel_count": 1,
+      "key": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          4
+        ],
+        "rank": 4,
+        "rotation_L": 0
+      },
+      "magnetic_count": 1,
+      "tableau_count": 1,
+      "width": 1
+    }
+  ],
+  "certificate": {
+    "ace_coupled_product_dag": {
+      "passed": true,
+      "semantic_sha256": "1dd4de0cdbaeaa2a0970d901739a211239bce730ba63e3187bbe4c8fd2aa27e5"
+    },
+    "yace_candidate_readouts": {
+      "records": [
+        {
+          "central_type": 0,
+          "equivalence": {
+            "absolute_tolerance": 5e-11,
+            "adjoint_certified_by_coefficient_identity": true,
+            "derivative_rule": "explicit_polynomial_product_rule",
+            "maximum_absolute_coefficient_residual": 3.552713678800501e-15,
+            "maximum_mixed_tolerance_ratio": 5.646621811715035e-05,
+            "maximum_reference_coefficient_magnitude": 38.75252127367693,
+            "method": "coefficientwise_sparse_polynomial_mixed_v1",
+            "passed": true,
+            "plan_polynomial_sha256": "835abe8a535e6adc94debea7171b1825a242f11d98acdda734bc8190ad4d6dfd",
+            "relative_l2_residual": 1.3086821768369313e-16,
+            "relative_tolerance": 1e-12,
+            "support_equal": true,
+            "tolerance_rule": "absolute_plus_relative_reference",
+            "yace_polynomial_sha256": "c2909bf93932555093995904c902e174fabc20f54f314ebea93b1852ab76fc89"
+          },
+          "feature_id": "18e478036a0985a2a8f5708c5601f7c30d83d1f9683c0ccfaf12be2ca0ea5205",
+          "function_index": 38,
+          "readout_id": "68fab3250db523780d59a8cd039e331293346bddd9ff10a6045593f8695c63c8",
+          "schema": "ye3t_yace_candidate_readout_v1",
+          "source_yace_sha256": "3f194cf921c5ebf7a9333c2fb9425478484f405e5a9fee9bf25e44106f7962c8",
+          "terms": [
+            {
+              "binding_id": "06c233810c9ef2d29f9b1d5b050b488a2a83652e158df5edf496db9f4c952b20",
+              "channel_index": 0,
+              "instruction_id": "ta_f38_coupled_product_instruction",
+              "magnetic_index": 0,
+              "scale": [
+                -43.32663593372418,
+                -0.0
+              ],
+              "tableau_index": 0
+            }
+          ],
+          "variable_order_hash": "375e97df7b095d8f4cbb51f0a68e1237f1d49bbf978dd00b960fd8dede448462"
+        }
+      ],
+      "schema": "ye3t_yace_candidate_readouts_v1"
+    }
+  },
+  "coefficient_hash": "eacb788481589d0aee7441c573b36f4425084a44b973bb8e110d1ea346bf3a25",
+  "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+  "factorized_angular_plans": [],
+  "forward_schedule": [
+    "ta_f38_coupled_product_instruction"
+  ],
+  "instructions": [
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "factorized_angular_plan_id": null,
+      "input_carriers": [
+        {
+          "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+          "group": "S_N_x_O3",
+          "parity": -1,
+          "partition": [
+            1
+          ],
+          "rank": 1,
+          "rotation_L": 1
+        },
+        {
+          "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+          "group": "S_N_x_O3",
+          "parity": -1,
+          "partition": [
+            1
+          ],
+          "rank": 1,
+          "rotation_L": 1
+        }
+      ],
+      "instruction_id": "ta_f38_coupled_product_instruction",
+      "metadata": {
+        "adjoint_contract": {
+          "alias_accumulation": "sum_all_occurrences",
+          "coefficient_adjoint": "conjugate_transpose",
+          "cotangent_pairing": "real_part_conjugate_pairing_v1",
+          "division_free": true,
+          "product_adjoint": "bilinear_product_transpose_v1",
+          "reverse_topological": true
+        },
+        "content": [
+          {
+            "channel_id": "Ta:Ta:pace:n1:l1",
+            "multiplicity": 2
+          },
+          {
+            "channel_id": "Ta:Ta:pace:n2:l1",
+            "multiplicity": 2
+          }
+        ],
+        "direct_fallback": {
+          "binding_id": "3aefae6a6c37f61389e220be796b16baec37a89cade521e11fefda7eb4c0f99d",
+          "evaluator_kind": "direct_ctilde",
+          "required": true
+        },
+        "exact_image_certificate": {
+          "active_independent_column_indices": [
+            1
+          ],
+          "augmented_rank": 1,
+          "certificate_sha256": "21aeedb1787ed6dc12e595008fe426b23e0ccdf6fa81164068a4d9ec02ef48ca",
+          "coefficient_materialization": "binary64",
+          "enumeration_complete": true,
+          "enumeration_scope": "complete_for_recorded_search_policy",
+          "exact_residual_zero": true,
+          "independent_product_column_indices": [
+            0,
+            1
+          ],
+          "independent_product_rank": 2,
+          "matrix_rank": 1,
+          "max_M_inconsistency": {
+            "imag": {
+              "terms": []
+            },
+            "real": {
+              "terms": []
+            }
+          },
+          "missing_basis_indices": [],
+          "missing_rank": 0,
+          "product_column_order_sha256": "2b7bd8d94a79e5a3c9f0c71ad6e03b18eb31321699387edec8013156aab1d730",
+          "product_matrix": {
+            "entries": [
+              {
+                "column": 0,
+                "row": 1,
+                "value": {
+                  "imag": {
+                    "terms": []
+                  },
+                  "real": {
+                    "terms": [
+                      {
+                        "coefficient": {
+                          "denominator": 1,
+                          "numerator": 1
+                        },
+                        "radicand": {
+                          "denominator": 1,
+                          "numerator": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ],
+            "shape": [
+              2,
+              1
+            ]
+          },
+          "product_root_node_ids": [
+            "ta_f38_coupled_product_node_0004"
+          ],
+          "raw_product_column_count": 2,
+          "readout_solution": {
+            "entries": [
+              {
+                "column": 0,
+                "row": 0,
+                "value": {
+                  "imag": {
+                    "terms": []
+                  },
+                  "real": {
+                    "terms": [
+                      {
+                        "coefficient": {
+                          "denominator": 1,
+                          "numerator": 1
+                        },
+                        "radicand": {
+                          "denominator": 1,
+                          "numerator": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ],
+            "shape": [
+              1,
+              1
+            ]
+          },
+          "schema": "ye3t_ace_coupled_product_image_certificate_v1",
+          "search_policy": {
+            "factorization_policy": "full",
+            "generator_Ls": [],
+            "generator_ranks": [],
+            "include_target_primitive": false,
+            "max_generator_L": null,
+            "max_generator_rank": null,
+            "max_recoupling_L": null,
+            "tree_type": "balanced"
+          },
+          "target_basis_index": 1,
+          "target_basis_indices": [
+            0,
+            1
+          ],
+          "target_basis_order_sha256": "0d814fd8162a9661221bfb36b21c8bf9fe267ae5dcdd2a0bb1a0913ba6993ca8",
+          "target_coordinate": {
+            "entries": [
+              {
+                "column": 0,
+                "row": 1,
+                "value": {
+                  "imag": {
+                    "terms": []
+                  },
+                  "real": {
+                    "terms": [
+                      {
+                        "coefficient": {
+                          "denominator": 1,
+                          "numerator": 1
+                        },
+                        "radicand": {
+                          "denominator": 1,
+                          "numerator": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ],
+            "shape": [
+              2,
+              1
+            ]
+          }
+        },
+        "execution_kind": "coupled_product_dag",
+        "nodes": [
+          {
+            "L": 1,
+            "basis_coordinate": {
+              "entries": [
+                {
+                  "column": 0,
+                  "row": 0,
+                  "value": {
+                    "imag": {
+                      "terms": []
+                    },
+                    "real": {
+                      "terms": [
+                        {
+                          "coefficient": {
+                            "denominator": 1,
+                            "numerator": 1
+                          },
+                          "radicand": {
+                            "denominator": 1,
+                            "numerator": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "shape": [
+                1,
+                1
+              ]
+            },
+            "basis_index": 0,
+            "content": [
+              {
+                "channel_id": "Ta:Ta:pace:n1:l1",
+                "multiplicity": 1
+              }
+            ],
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "input_index": 0,
+            "kind": "primitive",
+            "layout_channel_index": 0,
+            "lin": [
+              1
+            ],
+            "nin": [
+              1
+            ],
+            "node_id": "ta_f38_coupled_product_node_0000",
+            "parity": -1,
+            "partition": [
+              1
+            ],
+            "source_channel_id": "Ta:Ta:pace:n1:l1",
+            "tree_type": "balanced"
+          },
+          {
+            "L": 1,
+            "basis_coordinate": {
+              "entries": [
+                {
+                  "column": 0,
+                  "row": 0,
+                  "value": {
+                    "imag": {
+                      "terms": []
+                    },
+                    "real": {
+                      "terms": [
+                        {
+                          "coefficient": {
+                            "denominator": 1,
+                            "numerator": 1
+                          },
+                          "radicand": {
+                            "denominator": 1,
+                            "numerator": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "shape": [
+                1,
+                1
+              ]
+            },
+            "basis_index": 0,
+            "content": [
+              {
+                "channel_id": "Ta:Ta:pace:n2:l1",
+                "multiplicity": 1
+              }
+            ],
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "input_index": 1,
+            "kind": "primitive",
+            "layout_channel_index": 1,
+            "lin": [
+              1
+            ],
+            "nin": [
+              2
+            ],
+            "node_id": "ta_f38_coupled_product_node_0001",
+            "parity": -1,
+            "partition": [
+              1
+            ],
+            "source_channel_id": "Ta:Ta:pace:n2:l1",
+            "tree_type": "balanced"
+          },
+          {
+            "L": 2,
+            "basis_coordinate": {
+              "entries": [
+                {
+                  "column": 0,
+                  "row": 0,
+                  "value": {
+                    "imag": {
+                      "terms": []
+                    },
+                    "real": {
+                      "terms": [
+                        {
+                          "coefficient": {
+                            "denominator": 1,
+                            "numerator": 1
+                          },
+                          "radicand": {
+                            "denominator": 1,
+                            "numerator": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "shape": [
+                1,
+                1
+              ]
+            },
+            "content": [
+              {
+                "channel_id": "Ta:Ta:pace:n2:l1",
+                "multiplicity": 2
+              }
+            ],
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "coupling_kind": "equivariant_product",
+            "exchange": "identical_operands",
+            "kind": "product",
+            "left_node_id": "ta_f38_coupled_product_node_0001",
+            "lin": [
+              1,
+              1
+            ],
+            "max_M_inconsistency": {
+              "imag": {
+                "terms": []
+              },
+              "real": {
+                "terms": []
+              }
+            },
+            "nin": [
+              2,
+              2
+            ],
+            "node_id": "ta_f38_coupled_product_node_0002",
+            "parity": 1,
+            "partition": [
+              2
+            ],
+            "right_node_id": "ta_f38_coupled_product_node_0001",
+            "synthesis_table_id": "ta_f38_coupled_product_cg_L1_L1_to_L2",
+            "tree_type": "balanced"
+          },
+          {
+            "L": 1,
+            "basis_coordinate": {
+              "entries": [
+                {
+                  "column": 0,
+                  "row": 1,
+                  "value": {
+                    "imag": {
+                      "terms": []
+                    },
+                    "real": {
+                      "terms": [
+                        {
+                          "coefficient": {
+                            "denominator": 1,
+                            "numerator": 1
+                          },
+                          "radicand": {
+                            "denominator": 1,
+                            "numerator": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "shape": [
+                2,
+                1
+              ]
+            },
+            "content": [
+              {
+                "channel_id": "Ta:Ta:pace:n1:l1",
+                "multiplicity": 1
+              },
+              {
+                "channel_id": "Ta:Ta:pace:n2:l1",
+                "multiplicity": 2
+              }
+            ],
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "coupling_kind": "equivariant_product",
+            "exchange": "ordered_operands",
+            "kind": "product",
+            "left_node_id": "ta_f38_coupled_product_node_0000",
+            "lin": [
+              1,
+              1,
+              1
+            ],
+            "max_M_inconsistency": {
+              "imag": {
+                "terms": []
+              },
+              "real": {
+                "terms": []
+              }
+            },
+            "nin": [
+              1,
+              2,
+              2
+            ],
+            "node_id": "ta_f38_coupled_product_node_0003",
+            "parity": -1,
+            "partition": [
+              3
+            ],
+            "right_node_id": "ta_f38_coupled_product_node_0002",
+            "synthesis_table_id": "ta_f38_coupled_product_cg_L1_L2_to_L1",
+            "tree_type": "balanced"
+          },
+          {
+            "L": 0,
+            "basis_coordinate": {
+              "entries": [
+                {
+                  "column": 0,
+                  "row": 1,
+                  "value": {
+                    "imag": {
+                      "terms": []
+                    },
+                    "real": {
+                      "terms": [
+                        {
+                          "coefficient": {
+                            "denominator": 1,
+                            "numerator": 1
+                          },
+                          "radicand": {
+                            "denominator": 1,
+                            "numerator": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "shape": [
+                2,
+                1
+              ]
+            },
+            "content": [
+              {
+                "channel_id": "Ta:Ta:pace:n1:l1",
+                "multiplicity": 2
+              },
+              {
+                "channel_id": "Ta:Ta:pace:n2:l1",
+                "multiplicity": 2
+              }
+            ],
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "coupling_kind": "coupled_covariant_gram",
+            "exchange": "ordered_operands",
+            "kind": "product",
+            "left_node_id": "ta_f38_coupled_product_node_0000",
+            "lin": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "max_M_inconsistency": {
+              "imag": {
+                "terms": []
+              },
+              "real": {
+                "terms": []
+              }
+            },
+            "nin": [
+              1,
+              1,
+              2,
+              2
+            ],
+            "node_id": "ta_f38_coupled_product_node_0004",
+            "parity": 1,
+            "partition": [
+              4
+            ],
+            "right_node_id": "ta_f38_coupled_product_node_0003",
+            "synthesis_table_id": "ta_f38_coupled_product_cg_L1_L1_to_L0",
+            "tree_type": "balanced"
+          }
+        ],
+        "outputs": [
+          {
+            "invariant_ring_status": "not_evaluated",
+            "layout_channel_index": 0,
+            "output_index": 0,
+            "target_basis_index": 1,
+            "terms": [
+              {
+                "coefficient_binary64": [
+                  1.0,
+                  0.0
+                ],
+                "coefficient_exact": {
+                  "imag": {
+                    "terms": []
+                  },
+                  "real": {
+                    "terms": [
+                      {
+                        "coefficient": {
+                          "denominator": 1,
+                          "numerator": 1
+                        },
+                        "radicand": {
+                          "denominator": 1,
+                          "numerator": 1
+                        }
+                      }
+                    ]
+                  }
+                },
+                "root_node_id": "ta_f38_coupled_product_node_0004"
+              }
+            ]
+          }
+        ],
+        "resource_report": {
+          "byte_estimate": 912,
+          "compiler_peak_memory_limit_bytes": 2147483648,
+          "compiler_time_limit_seconds": 120.0,
+          "enumerated_product_column_count": 2,
+          "enumeration_complete": true,
+          "fallback_reason": "",
+          "independent_product_column_count": 2,
+          "max_nodes": 2048,
+          "max_product_columns": 256,
+          "max_rank": 8,
+          "max_static_bytes": 16777216,
+          "max_target_dimension": 128,
+          "node_count": 5,
+          "operation_estimate": 44,
+          "runtime_peak_bytes": 240,
+          "runtime_scratch_bytes": 240,
+          "selected_product_column_count": 1,
+          "serialized_plan_limit_bytes": 67108864,
+          "static_table_bytes": 672,
+          "status": "eligible"
+        },
+        "runtime_path_discovery": false,
+        "schema": "ye3t_ace_coupled_product_dag_v1",
+        "semantic_sha256": "1dd4de0cdbaeaa2a0970d901739a211239bce730ba63e3187bbe4c8fd2aa27e5",
+        "source_channels": [
+          {
+            "central_species": "Ta",
+            "channel_id": "Ta:Ta:pace:n1:l1",
+            "content_token": 1,
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "l": 1,
+            "neighbor_species": "Ta",
+            "radial_basis_id": "pace_cheb_exp_cos",
+            "radial_index": 0
+          },
+          {
+            "central_species": "Ta",
+            "channel_id": "Ta:Ta:pace:n2:l1",
+            "content_token": 2,
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "l": 1,
+            "neighbor_species": "Ta",
+            "radial_basis_id": "pace_cheb_exp_cos",
+            "radial_index": 1
+          }
+        ],
+        "target": {
+          "L": 0,
+          "basis_handles": [
+            {
+              "L_R": 0,
+              "basis_index": 0,
+              "lin": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "nin": [
+                1,
+                1,
+                2,
+                2
+              ],
+              "tree_type": "balanced"
+            },
+            {
+              "L_R": 0,
+              "basis_index": 1,
+              "lin": [
+                1,
+                1,
+                1,
+                1
+              ],
+              "nin": [
+                1,
+                1,
+                2,
+                2
+              ],
+              "tree_type": "balanced"
+            }
+          ],
+          "central_species": "Ta",
+          "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+          "parity": 1,
+          "partition": [
+            4
+          ],
+          "rank": 4,
+          "selected_basis_index": 1,
+          "source_model_id": "3f194cf921c5ebf7a9333c2fb9425478484f405e5a9fee9bf25e44106f7962c8",
+          "yace_function_id": "18e478036a0985a2a8f5708c5601f7c30d83d1f9683c0ccfaf12be2ca0ea5205"
+        }
+      },
+      "opcode": "ace_coupled_product_dag",
+      "output_carrier": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          4
+        ],
+        "rank": 4,
+        "rotation_L": 0
+      },
+      "source_assembly_id": null,
+      "synthesis_table_id": null
+    }
+  ],
+  "plan_hash": "cb13322e12f3a7a607775ea7533077b6cc91aff3a3ebccb1b39e4a49583ee2ef",
+  "provenance": {
+    "analysis_orientation": "conjugate_transpose",
+    "api": "ye3t.couplings.compile_execution_plan",
+    "compiler_owner": "ye3t",
+    "product_image_source": "ExactProductExpansionEngine.independent_decomposable_product_subspace",
+    "runtime_path_discovery": false
+  },
+  "reverse_schedule": [
+    "ta_f38_coupled_product_instruction"
+  ],
+  "schema_version": "ye3t_execution_plan_v3",
+  "second_order_schedule": [],
+  "source_assemblies": [],
+  "synthesis_tables": [
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "14531de69d4c90a0a7ee332304a177ad3ab4b6d1ccf23b9b07d9e57400a399f1",
+      "column_indices": [
+        0,
+        1,
+        2,
+        1,
+        2,
+        3,
+        2,
+        3,
+        4
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 9,
+      "orientation": "synthesis",
+      "output_dimension": 5,
+      "provenance": {
+        "compiler_owner": "ye3t",
+        "source": "ye3t.core.subtree_dag.cg_exact"
+      },
+      "row_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "table_id": "ta_f38_coupled_product_cg_L1_L1_to_L2",
+      "validation_report": {
+        "maximum_coefficient_residual": 4.833646656726457e-17,
+        "passed": true,
+        "scope": "ace_coupled_product_CG"
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.7071067811865476,
+          0.0
+        ],
+        [
+          0.408248290463863,
+          0.0
+        ],
+        [
+          0.7071067811865476,
+          0.0
+        ],
+        [
+          0.816496580927726,
+          0.0
+        ],
+        [
+          0.7071067811865476,
+          0.0
+        ],
+        [
+          0.408248290463863,
+          0.0
+        ],
+        [
+          0.7071067811865476,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "10379d4bb0b52f6aef9e8ee37522227b8051639c50367fed06ad9b952bd56c2d",
+      "column_indices": [
+        0,
+        1,
+        2,
+        0,
+        1,
+        2,
+        0,
+        1,
+        2
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 15,
+      "orientation": "synthesis",
+      "output_dimension": 3,
+      "provenance": {
+        "compiler_owner": "ye3t",
+        "source": "ye3t.core.subtree_dag.cg_exact"
+      },
+      "row_indices": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12
+      ],
+      "table_id": "ta_f38_coupled_product_cg_L1_L2_to_L1",
+      "validation_report": {
+        "maximum_coefficient_residual": 3.9036170478011407e-17,
+        "passed": true,
+        "scope": "ace_coupled_product_CG"
+      },
+      "values": [
+        [
+          0.31622776601683794,
+          0.0
+        ],
+        [
+          0.5477225575051661,
+          0.0
+        ],
+        [
+          0.7745966692414834,
+          0.0
+        ],
+        [
+          -0.5477225575051661,
+          0.0
+        ],
+        [
+          -0.6324555320336759,
+          0.0
+        ],
+        [
+          -0.5477225575051661,
+          0.0
+        ],
+        [
+          0.7745966692414834,
+          0.0
+        ],
+        [
+          0.5477225575051661,
+          0.0
+        ],
+        [
+          0.31622776601683794,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "7c51bcef3624aa9525dff7f2e1d8ec652f6cfdad772eb1e46dd5852e6d4ff98d",
+      "column_indices": [
+        0,
+        0,
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 9,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "compiler_owner": "ye3t",
+        "source": "ye3t.core.subtree_dag.cg_exact"
+      },
+      "row_indices": [
+        2,
+        4,
+        6
+      ],
+      "table_id": "ta_f38_coupled_product_cg_L1_L1_to_L0",
+      "validation_report": {
+        "maximum_coefficient_residual": 3.3450280739356345e-17,
+        "passed": true,
+        "scope": "ace_coupled_product_CG"
+      },
+      "values": [
+        [
+          0.5773502691896257,
+          0.0
+        ],
+        [
+          -0.5773502691896257,
+          0.0
+        ],
+        [
+          0.5773502691896257,
+          0.0
+        ]
+      ]
+    }
+  ]
+}

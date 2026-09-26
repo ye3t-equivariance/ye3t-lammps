@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use the YE3T LAMMPS package, please cite this software package."
+title: "ye3t-lammps"
+date-released: "2026-09-26"
+license: "GPL-2.0-or-later"
+authors:
+  - family-names: "Goff"
+    given-names: "James M."
+    affiliation: "Sandia National Laboratories"
+repository-code: "https://github.com/ye3t-equivariance/ye3t-lammps"
+abstract: "ML-YE3T source package for LAMMPS: pair_style ye3t and ye3t/kk for linear YE3T potentials."

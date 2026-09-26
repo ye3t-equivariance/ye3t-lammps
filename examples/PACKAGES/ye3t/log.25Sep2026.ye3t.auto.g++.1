@@ -1,0 +1,87 @@
+LAMMPS (22 Jul 2025 - Update 4)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread.
+  using 1 OpenMP thread(s) per MPI task
+# Deterministic fitted-Ta static check for PairYE3T AUTO execution.
+
+variable model index models/ta_l8_compact/model.yace
+variable plan index models/ta_l8_compact/manifest.json
+variable policy index auto
+variable dump_path index dump.ye3t.auto
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+variable a equal 3.300
+lattice bcc ${a}
+lattice bcc 3.3
+Lattice spacing in x,y,z = 3.3 3.3 3.3
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+Created orthogonal box = (0 0 0) to (9.9 9.9 9.9)
+  1 by 1 by 1 MPI processor grid
+create_atoms 1 box
+Created 54 atoms
+  using lattice units in orthogonal box = (0 0 0) to (9.9 9.9 9.9)
+  create_atoms CPU = 0.000 seconds
+mass 1 180.94788
+reset_atoms id sort yes
+Resetting atom IDs ...
+WARNING: Communication cutoff is 0.0. No ghost atoms will be generated. Energies and forces may be wrong and atoms may get lost. (src/comm_brick.cpp:212)
+
+group displaced id 1
+1 atoms in group displaced
+displace_atoms displaced move 0.13 -0.07 0.09 units box
+Displacing atoms ...
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t plan ${plan} block_policy ${policy} chunksize 256
+pair_style ye3t plan models/ta_l8_compact/manifest.json block_policy ${policy} chunksize 256
+pair_style ye3t plan models/ta_l8_compact/manifest.json block_policy auto chunksize 256
+YE3T configuration: model_family yace, source_realization model_default, chunksize 256, block_policy auto, plan models/ta_l8_compact/manifest.json, auto_replay none
+pair_coeff * * ${model} Ta
+pair_coeff * * models/ta_l8_compact/model.yace Ta
+YE3T CPU dispatch: PACE-compatible spline/half-complex source with split-real harmonics, exact signed-m expansion/collapse, tiled split-real symmetric-power forward/adjoint, source_model a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56, direct_logical_plan 7c86be4203d2aa73769ee77a6e850a3012c93c3bf09a8be740b0861b1b20960d
+YE3T CPU source schedule: complete environments in 8/16-center batches, soft cache target 1048576 bytes (819 edges), no source-table replay; chunksize is an outer packing limit, not a memory limit
+Loaded YE3T YACE potential models/ta_l8_compact/model.yace
+	Ta: 0 selected block routes and 0 selected coupled-product DAGs from 3 compiled candidate routes, 61 total candidates across 3/58 candidate/catalogue functions, 0 scalar-power routes, 0 symmetric-power blocks, 0 scalar bases, 0 scalar nodes, estimated operations 3425 -> 3425, planner exhaustive_candidate_vector_catalogue_v2 (cpu_structural_split_real_tile8_v1, selected, optimal, 8 scores), plan c5f5d91c0a33f52910808607a8b4ad605a5894378bf75e306afc33a74ed39d9b
+	Ta: evaluator portfolio bce65624e38dcbea808004371578db7a70c65685546e93820b8b408ec3eb1055
+	Ta: 78 full channels, 48 source channels, 514 shared monomials, 140 cached powers, 719 binary product-DAG nodes (balanced-reverse-channel-order), rank <= 8
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+compute pair_pressure all pressure NULL pair
+compute force_sum all reduce sum fx fy fz
+
+thermo 1
+thermo_style custom step atoms vol pe c_pair_pressure[1]   c_pair_pressure[2] c_pair_pressure[3] c_pair_pressure[4]   c_pair_pressure[5] c_pair_pressure[6] c_force_sum[1]   c_force_sum[2] c_force_sum[3]
+thermo_modify format float %.17g
+
+run 0 post no
+WARNING: No fixes with time integration, atoms won't move
+For more information see https://docs.lammps.org/err0028 (src/verlet.cpp:60)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.97637
+  ghost atom cutoff = 4.97637
+  binsize = 2.488185, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair ye3t, perpetual
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 7.394 | 7.394 | 7.394 Mbytes
+   Step        Atoms        Volume         PotEng     c_pair_pressure[1] c_pair_pressure[2] c_pair_pressure[3] c_pair_pressure[4] c_pair_pressure[5] c_pair_pressure[6] c_force_sum[1] c_force_sum[2] c_force_sum[3]
+         0          54  970.29899999999964 -639.78580595280062 34606.148613127007 34753.976983910681 34706.800639339737 -247.81574294879471 312.96446182689857 -192.61448526023918 1.27675647831893e-15 6.6613381477509392e-16 7.4940054162198066e-16
+Loop time of 4.84e-07 on 1 procs for 0 steps with 54 atoms
+
+
+write_dump all custom ${dump_path} id type x y z c_atom_energy   c_atom_stress[1] c_atom_stress[2] c_atom_stress[3]   c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz   modify sort id format float %.17g
+write_dump all custom dump.ye3t.auto id type x y z c_atom_energy   c_atom_stress[1] c_atom_stress[2] c_atom_stress[3]   c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz   modify sort id format float %.17g
+Total wall time: 0:00:00

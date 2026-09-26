@@ -1,0 +1,79 @@
+{
+  "ablation_selection_protocol": "fixed model definitions and five-fold training-only hyperparameter selection; frozen outer test used once for reporting",
+  "ablation_source_sha256": "ec89896229697765ce19fb1c532872eb5e4c8694e73eba17f15926371e590e00",
+  "all_self_contained_numdiff_passed": true,
+  "all_self_contained_nve_passed": true,
+  "all_symmetric_pace_parity_passed": true,
+  "all_symmetric_rows_loaded_compiled_auto_plan": true,
+  "all_tagged_rows_select_joint_kappa_lambda_component": true,
+  "all_tagged_rows_used_strict_auto": true,
+  "all_ye3t_rows_pairpace_independent": true,
+  "cu_joint_kappa_lambda_force_improvement_percent": 14.588747614339571,
+  "force_pareto_systems": [
+    "Cu",
+    "Ge",
+    "Li",
+    "Mo",
+    "Ni",
+    "Si"
+  ],
+  "joint_component_indices": [
+    10
+  ],
+  "limitations": [
+    "The result is CPU-only; composite tagged Kokkos currently fails closed.",
+    "AUTO choices are catalogue- and hardware-specific; the fitted catalogues selected compiled-direct on this CPU.",
+    "The tagged portfolio is catalogue-global rather than a per-descriptor mixed route schedule.",
+    "The current portfolio is the LegacyMomentV2 execution representation, not the complete V3 physical-image runtime."
+  ],
+  "matched_127_force_improvement_percent": {
+    "Cu": 75.57506142074789,
+    "Ge": 13.327782799051736,
+    "Li": 3.502504979607368,
+    "Mo": 10.590736813469693,
+    "Ni": 56.07287799150803,
+    "Si": 16.122628548392214
+  },
+  "matched_127_runtime_ratio_ye3t_over_ace": {
+    "Cu": 1.0885357575182169,
+    "Ge": 0.9358265357850593,
+    "Li": 0.9411887023372426,
+    "Mo": 0.9453929103714311,
+    "Ni": 1.111248698727486,
+    "Si": 0.9499794059768432
+  },
+  "matched_127_runtime_ratio_ye3t_symmetric_over_pace": {
+    "Cu": 0.371690679072417,
+    "Ge": 0.3227035232038343,
+    "Li": 0.3111895340961751,
+    "Mo": 0.3036009234635728,
+    "Ni": 0.37317405916214685,
+    "Si": 0.32405656491693746
+  },
+  "maximum_absolute_nve_energy_drift_eV_per_atom_per_ps": 1.777555285118246e-06,
+  "maximum_symmetric_pace_force_error_eV_per_A": 7.122271522552737e-12,
+  "microcatalogue_auto_selection_by_tensor_order": {
+    "12": "compiled_direct",
+    "16": "symmetric_power",
+    "24": "block",
+    "32": "symmetric_power",
+    "4": "compiled_direct",
+    "6": "compiled_direct",
+    "8": "compiled_direct"
+  },
+  "microcatalogue_route_parity_passed": true,
+  "pace_evaluator": "product",
+  "schema": "ye3t_three_way_cost_comparison_claims_v2",
+  "symmetric_auto_resolution_counts": {
+    "resolved_all_direct": 18,
+    "resolved_non_direct": 0
+  },
+  "systems": [
+    "Li",
+    "Mo",
+    "Cu",
+    "Ni",
+    "Si",
+    "Ge"
+  ]
+}

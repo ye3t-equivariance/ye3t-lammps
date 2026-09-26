@@ -1,0 +1,23 @@
+# PairYE3T/Kokkos device-plan upload and direct run-0 probe.
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+variable a equal 3.300
+lattice bcc ${a}
+region cell block 0 2 0 2 0 2 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+reset_atoms id sort yes
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t/kk/device chunksize 256 block_policy direct
+pair_coeff * * ${model} Ta
+
+run 0

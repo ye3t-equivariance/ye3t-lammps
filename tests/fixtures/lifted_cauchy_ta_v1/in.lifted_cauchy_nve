@@ -1,0 +1,55 @@
+# Bounded integration check for the synthetic lifted validation fixture.
+
+variable load_plugin index 0
+variable plugin_path index none
+if "${load_plugin} == 1" then "plugin load ${plugin_path}"
+
+variable model index model.ye3t.json
+variable source_realization index factorized
+variable mpi_ranks index 1
+variable dump_path index lifted.nve.dump
+variable integration_timestep index 1.0e-5
+variable integration_steps index 10
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+processors ${mpi_ranks} 1 1
+
+region cell block 0 20 0 20 0 20 units box
+create_box 1 cell
+create_atoms 1 single 0.3 0.8 0.6 units box
+create_atoms 1 single 2.1 0.9 0.4 units box
+create_atoms 1 single 19.9 2.8 0.9 units box
+create_atoms 1 single 0.5 0.1 2.7 units box
+mass 1 180.94788
+reset_atoms id sort yes
+velocity all create 10.0 89231 mom yes rot no dist gaussian loop all
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t model_family lifted_cauchy &
+  source_realization ${source_realization} chunksize 2
+pair_coeff * * ${model} Ta
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+timestep ${integration_timestep}
+fix integrate all nve
+
+thermo 1
+thermo_style custom step atoms temp pe ke etotal press
+thermo_modify format float %.17g
+dump trajectory all custom 1 ${dump_path} id type x y z vx vy vz &
+  c_atom_energy c_atom_stress[1] c_atom_stress[2] c_atom_stress[3] &
+  c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz
+dump_modify trajectory sort id format float %.17g
+
+run 0 post no
+variable initial_energy equal $(etotal:%.17g)
+run ${integration_steps} post no
+print "YE3T_LIFTED_NVE_INITIAL_ETOTAL=$(v_initial_energy:%.17g)"
+print "YE3T_LIFTED_NVE_FINAL_ETOTAL=$(etotal:%.17g)"

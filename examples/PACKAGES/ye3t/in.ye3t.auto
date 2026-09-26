@@ -1,0 +1,48 @@
+# Deterministic fitted-Ta static check for PairYE3T AUTO execution.
+
+variable model index models/ta_l8_compact/model.yace
+variable plan index models/ta_l8_compact/manifest.json
+variable policy index auto
+variable dump_path index dump.ye3t.auto
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+variable a equal 3.300
+lattice bcc ${a}
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+reset_atoms id sort yes
+
+group displaced id 1
+displace_atoms displaced move 0.13 -0.07 0.09 units box
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t plan ${plan} block_policy ${policy} chunksize 256
+pair_coeff * * ${model} Ta
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+compute pair_pressure all pressure NULL pair
+compute force_sum all reduce sum fx fy fz
+
+thermo 1
+thermo_style custom step atoms vol pe c_pair_pressure[1] &
+  c_pair_pressure[2] c_pair_pressure[3] c_pair_pressure[4] &
+  c_pair_pressure[5] c_pair_pressure[6] c_force_sum[1] &
+  c_force_sum[2] c_force_sum[3]
+thermo_modify format float %.17g
+
+run 0 post no
+
+write_dump all custom ${dump_path} id type x y z c_atom_energy &
+  c_atom_stress[1] c_atom_stress[2] c_atom_stress[3] &
+  c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz &
+  modify sort id format float %.17g

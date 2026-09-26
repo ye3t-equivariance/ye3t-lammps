@@ -1,0 +1,60 @@
+# LAMMPS finite-difference check for a calibrated PairYE3T AUTO replay.
+
+variable model index models/ta_l8_compact/model.yace
+variable plan index models/ta_l8_compact/manifest.json
+variable auto_replay index kokkos_auto_replay.json
+variable force_delta index 1.0e-4
+variable virial_delta index 1.0e-6
+variable ye3t_chunksize index 4096
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+variable a equal 3.300
+lattice bcc ${a}
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+reset_atoms id sort yes
+
+group displaced id 1
+displace_atoms displaced move 0.13 -0.07 0.09 units box
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check no
+
+pair_style ye3t plan ${plan} block_policy auto auto_replay ${auto_replay} chunksize ${ye3t_chunksize}
+pair_coeff * * ${model} Ta
+
+group probe id 1
+fix numerical_force probe numdiff 1 ${force_delta}
+compute analytic_pressure all pressure NULL pair
+fix numerical_virial all numdiff/virial 1 ${virial_delta}
+
+variable dfx atom f_numerical_force[1]-fx
+variable dfy atom f_numerical_force[2]-fy
+variable dfz atom f_numerical_force[3]-fz
+variable dfmag atom sqrt(v_dfx*v_dfx+v_dfy*v_dfy+v_dfz*v_dfz)
+compute force_error probe reduce max v_dfmag
+
+# numdiff/virial order: xx yy zz yz xz xy
+# pressure vector order: xx yy zz xy xz yz
+variable dv1 equal f_numerical_virial[1]-c_analytic_pressure[1]
+variable dv2 equal f_numerical_virial[2]-c_analytic_pressure[2]
+variable dv3 equal f_numerical_virial[3]-c_analytic_pressure[3]
+variable dv4 equal f_numerical_virial[4]-c_analytic_pressure[6]
+variable dv5 equal f_numerical_virial[5]-c_analytic_pressure[5]
+variable dv6 equal f_numerical_virial[6]-c_analytic_pressure[4]
+variable virial_error equal sqrt(v_dv1*v_dv1+v_dv2*v_dv2+v_dv3*v_dv3+v_dv4*v_dv4+v_dv5*v_dv5+v_dv6*v_dv6)
+
+thermo 1
+thermo_style custom step pe c_force_error v_virial_error
+thermo_modify format float %.17g
+run 0 post no
+
+print "YE3T_NUMDIFF_FORCE_MAX_ABS=$(c_force_error:%.17g)"
+print "YE3T_NUMDIFF_VIRIAL_L2=$(v_virial_error:%.17g)"

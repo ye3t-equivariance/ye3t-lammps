@@ -1,0 +1,4871 @@
+{
+  "carrier_layouts": [
+    {
+      "axis_order": [
+        "channel_or_multiplicity",
+        "tableau_t",
+        "magnetic_M"
+      ],
+      "channel_count": 1,
+      "key": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          8
+        ],
+        "rank": 8,
+        "rotation_L": 0
+      },
+      "magnetic_count": 1,
+      "tableau_count": 1,
+      "width": 1
+    }
+  ],
+  "certificate": {
+    "all_paths_compiled_before_runtime": true,
+    "passed": true,
+    "scope": "task55_cpu_natural_block_ladder_v1",
+    "yace_candidate_readouts": {
+      "records": [
+        {
+          "central_type": 0,
+          "equivalence": {
+            "absolute_tolerance": 5e-11,
+            "adjoint_certified_by_coefficient_identity": true,
+            "derivative_rule": "explicit_polynomial_product_rule",
+            "maximum_absolute_coefficient_residual": 7.105427357601002e-15,
+            "maximum_mixed_tolerance_ratio": 6.991536473352285e-05,
+            "maximum_reference_coefficient_magnitude": 103.25796438830874,
+            "method": "coefficientwise_sparse_polynomial_mixed_v1",
+            "passed": true,
+            "plan_polynomial_sha256": "f1aca508c87384b5ead96971cef4829c13e620b1b716530b9b3faac1d043fb19",
+            "relative_l2_residual": 4.3074398238869575e-17,
+            "relative_tolerance": 1e-12,
+            "support_equal": true,
+            "tolerance_rule": "absolute_plus_relative_reference",
+            "yace_polynomial_sha256": "b162561feba31bcd7acf60a1c011bd87ebd57da3676f13dc3568d9e88779a579"
+          },
+          "feature_id": "7381b49cd51ec3798652a5b44fb3255fcdbb99d62351de388c0795236318c957",
+          "function_index": 55,
+          "readout_id": "d26da80f8d26d6ba423ac5d3d44524adfb53f50d6b61fdeca823efb51f8fa304",
+          "schema": "ye3t_yace_candidate_readout_v1",
+          "source_yace_sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56",
+          "terms": [
+            {
+              "binding_id": "d677abeb20ed94d9f861053fddea5cc281f44b14864b1cb250505455f5310b8c",
+              "channel_index": 0,
+              "instruction_id": "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_analysis",
+              "magnetic_index": 0,
+              "scale": [
+                15.93304981538243,
+                0.0
+              ],
+              "tableau_index": 0
+            }
+          ],
+          "variable_order_hash": "375e97df7b095d8f4cbb51f0a68e1237f1d49bbf978dd00b960fd8dede448462"
+        },
+        {
+          "central_type": 0,
+          "equivalence": {
+            "absolute_tolerance": 5e-11,
+            "adjoint_certified_by_coefficient_identity": true,
+            "derivative_rule": "explicit_polynomial_product_rule",
+            "maximum_absolute_coefficient_residual": 2.2737367544323206e-13,
+            "maximum_mixed_tolerance_ratio": 0.00027404243966105095,
+            "maximum_reference_coefficient_magnitude": 1247.5238724306146,
+            "method": "coefficientwise_sparse_polynomial_mixed_v1",
+            "passed": true,
+            "plan_polynomial_sha256": "4e476a902c7e7c13c2e25dd3bcec14f8fd67e3adc8b5ef3629258ec67e16076d",
+            "relative_l2_residual": 1.572611974313052e-16,
+            "relative_tolerance": 1e-12,
+            "support_equal": true,
+            "tolerance_rule": "absolute_plus_relative_reference",
+            "yace_polynomial_sha256": "48a2ae1426995a8c39acac94a06400462909819e1eb42c987b6112ec32d108e6"
+          },
+          "feature_id": "4c7c1d99ff44fd4b2b919bebd7331ddbbf5eadcd9499f722affa3e92f85bf0c7",
+          "function_index": 56,
+          "readout_id": "a73ef8501023a8dd55e4ac12355ad2004401f91283aa529a3e22179ba65c6fb2",
+          "schema": "ye3t_yace_candidate_readout_v1",
+          "source_yace_sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56",
+          "terms": [
+            {
+              "binding_id": "a21029816beda9fa2bb9e2ee9991b2a60d43ac3fad9b7cc4f60bc017ab716c9b",
+              "channel_index": 0,
+              "instruction_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_analysis",
+              "magnetic_index": 0,
+              "scale": [
+                -3805.3507778478306,
+                0.0
+              ],
+              "tableau_index": 0
+            }
+          ],
+          "variable_order_hash": "375e97df7b095d8f4cbb51f0a68e1237f1d49bbf978dd00b960fd8dede448462"
+        },
+        {
+          "central_type": 0,
+          "equivalence": {
+            "absolute_tolerance": 5e-11,
+            "adjoint_certified_by_coefficient_identity": true,
+            "derivative_rule": "explicit_polynomial_product_rule",
+            "maximum_absolute_coefficient_residual": 2.842170943040401e-14,
+            "maximum_mixed_tolerance_ratio": 0.00010904352219058195,
+            "maximum_reference_coefficient_magnitude": 240.96833346133582,
+            "method": "coefficientwise_sparse_polynomial_mixed_v1",
+            "passed": true,
+            "plan_polynomial_sha256": "119a6c76d08b46db733be4adafc5fece61fa8e9992d4dcea9cf3266bfb83db7a",
+            "relative_l2_residual": 1.1842939980731448e-16,
+            "relative_tolerance": 1e-12,
+            "support_equal": true,
+            "tolerance_rule": "absolute_plus_relative_reference",
+            "yace_polynomial_sha256": "65fb2aa4f7dc50b79ab4ae31517345dc1b6ce962e60cb1b6af1c024c6940079a"
+          },
+          "feature_id": "484dfbf150426b14a411f4016baf38058059c18195a6f494feb455d6877bd86b",
+          "function_index": 57,
+          "readout_id": "a634aaee5cc7faec87d69aab4a96732a511e597c32f910da88eb38f65654fcb3",
+          "schema": "ye3t_yace_candidate_readout_v1",
+          "source_yace_sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56",
+          "terms": [
+            {
+              "binding_id": "dffd4e4fda91158cf3bad5cea70340d0a6614ce9e5e82157af48f5179c64c383",
+              "channel_index": 0,
+              "instruction_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_analysis",
+              "magnetic_index": 0,
+              "scale": [
+                92.02130234782761,
+                0.0
+              ],
+              "tableau_index": 0
+            }
+          ],
+          "variable_order_hash": "375e97df7b095d8f4cbb51f0a68e1237f1d49bbf978dd00b960fd8dede448462"
+        }
+      ],
+      "schema": "ye3t_yace_candidate_readouts_v1"
+    },
+    "yace_output_bindings": {
+      "records": [
+        {
+          "central_type": 0,
+          "channel_index": 0,
+          "feature_id": "7381b49cd51ec3798652a5b44fb3255fcdbb99d62351de388c0795236318c957",
+          "function_index": 55,
+          "instruction_hash": "d4ac7a0d8b6156c7fc65ca45dca0cd744d752dcced26f12802b4c5fec23ff560",
+          "instruction_id": "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_analysis",
+          "magnetic_index": 0,
+          "scale": [
+            15.93304981538243,
+            0.0
+          ],
+          "schema": "ye3t_yace_plan_output_binding_v1",
+          "source_yace_sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56",
+          "tableau_index": 0
+        },
+        {
+          "central_type": 0,
+          "channel_index": 0,
+          "feature_id": "4c7c1d99ff44fd4b2b919bebd7331ddbbf5eadcd9499f722affa3e92f85bf0c7",
+          "function_index": 56,
+          "instruction_hash": "4c06fa48e46ae374c58f91efc01bc1b82243545e9229075b43031c98eb513f25",
+          "instruction_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_analysis",
+          "magnetic_index": 0,
+          "scale": [
+            -3805.3507778478306,
+            0.0
+          ],
+          "schema": "ye3t_yace_plan_output_binding_v1",
+          "source_yace_sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56",
+          "tableau_index": 0
+        },
+        {
+          "central_type": 0,
+          "channel_index": 0,
+          "feature_id": "484dfbf150426b14a411f4016baf38058059c18195a6f494feb455d6877bd86b",
+          "function_index": 57,
+          "instruction_hash": "b4396c4a81aad3b9e9795f74696eae337e5b90be049fe78b95fede6e5bd9b0e1",
+          "instruction_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_analysis",
+          "magnetic_index": 0,
+          "scale": [
+            92.02130234782761,
+            0.0
+          ],
+          "schema": "ye3t_yace_plan_output_binding_v1",
+          "source_yace_sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56",
+          "tableau_index": 0
+        }
+      ],
+      "schema": "ye3t_yace_plan_output_bindings_v1"
+    }
+  },
+  "coefficient_hash": "a032756c87247a2b1a5be6a67047ff4806ad0a03c8f80ef31558dd5698fd6706",
+  "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+  "factorized_angular_plans": [],
+  "forward_schedule": [
+    "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_analysis",
+    "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_analysis",
+    "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_analysis"
+  ],
+  "instructions": [
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "factorized_angular_plan_id": null,
+      "input_carriers": [],
+      "instruction_id": "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_analysis",
+      "metadata": {
+        "block_power_plans": [
+          {
+            "block_index": 0,
+            "output_L": 1,
+            "plan": {
+              "active_descriptor_indices": [
+                0,
+                1,
+                2
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "715d4a6f1a30bf9d",
+              "descriptor_count": 3,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 12,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.6457513110645907,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        6,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -15.874507866387544,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        4,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        31.749015732775085,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        2,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -21.166010488516726,
+                        0.0
+                      ],
+                      "exponents": [
+                        4,
+                        0,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      6,
+                      0
+                    ],
+                    [
+                      1,
+                      5,
+                      0
+                    ],
+                    [
+                      1,
+                      4,
+                      1
+                    ],
+                    [
+                      2,
+                      3,
+                      1
+                    ],
+                    [
+                      2,
+                      4,
+                      0
+                    ],
+                    [
+                      2,
+                      2,
+                      2
+                    ],
+                    [
+                      3,
+                      1,
+                      2
+                    ],
+                    [
+                      3,
+                      2,
+                      1
+                    ],
+                    [
+                      3,
+                      0,
+                      3
+                    ],
+                    [
+                      4,
+                      0,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 1,
+                  "power": 7,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 5308416,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 36,
+                      "policy": "auto",
+                      "power": 7,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 4,
+                    "lower_degree_monomial_count": 10,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 12,
+                  "component_index": 1,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.6457513110645907,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        7,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -15.874507866387543,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        5,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        31.749015732775085,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        3,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -21.166010488516726,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        1,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 1,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      6,
+                      0
+                    ],
+                    [
+                      0,
+                      5,
+                      1
+                    ],
+                    [
+                      1,
+                      4,
+                      1
+                    ],
+                    [
+                      1,
+                      5,
+                      0
+                    ],
+                    [
+                      1,
+                      3,
+                      2
+                    ],
+                    [
+                      2,
+                      2,
+                      2
+                    ],
+                    [
+                      2,
+                      3,
+                      1
+                    ],
+                    [
+                      2,
+                      1,
+                      3
+                    ],
+                    [
+                      3,
+                      0,
+                      3
+                    ],
+                    [
+                      3,
+                      1,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 1,
+                  "power": 7,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 5308416,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 36,
+                      "policy": "auto",
+                      "power": 7,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 4,
+                    "lower_degree_monomial_count": 10,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 12,
+                  "component_index": 2,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.6457513110645907,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        6,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -15.874507866387544,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        4,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        31.749015732775085,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        2,
+                        3
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -21.166010488516726,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        0,
+                        4
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 2,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      5,
+                      1
+                    ],
+                    [
+                      0,
+                      6,
+                      0
+                    ],
+                    [
+                      0,
+                      4,
+                      2
+                    ],
+                    [
+                      1,
+                      3,
+                      2
+                    ],
+                    [
+                      1,
+                      4,
+                      1
+                    ],
+                    [
+                      1,
+                      2,
+                      3
+                    ],
+                    [
+                      2,
+                      1,
+                      3
+                    ],
+                    [
+                      2,
+                      2,
+                      2
+                    ],
+                    [
+                      2,
+                      0,
+                      4
+                    ],
+                    [
+                      3,
+                      0,
+                      3
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 1,
+                  "power": 7,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 5308416,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 36,
+                      "policy": "auto",
+                      "power": 7,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 4,
+                    "lower_degree_monomial_count": 10,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:7",
+                "rotation": {
+                  "L_R": 1,
+                  "M_R_values": [
+                    -1,
+                    0,
+                    1
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 0,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 3,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n1_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 1
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r08_t_n11111112_l11111111_hierarchical_block_0_L1"
+          },
+          {
+            "block_index": 1,
+            "output_L": 1,
+            "plan": {
+              "active_descriptor_indices": [
+                0,
+                1,
+                2
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "d98adfc3ccf4d54c",
+              "descriptor_count": 3,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 3,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        0,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 1,
+                  "power": 1,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 36864,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 1,
+                      "occupancy_dimension": 3,
+                      "policy": "auto",
+                      "power": 1,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 3,
+                  "component_index": 1,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        1,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 1,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 1,
+                  "power": 1,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 36864,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 1,
+                      "occupancy_dimension": 3,
+                      "policy": "auto",
+                      "power": 1,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 3,
+                  "component_index": 2,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        0,
+                        1
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 2,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 1,
+                  "power": 1,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 36864,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 1,
+                      "occupancy_dimension": 3,
+                      "policy": "auto",
+                      "power": 1,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:1",
+                "rotation": {
+                  "L_R": 1,
+                  "M_R_values": [
+                    -1,
+                    0,
+                    1
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 1,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 3,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  7
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n2_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 2
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r08_t_n11111112_l11111111_hierarchical_block_1_L1"
+          }
+        ],
+        "blocks": [
+          {
+            "block_index": 0,
+            "block_partition": [
+              7
+            ],
+            "input_L": 1,
+            "power": 7,
+            "slot_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n1_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 1
+              }
+            }
+          },
+          {
+            "block_index": 1,
+            "block_partition": [
+              1
+            ],
+            "input_L": 1,
+            "power": 1,
+            "slot_indices": [
+              7
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n2_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 2
+              }
+            }
+          }
+        ],
+        "canonical_induced_row": 0,
+        "coefficient_materialization": "auto",
+        "fast_route_certificates": [],
+        "hierarchical_coefficient_hash": "ddc4172fe7d29312",
+        "joint_multiplicity": 1,
+        "lr_multiplicity": 1,
+        "lr_synthesis_table_id": "ta_r08_t_n11111112_l11111111_hierarchical_lr_synthesis",
+        "maximum_exact_symbolic_bytes": 134217728,
+        "parent_tableau_count": 1,
+        "raw_angular_tree_forest_materialized": false,
+        "route_selection": {
+          "available_route_count": 1,
+          "compiler_validated": true,
+          "schema": "ye3t_hierarchical_route_selection_v1",
+          "selected_route_count": 1,
+          "selected_signatures": [
+            {
+              "block_multiplicity_indices": [
+                0,
+                0
+              ],
+              "block_output_Ls": [
+                1,
+                1
+              ]
+            }
+          ],
+          "selection_stage": "before_power_plan_and_cg_materialization"
+        },
+        "routes": [
+          {
+            "angular_synthesis_table_id": "ta_r08_t_n11111112_l11111111_hierarchical_pair_cg_1_1_0",
+            "block_multiplicity_indices": [
+              0,
+              0
+            ],
+            "block_output_Ls": [
+              1,
+              1
+            ],
+            "route_index": 0
+          }
+        ],
+        "runtime_path_discovery": false,
+        "schema": "ye3t_hierarchical_repeated_angular_blocks_v1",
+        "target_L": 0,
+        "target_parity": 1
+      },
+      "opcode": "block_symmetric_power",
+      "output_carrier": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          8
+        ],
+        "rank": 8,
+        "rotation_L": 0
+      },
+      "source_assembly_id": "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_source",
+      "synthesis_table_id": "ta_r08_t_n11111112_l11111111_hierarchical_lr_synthesis"
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "factorized_angular_plan_id": null,
+      "input_carriers": [],
+      "instruction_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_analysis",
+      "metadata": {
+        "block_power_plans": [
+          {
+            "block_index": 0,
+            "output_L": 4,
+            "plan": {
+              "active_descriptor_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "02285a80465377ee",
+              "descriptor_count": 9,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        4,
+                        0,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      3,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 1,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        1,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 1,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      2,
+                      1,
+                      0
+                    ],
+                    [
+                      3,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 2,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 2,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.267786838055363,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        2,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        0.7559289460184545,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        0,
+                        1
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 2,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      1,
+                      2,
+                      0
+                    ],
+                    [
+                      2,
+                      1,
+                      0
+                    ],
+                    [
+                      2,
+                      0,
+                      1
+                    ],
+                    [
+                      3,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 4,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 3,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.511857892036909,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        3,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        2.2677868380553634,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        1,
+                        1
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 3,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      1,
+                      2,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      2,
+                      0,
+                      1
+                    ],
+                    [
+                      2,
+                      1,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 5,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 4,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        0.47809144373375745,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        4,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        2.8685486624025445,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        2,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        0.7171371656006361,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        0,
+                        2
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 4,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      0,
+                      2,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      2,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      2
+                    ],
+                    [
+                      2,
+                      0,
+                      1
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 3,
+                    "lower_degree_monomial_count": 6,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 5,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.511857892036909,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        3,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        2.2677868380553634,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        1,
+                        2
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 5,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      2,
+                      1
+                    ],
+                    [
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      2
+                    ],
+                    [
+                      1,
+                      0,
+                      2
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 5,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 6,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.267786838055363,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        2,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        0.7559289460184545,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        0,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 6,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      1,
+                      2
+                    ],
+                    [
+                      0,
+                      2,
+                      1
+                    ],
+                    [
+                      0,
+                      0,
+                      3
+                    ],
+                    [
+                      1,
+                      0,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 4,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 7,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        1,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 7,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      3
+                    ],
+                    [
+                      0,
+                      1,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 2,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 8,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        0,
+                        4
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 8,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      3
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:4",
+                "rotation": {
+                  "L_R": 4,
+                  "M_R_values": [
+                    -4,
+                    -3,
+                    -2,
+                    -1,
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 0,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 9,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n1_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 1
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_block_0_L4"
+          },
+          {
+            "block_index": 1,
+            "output_L": 4,
+            "plan": {
+              "active_descriptor_indices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "02285a80465377ee",
+              "descriptor_count": 9,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        4,
+                        0,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      3,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 1,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        1,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 1,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      2,
+                      1,
+                      0
+                    ],
+                    [
+                      3,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 2,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 2,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.267786838055363,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        2,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        0.7559289460184545,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        0,
+                        1
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 2,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      1,
+                      2,
+                      0
+                    ],
+                    [
+                      2,
+                      1,
+                      0
+                    ],
+                    [
+                      2,
+                      0,
+                      1
+                    ],
+                    [
+                      3,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 4,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 3,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.511857892036909,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        3,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        2.2677868380553634,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        1,
+                        1
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 3,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      1,
+                      2,
+                      0
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      2,
+                      0,
+                      1
+                    ],
+                    [
+                      2,
+                      1,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 5,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 4,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        0.47809144373375745,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        4,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        2.8685486624025445,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        2,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        0.7171371656006361,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        0,
+                        2
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 4,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      0,
+                      2,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ],
+                    [
+                      1,
+                      2,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      2
+                    ],
+                    [
+                      2,
+                      0,
+                      1
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 3,
+                    "lower_degree_monomial_count": 6,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 5,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.511857892036909,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        3,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        2.2677868380553634,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        1,
+                        2
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 5,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      2,
+                      1
+                    ],
+                    [
+                      0,
+                      3,
+                      0
+                    ],
+                    [
+                      0,
+                      1,
+                      2
+                    ],
+                    [
+                      1,
+                      0,
+                      2
+                    ],
+                    [
+                      1,
+                      1,
+                      1
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 5,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 6,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.267786838055363,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        2,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        0.7559289460184545,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        0,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 6,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      1,
+                      2
+                    ],
+                    [
+                      0,
+                      2,
+                      1
+                    ],
+                    [
+                      0,
+                      0,
+                      3
+                    ],
+                    [
+                      1,
+                      0,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 4,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 7,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        2.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        1,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 7,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      3
+                    ],
+                    [
+                      0,
+                      1,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 2,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 8,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        0,
+                        4
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 8,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      3
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 4,
+                  "power": 4,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 921600,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 3,
+                      "occupancy_dimension": 15,
+                      "policy": "auto",
+                      "power": 4,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:4",
+                "rotation": {
+                  "L_R": 4,
+                  "M_R_values": [
+                    -4,
+                    -3,
+                    -2,
+                    -1,
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 1,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 9,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n2_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 2
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_block_1_L4"
+          }
+        ],
+        "blocks": [
+          {
+            "block_index": 0,
+            "block_partition": [
+              4
+            ],
+            "input_L": 1,
+            "power": 4,
+            "slot_indices": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n1_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 1
+              }
+            }
+          },
+          {
+            "block_index": 1,
+            "block_partition": [
+              4
+            ],
+            "input_L": 1,
+            "power": 4,
+            "slot_indices": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n2_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 2
+              }
+            }
+          }
+        ],
+        "canonical_induced_row": 0,
+        "coefficient_materialization": "auto",
+        "fast_route_certificates": [],
+        "hierarchical_coefficient_hash": "92591548970d78ae",
+        "joint_multiplicity": 1,
+        "lr_multiplicity": 1,
+        "lr_synthesis_table_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_lr_synthesis",
+        "maximum_exact_symbolic_bytes": 134217728,
+        "parent_tableau_count": 1,
+        "raw_angular_tree_forest_materialized": false,
+        "route_selection": {
+          "available_route_count": 3,
+          "compiler_validated": true,
+          "schema": "ye3t_hierarchical_route_selection_v1",
+          "selected_route_count": 1,
+          "selected_signatures": [
+            {
+              "block_multiplicity_indices": [
+                0,
+                0
+              ],
+              "block_output_Ls": [
+                4,
+                4
+              ]
+            }
+          ],
+          "selection_stage": "before_power_plan_and_cg_materialization"
+        },
+        "routes": [
+          {
+            "angular_synthesis_table_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_pair_cg_4_4_0",
+            "block_multiplicity_indices": [
+              0,
+              0
+            ],
+            "block_output_Ls": [
+              4,
+              4
+            ],
+            "route_index": 0
+          }
+        ],
+        "runtime_path_discovery": false,
+        "schema": "ye3t_hierarchical_repeated_angular_blocks_v1",
+        "target_L": 0,
+        "target_parity": 1
+      },
+      "opcode": "block_symmetric_power",
+      "output_carrier": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          8
+        ],
+        "rank": 8,
+        "rotation_L": 0
+      },
+      "source_assembly_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_source",
+      "synthesis_table_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_lr_synthesis"
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "factorized_angular_plan_id": null,
+      "input_carriers": [],
+      "instruction_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_analysis",
+      "metadata": {
+        "block_power_plans": [
+          {
+            "block_index": 0,
+            "output_L": 2,
+            "plan": {
+              "active_descriptor_indices": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "e43bf77940ccb903",
+              "descriptor_count": 5,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        3.872983346207417,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        4,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -15.491933384829668,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        2,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        15.491933384829668,
+                        0.0
+                      ],
+                      "exponents": [
+                        4,
+                        0,
+                        2
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      1,
+                      4,
+                      0
+                    ],
+                    [
+                      2,
+                      3,
+                      0
+                    ],
+                    [
+                      2,
+                      2,
+                      1
+                    ],
+                    [
+                      3,
+                      1,
+                      1
+                    ],
+                    [
+                      3,
+                      2,
+                      0
+                    ],
+                    [
+                      3,
+                      0,
+                      2
+                    ],
+                    [
+                      4,
+                      0,
+                      1
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 6,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 3211264,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 28,
+                      "policy": "auto",
+                      "power": 6,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 3,
+                    "lower_degree_monomial_count": 7,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 1,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        5.477225575051661,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        5,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -21.90890230020665,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        3,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        21.90890230020665,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        1,
+                        2
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 1,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      5,
+                      0
+                    ],
+                    [
+                      1,
+                      4,
+                      0
+                    ],
+                    [
+                      1,
+                      3,
+                      1
+                    ],
+                    [
+                      2,
+                      2,
+                      1
+                    ],
+                    [
+                      2,
+                      3,
+                      0
+                    ],
+                    [
+                      2,
+                      1,
+                      2
+                    ],
+                    [
+                      3,
+                      0,
+                      2
+                    ],
+                    [
+                      3,
+                      1,
+                      1
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 6,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 3211264,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 28,
+                      "policy": "auto",
+                      "power": 6,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 3,
+                    "lower_degree_monomial_count": 8,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 2,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        3.1622776601683795,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        6,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -9.486832980505138,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        4,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        12.649110640673518,
+                        0.0
+                      ],
+                      "exponents": [
+                        3,
+                        0,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 2,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      5,
+                      0
+                    ],
+                    [
+                      0,
+                      4,
+                      1
+                    ],
+                    [
+                      1,
+                      3,
+                      1
+                    ],
+                    [
+                      1,
+                      4,
+                      0
+                    ],
+                    [
+                      2,
+                      0,
+                      3
+                    ],
+                    [
+                      3,
+                      0,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 6,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 3211264,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 28,
+                      "policy": "auto",
+                      "power": 6,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 3,
+                    "lower_degree_monomial_count": 6,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 3,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        5.477225575051661,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        5,
+                        1
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -21.90890230020665,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        3,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        21.90890230020665,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        1,
+                        3
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 3,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      4,
+                      1
+                    ],
+                    [
+                      0,
+                      5,
+                      0
+                    ],
+                    [
+                      0,
+                      3,
+                      2
+                    ],
+                    [
+                      1,
+                      2,
+                      2
+                    ],
+                    [
+                      1,
+                      3,
+                      1
+                    ],
+                    [
+                      1,
+                      1,
+                      3
+                    ],
+                    [
+                      2,
+                      0,
+                      3
+                    ],
+                    [
+                      2,
+                      1,
+                      2
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 6,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 3211264,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 28,
+                      "policy": "auto",
+                      "power": 6,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 3,
+                    "lower_degree_monomial_count": 8,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 15,
+                  "component_index": 4,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        3.872983346207417,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        4,
+                        2
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        -15.491933384829668,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        2,
+                        3
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        15.491933384829668,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        0,
+                        4
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 4,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      3,
+                      2
+                    ],
+                    [
+                      0,
+                      4,
+                      1
+                    ],
+                    [
+                      0,
+                      2,
+                      3
+                    ],
+                    [
+                      1,
+                      1,
+                      3
+                    ],
+                    [
+                      1,
+                      2,
+                      2
+                    ],
+                    [
+                      1,
+                      0,
+                      4
+                    ],
+                    [
+                      2,
+                      0,
+                      3
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 6,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 3211264,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 4,
+                      "occupancy_dimension": 28,
+                      "policy": "auto",
+                      "power": 6,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 3,
+                    "lower_degree_monomial_count": 7,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:6",
+                "rotation": {
+                  "L_R": 2,
+                  "M_R_values": [
+                    -2,
+                    -1,
+                    0,
+                    1,
+                    2
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 0,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 5,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n1_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 1
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_block_0_L2"
+          },
+          {
+            "block_index": 1,
+            "output_L": 2,
+            "plan": {
+              "active_descriptor_indices": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "backend": "symmetric_power_exponent_vector",
+              "carrier": "ACE_density",
+              "channel_count": 3,
+              "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+              "convention_hash": "4efcc9a015a76643",
+              "descriptor_count": 5,
+              "entries": [
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 6,
+                  "component_index": 0,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        2,
+                        0,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 0,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      1,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 2,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 147456,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 2,
+                      "occupancy_dimension": 6,
+                      "policy": "auto",
+                      "power": 2,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 6,
+                  "component_index": 1,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.4142135623730951,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        1,
+                        0
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 1,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 2,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 147456,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 2,
+                      "occupancy_dimension": 6,
+                      "policy": "auto",
+                      "power": 2,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 2,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 6,
+                  "component_index": 2,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        0.816496580927726,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        2,
+                        0
+                      ]
+                    },
+                    {
+                      "coefficient": [
+                        0.816496580927726,
+                        0.0
+                      ],
+                      "exponents": [
+                        1,
+                        0,
+                        1
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 2,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      1,
+                      0
+                    ],
+                    [
+                      0,
+                      0,
+                      1
+                    ],
+                    [
+                      1,
+                      0,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 2,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 147456,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 2,
+                      "occupancy_dimension": 6,
+                      "policy": "auto",
+                      "power": 2,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 2,
+                    "lower_degree_monomial_count": 3,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 6,
+                  "component_index": 3,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.4142135623730951,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        1,
+                        1
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 3,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      1
+                    ],
+                    [
+                      0,
+                      1,
+                      0
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 2,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 147456,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 2,
+                      "occupancy_dimension": 6,
+                      "policy": "auto",
+                      "power": 2,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 2,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                },
+                {
+                  "channel_indices": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "coefficient_entry_count": 6,
+                  "component_index": 4,
+                  "component_terms": [
+                    {
+                      "coefficient": [
+                        1.0,
+                        0.0
+                      ],
+                      "exponents": [
+                        0,
+                        0,
+                        2
+                      ]
+                    }
+                  ],
+                  "descriptor_index": 4,
+                  "input_L": 1,
+                  "lower_degree_exponents": [
+                    [
+                      0,
+                      0,
+                      1
+                    ]
+                  ],
+                  "multiplicity_index": 0,
+                  "output_L": 2,
+                  "power": 2,
+                  "validation_report": {
+                    "basis_certificate": {
+                      "basis_mode": "independent",
+                      "exact": true,
+                      "passed": true,
+                      "schema": "ye3t_exact_symbolic_occupancy_basis_v1"
+                    },
+                    "basis_convention": "complex_magnetic",
+                    "coefficient_backend": "direct_complex_occupancy_monomials",
+                    "coefficient_materialization_resource_report": {
+                      "estimated_exact_symbolic_workspace_bytes": 147456,
+                      "estimated_symbolic_bytes_per_occupancy_pair": 4096,
+                      "exceeds_exact_symbolic_limit": false,
+                      "input_L": 1,
+                      "maximum_exact_symbolic_bytes": 134217728,
+                      "maximum_weight_dimension": 2,
+                      "occupancy_dimension": 6,
+                      "policy": "auto",
+                      "power": 2,
+                      "schema": "ye3t_symmetric_power_materialization_resource_v1",
+                      "selected_backend": "exact_symbolic_independent_occupancy"
+                    },
+                    "component_term_count": 1,
+                    "lower_degree_monomial_count": 1,
+                    "passed": true,
+                    "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks"
+                  }
+                }
+              ],
+              "factor_basis": "A",
+              "label_source": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+              "normalization_convention": "none",
+              "provenance": {
+                "api": "ye3t.couplings.symmetric_power_product_plan",
+                "compiler_owner": "ye3t",
+                "fast_path": "symmetric_power",
+                "lower_level_coefficient_api": "ye3t.core.basis.homogeneous"
+              },
+              "target": {
+                "permutation": "young:2",
+                "rotation": {
+                  "L_R": 2,
+                  "M_R_values": [
+                    -2,
+                    -1,
+                    0,
+                    1,
+                    2
+                  ],
+                  "group": "O3"
+                }
+              },
+              "validation_report": {
+                "basis_convention": "complex_magnetic",
+                "block_index": 1,
+                "coefficient_materialization": "auto",
+                "coefficient_source": "ye3t.couplings.symmetric_power_coefficient_entries",
+                "derivative_rule": "alpha_q * M_{alpha-e_q}",
+                "entry_count": 5,
+                "maximum_exact_symbolic_bytes": 134217728,
+                "normalization_convention": "none",
+                "ordinary_density_selection_enforced": true,
+                "passed": true,
+                "scope": "hierarchical_repeated_angular_block",
+                "slot_indices": [
+                  6,
+                  7
+                ],
+                "source_binding": {
+                  "binding_id": "central_0_Ta_n2_l1",
+                  "input_L": 1,
+                  "yace": {
+                    "angular_l": 1,
+                    "central_type": 0,
+                    "factor_basis": "A",
+                    "magnetic_order": "minus_l_to_plus_l",
+                    "neighbor_type": 0,
+                    "radial_n": 2
+                  }
+                },
+                "source_kind": "ordinary_density",
+                "supports_descriptor_adjoint": true,
+                "valid_labels_from": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+                "young_sector": "globally_trivial"
+              }
+            },
+            "plan_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_block_1_L2"
+          }
+        ],
+        "blocks": [
+          {
+            "block_index": 0,
+            "block_partition": [
+              6
+            ],
+            "input_L": 1,
+            "power": 6,
+            "slot_indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n1_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 1
+              }
+            }
+          },
+          {
+            "block_index": 1,
+            "block_partition": [
+              2
+            ],
+            "input_L": 1,
+            "power": 2,
+            "slot_indices": [
+              6,
+              7
+            ],
+            "source_binding": {
+              "binding_id": "central_0_Ta_n2_l1",
+              "input_L": 1,
+              "yace": {
+                "angular_l": 1,
+                "central_type": 0,
+                "factor_basis": "A",
+                "magnetic_order": "minus_l_to_plus_l",
+                "neighbor_type": 0,
+                "radial_n": 2
+              }
+            }
+          }
+        ],
+        "canonical_induced_row": 0,
+        "coefficient_materialization": "auto",
+        "fast_route_certificates": [],
+        "hierarchical_coefficient_hash": "d201aa2ae20b46eb",
+        "joint_multiplicity": 1,
+        "lr_multiplicity": 1,
+        "lr_synthesis_table_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_lr_synthesis",
+        "maximum_exact_symbolic_bytes": 134217728,
+        "parent_tableau_count": 1,
+        "raw_angular_tree_forest_materialized": false,
+        "route_selection": {
+          "available_route_count": 2,
+          "compiler_validated": true,
+          "schema": "ye3t_hierarchical_route_selection_v1",
+          "selected_route_count": 1,
+          "selected_signatures": [
+            {
+              "block_multiplicity_indices": [
+                0,
+                0
+              ],
+              "block_output_Ls": [
+                2,
+                2
+              ]
+            }
+          ],
+          "selection_stage": "before_power_plan_and_cg_materialization"
+        },
+        "routes": [
+          {
+            "angular_synthesis_table_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_pair_cg_2_2_0",
+            "block_multiplicity_indices": [
+              0,
+              0
+            ],
+            "block_output_Ls": [
+              2,
+              2
+            ],
+            "route_index": 0
+          }
+        ],
+        "runtime_path_discovery": false,
+        "schema": "ye3t_hierarchical_repeated_angular_blocks_v1",
+        "target_L": 0,
+        "target_parity": 1
+      },
+      "opcode": "block_symmetric_power",
+      "output_carrier": {
+        "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+        "group": "S_N_x_O3",
+        "parity": 1,
+        "partition": [
+          8
+        ],
+        "rank": 8,
+        "rotation_L": 0
+      },
+      "source_assembly_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_source",
+      "synthesis_table_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_lr_synthesis"
+    }
+  ],
+  "plan_hash": "c5f5d91c0a33f52910808607a8b4ad605a5894378bf75e306afc33a74ed39d9b",
+  "provenance": {
+    "aggregate": "YE3TExecutionPlanWiring",
+    "analysis_orientation": "conjugate_transpose",
+    "api": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+    "compiler_owner": "ye3t",
+    "runtime_path_discovery": false
+  },
+  "reverse_schedule": [
+    "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_analysis",
+    "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_analysis",
+    "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_analysis"
+  ],
+  "schema_version": "ye3t_execution_plan_v2",
+  "second_order_schedule": [
+    "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_analysis",
+    "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_analysis",
+    "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_analysis"
+  ],
+  "source_assemblies": [
+    {
+      "assembly_id": "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_source",
+      "column_indices": [
+        0
+      ],
+      "induced_dimension": 1,
+      "normalization": "canonical_block_coordinate",
+      "provenance": {
+        "raw_coset_or_angular_tree_forest_materialized": false,
+        "source_assembly_schema": "ye3t_source_assembly_v2",
+        "source_coordinate_records": [
+          {
+            "child_tableau_indices": [
+              0,
+              0
+            ],
+            "content_tuple": [
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                2,
+                1
+              ]
+            ],
+            "coset_representative": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "source_index": 0
+          }
+        ],
+        "source_coordinate_semantics": "canonical_ordinary_density_block_tuple",
+        "subgroup_partitions": [
+          [
+            7
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      "row_indices": [
+        0
+      ],
+      "source_dimension": 1,
+      "source_realization": {
+        "automorphisms": [],
+        "content": [
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            2,
+            1
+          ]
+        ],
+        "injective": false,
+        "kind": "ordinary_density",
+        "metadata": {},
+        "rank": 8,
+        "retain_role_order": false,
+        "role_labels": []
+      },
+      "validation_report": {
+        "block_count": 2,
+        "passed": true,
+        "scope": "hierarchical_source_binding",
+        "slot_coverage_complete": true
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "assembly_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_source",
+      "column_indices": [
+        0
+      ],
+      "induced_dimension": 1,
+      "normalization": "canonical_block_coordinate",
+      "provenance": {
+        "raw_coset_or_angular_tree_forest_materialized": false,
+        "source_assembly_schema": "ye3t_source_assembly_v2",
+        "source_coordinate_records": [
+          {
+            "child_tableau_indices": [
+              0,
+              0
+            ],
+            "content_tuple": [
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                2,
+                1
+              ],
+              [
+                "Ta",
+                2,
+                1
+              ],
+              [
+                "Ta",
+                2,
+                1
+              ],
+              [
+                "Ta",
+                2,
+                1
+              ]
+            ],
+            "coset_representative": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "source_index": 0
+          }
+        ],
+        "source_coordinate_semantics": "canonical_ordinary_density_block_tuple",
+        "subgroup_partitions": [
+          [
+            4
+          ],
+          [
+            4
+          ]
+        ]
+      },
+      "row_indices": [
+        0
+      ],
+      "source_dimension": 1,
+      "source_realization": {
+        "automorphisms": [],
+        "content": [
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            2,
+            1
+          ],
+          [
+            "Ta",
+            2,
+            1
+          ],
+          [
+            "Ta",
+            2,
+            1
+          ],
+          [
+            "Ta",
+            2,
+            1
+          ]
+        ],
+        "injective": false,
+        "kind": "ordinary_density",
+        "metadata": {},
+        "rank": 8,
+        "retain_role_order": false,
+        "role_labels": []
+      },
+      "validation_report": {
+        "block_count": 2,
+        "passed": true,
+        "scope": "hierarchical_source_binding",
+        "slot_coverage_complete": true
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "assembly_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_source",
+      "column_indices": [
+        0
+      ],
+      "induced_dimension": 1,
+      "normalization": "canonical_block_coordinate",
+      "provenance": {
+        "raw_coset_or_angular_tree_forest_materialized": false,
+        "source_assembly_schema": "ye3t_source_assembly_v2",
+        "source_coordinate_records": [
+          {
+            "child_tableau_indices": [
+              0,
+              0
+            ],
+            "content_tuple": [
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                1,
+                1
+              ],
+              [
+                "Ta",
+                2,
+                1
+              ],
+              [
+                "Ta",
+                2,
+                1
+              ]
+            ],
+            "coset_representative": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "source_index": 0
+          }
+        ],
+        "source_coordinate_semantics": "canonical_ordinary_density_block_tuple",
+        "subgroup_partitions": [
+          [
+            6
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "row_indices": [
+        0
+      ],
+      "source_dimension": 1,
+      "source_realization": {
+        "automorphisms": [],
+        "content": [
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            1,
+            1
+          ],
+          [
+            "Ta",
+            2,
+            1
+          ],
+          [
+            "Ta",
+            2,
+            1
+          ]
+        ],
+        "injective": false,
+        "kind": "ordinary_density",
+        "metadata": {},
+        "rank": 8,
+        "retain_role_order": false,
+        "role_labels": []
+      },
+      "validation_report": {
+        "block_count": 2,
+        "passed": true,
+        "scope": "hierarchical_source_binding",
+        "slot_coverage_complete": true
+      },
+      "values": [
+        [
+          1.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "synthesis_tables": [
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "f67968acda8622563b5421c281d5cc3637c5048689b78083e940ddd92c295233",
+      "column_indices": [
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 1,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "source": "exact_two_block_lr_recoupler"
+      },
+      "row_indices": [
+        0
+      ],
+      "table_id": "ta_r08_t_n11111112_l11111111_hierarchical_lr_synthesis",
+      "validation_report": {
+        "passed": true,
+        "scope": "canonical_hierarchical_lr_row"
+      },
+      "values": [
+        [
+          0.35355339059327373,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "7c51bcef3624aa9525dff7f2e1d8ec652f6cfdad772eb1e46dd5852e6d4ff98d",
+      "column_indices": [
+        0,
+        0,
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 9,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "cache_key": "aded1f86e475f7de0604fe0a0f55070b3d120e60ff448780086bc4c4de7b3130",
+        "source": "AngularCGMap.build"
+      },
+      "row_indices": [
+        2,
+        4,
+        6
+      ],
+      "table_id": "ta_r08_t_n11111112_l11111111_hierarchical_pair_cg_1_1_0",
+      "validation_report": {
+        "passed": true,
+        "scope": "hierarchical_binary_CG"
+      },
+      "values": [
+        [
+          0.5773502691896257,
+          0.0
+        ],
+        [
+          -0.5773502691896257,
+          0.0
+        ],
+        [
+          0.5773502691896257,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "03d172679f3ac90bdbad57301ea11719a497fc055b77c23f56003afc68dd1eb9",
+      "column_indices": [
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 1,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "source": "exact_two_block_lr_recoupler"
+      },
+      "row_indices": [
+        0
+      ],
+      "table_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_lr_synthesis",
+      "validation_report": {
+        "passed": true,
+        "scope": "canonical_hierarchical_lr_row"
+      },
+      "values": [
+        [
+          0.11952286093343936,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "e25d74c29e311760e0689f0756f2b42f8696305d48c797117932c6f9866850b1",
+      "column_indices": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 81,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "cache_key": "dc9ead41b76059f74507625d37486cb099dd1fad5d97bdfb556c207ce3a19d8a",
+        "source": "AngularCGMap.build"
+      },
+      "row_indices": [
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        64,
+        72
+      ],
+      "table_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_pair_cg_4_4_0",
+      "validation_report": {
+        "passed": true,
+        "scope": "hierarchical_binary_CG"
+      },
+      "values": [
+        [
+          0.3333333333333333,
+          0.0
+        ],
+        [
+          -0.3333333333333333,
+          0.0
+        ],
+        [
+          0.33333333333333337,
+          0.0
+        ],
+        [
+          -0.33333333333333337,
+          0.0
+        ],
+        [
+          0.3333333333333333,
+          0.0
+        ],
+        [
+          -0.33333333333333337,
+          0.0
+        ],
+        [
+          0.33333333333333337,
+          0.0
+        ],
+        [
+          -0.3333333333333333,
+          0.0
+        ],
+        [
+          0.3333333333333333,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "e0dc1024f92a21da9e6fc0db5077d10bfda80d90aa85b5bc8507cf9df425042e",
+      "column_indices": [
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 1,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "source": "exact_two_block_lr_recoupler"
+      },
+      "row_indices": [
+        0
+      ],
+      "table_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_lr_synthesis",
+      "validation_report": {
+        "passed": true,
+        "scope": "canonical_hierarchical_lr_row"
+      },
+      "values": [
+        [
+          0.1889822365046136,
+          0.0
+        ]
+      ]
+    },
+    {
+      "analysis_orientation": "conjugate_transpose",
+      "coefficient_hash": "92155013b3b59567177d6f7769335275e55646932ff8c3818c90801f16a24b24",
+      "column_indices": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+      "input_dimension": 25,
+      "orientation": "synthesis",
+      "output_dimension": 1,
+      "provenance": {
+        "analysis_orientation": "conjugate_transpose",
+        "cache_key": "7d534d6301b34097b20e2b16bf81c1d5c5e8d3c2d97f4a0f67e8ac76876103ca",
+        "source": "AngularCGMap.build"
+      },
+      "row_indices": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "table_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_pair_cg_2_2_0",
+      "validation_report": {
+        "passed": true,
+        "scope": "hierarchical_binary_CG"
+      },
+      "values": [
+        [
+          0.4472135954999579,
+          0.0
+        ],
+        [
+          -0.4472135954999579,
+          0.0
+        ],
+        [
+          0.4472135954999579,
+          0.0
+        ],
+        [
+          -0.4472135954999579,
+          0.0
+        ],
+        [
+          0.4472135954999579,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "wiring": {
+    "buffer_widths": [
+      {
+        "buffer_id": "yace_block_outputs",
+        "width": 3
+      }
+    ],
+    "instruction_input_bindings": [],
+    "instruction_output_bindings": [
+      {
+        "instruction_id": "ta_r08_b44_n11112222_l11111111_L4_hierarchical_repeated_block_analysis",
+        "slice_id": "ta_r08_b44_n11112222_l11111111_L4:output"
+      },
+      {
+        "instruction_id": "ta_r08_q_n11111122_l11111111_L2_hierarchical_repeated_block_analysis",
+        "slice_id": "ta_r08_q_n11111122_l11111111_L2:output"
+      },
+      {
+        "instruction_id": "ta_r08_t_n11111112_l11111111_hierarchical_repeated_block_analysis",
+        "slice_id": "ta_r08_t_n11111112_l11111111:output"
+      }
+    ],
+    "metadata": {
+      "compiler_owner": "ye3t",
+      "output_write_semantics": "zero_then_accumulate",
+      "source_inputs": "opaque_A_multiplet_bindings"
+    },
+    "packed_slices": [
+      {
+        "buffer_id": "yace_block_outputs",
+        "carrier_layout": {
+          "axis_order": [
+            "channel_or_multiplicity",
+            "tableau_t",
+            "magnetic_M"
+          ],
+          "channel_count": 1,
+          "key": {
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "group": "S_N_x_O3",
+            "parity": 1,
+            "partition": [
+              8
+            ],
+            "rank": 8,
+            "rotation_L": 0
+          },
+          "magnetic_count": 1,
+          "tableau_count": 1,
+          "width": 1
+        },
+        "metadata": {
+          "feature_id": "ta_r08_t_n11111112_l11111111"
+        },
+        "slice_id": "ta_r08_t_n11111112_l11111111:output",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "buffer_id": "yace_block_outputs",
+        "carrier_layout": {
+          "axis_order": [
+            "channel_or_multiplicity",
+            "tableau_t",
+            "magnetic_M"
+          ],
+          "channel_count": 1,
+          "key": {
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "group": "S_N_x_O3",
+            "parity": 1,
+            "partition": [
+              8
+            ],
+            "rank": 8,
+            "rotation_L": 0
+          },
+          "magnetic_count": 1,
+          "tableau_count": 1,
+          "width": 1
+        },
+        "metadata": {
+          "feature_id": "ta_r08_b44_n11112222_l11111111_L4"
+        },
+        "slice_id": "ta_r08_b44_n11112222_l11111111_L4:output",
+        "start": 1,
+        "stop": 2
+      },
+      {
+        "buffer_id": "yace_block_outputs",
+        "carrier_layout": {
+          "axis_order": [
+            "channel_or_multiplicity",
+            "tableau_t",
+            "magnetic_M"
+          ],
+          "channel_count": 1,
+          "key": {
+            "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+            "group": "S_N_x_O3",
+            "parity": 1,
+            "partition": [
+              8
+            ],
+            "rank": 8,
+            "rotation_L": 0
+          },
+          "magnetic_count": 1,
+          "tableau_count": 1,
+          "width": 1
+        },
+        "metadata": {
+          "feature_id": "ta_r08_q_n11111122_l11111111_L2"
+        },
+        "slice_id": "ta_r08_q_n11111122_l11111111_L2:output",
+        "start": 2,
+        "stop": 3
+      }
+    ],
+    "schema_version": "ye3t_execution_plan_wiring_v1",
+    "wiring_id": "task55_cpu_natural_block_ladder_v1_wiring"
+  }
+}

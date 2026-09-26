@@ -1,0 +1,36 @@
+# Rehydrate a lifted PairYE3T model after read_restart and continue it.
+
+variable load_plugin index 0
+variable plugin_path index none
+if "${load_plugin} == 1" then "plugin load ${plugin_path}"
+
+variable model index model.ye3t.json
+variable source_realization index factorized
+variable mpi_ranks index 1
+variable restart_path index lifted.restart
+variable dump_path index lifted.restart.rehydrated.dump
+
+units metal
+atom_style atomic
+newton on
+processors ${mpi_ranks} 1 1
+read_restart ${restart_path}
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+pair_style ye3t model_family lifted_cauchy &
+  source_realization ${source_realization} chunksize 2
+pair_coeff * * ${model} Ta
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+fix integrate all nve
+thermo 1
+thermo_style custom step atoms temp pe ke etotal press
+thermo_modify format float %.17g
+run 3 post no
+
+write_dump all custom ${dump_path} id type x y z vx vy vz c_atom_energy &
+  c_atom_stress[1] c_atom_stress[2] c_atom_stress[3] &
+  c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz &
+  modify sort id format float %.17g

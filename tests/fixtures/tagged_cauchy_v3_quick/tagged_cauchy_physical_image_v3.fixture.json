@@ -1,0 +1,50 @@
+{
+  "central_species": "Ta",
+  "edge_gradients_dE_dd_eV_per_A": [
+    [
+      40.522526420959025,
+      60.083233467792496,
+      124.91243010466796
+    ],
+    [
+      86.42158728476034,
+      7.296666246609497,
+      81.31983912691527
+    ],
+    [
+      47.882177314950916,
+      79.20718105995552,
+      20.35356502780669
+    ]
+  ],
+  "edges": [
+    {
+      "displacement_A": [
+        1.1,
+        0.2,
+        -0.1
+      ],
+      "neighbor_species": "Ta"
+    },
+    {
+      "displacement_A": [
+        -0.4,
+        1.3,
+        0.5
+      ],
+      "neighbor_species": "Ta"
+    },
+    {
+      "displacement_A": [
+        0.3,
+        -0.7,
+        1.5
+      ],
+      "neighbor_species": "Ta"
+    }
+  ],
+  "energy_eV": 90.15665150261077,
+  "model_path": "tagged_cauchy_physical_image_v3.json",
+  "model_self_hash": "63c95d49f05436551822ba1d2e35237c9e9f9246f5eee0bbf3b514ab53967fc8",
+  "schema": "ye3t_tagged_cauchy_native_fixture_v2"
+}

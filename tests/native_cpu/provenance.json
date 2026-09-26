@@ -1,0 +1,34 @@
+[
+  {
+    "source": "examples/PACKAGES/ye3t/models/ta_l8_compact/model.yace",
+    "fixture": "compact.fixture",
+    "source_sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56",
+    "fixture_sha256": "f8e848671afed44dab4d2d4cb2043f2306f3915562738e1c3d5f9d045f38fb36"
+  },
+  {
+    "source": "examples/PACKAGES/ye3t/models/ta_l8_full/model.yace",
+    "fixture": "full.fixture",
+    "source_sha256": "3f194cf921c5ebf7a9333c2fb9425478484f405e5a9fee9bf25e44106f7962c8",
+    "fixture_sha256": "66b2efc4ce190de46aef1fe431861a2680636b065b098e6164febc868777fa5f"
+  },
+  {
+    "source": "tests/fixtures/high_rank/ta_l8_h16_h24_h32/model.yace",
+    "fixture": "highrank.fixture",
+    "source_sha256": "7ac6c5e316534d24df12361a9f461ed10c1d2737c45355dfa342c38459bb852f",
+    "fixture_sha256": "2f8d970edec105f89dbf5dea7cdc5cce2173838aafabf2a4a9d0d0b6903378e8"
+  },
+  {
+    "source": "retired Si linear ACE example si_pace_generated_127.yace (not shipped; identified by source_sha256)",
+    "source_shipped": false,
+    "fixture": "si127.fixture",
+    "source_sha256": "f5dcb4fefe9ee8c3a5eb5075e84d477d515168f81461b988078adff5879473a8",
+    "fixture_sha256": "830073b4ac6c2bc4d7348a54786713d990b7569c0e4edc31fb99476007363561"
+  },
+  {
+    "source": "retired Si linear ACE example si_pace_fixed.yace (not shipped; identified by source_sha256)",
+    "source_shipped": false,
+    "fixture": "si_fixed.fixture",
+    "source_sha256": "a653ec8bc821922eb23ae553798c50e6225f785189e56ec8ab21019b47f5b296",
+    "fixture_sha256": "c8835427362682d7038fb025032249afcd5771820053000d452c394f23810a36"
+  }
+]

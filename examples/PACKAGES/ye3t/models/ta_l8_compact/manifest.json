@@ -1,0 +1,88 @@
+{
+  "canonical_encoding": "ye3t_sorted_json_indent2_lf_v1",
+  "capabilities": {
+    "required": [
+      "block_symmetric_power_adjoint_v1",
+      "block_symmetric_power_forward_v1",
+      "energy_v1",
+      "evaluator_candidate_vector_v1",
+      "explicit_ctilde_forward_adjoint_v1",
+      "force_v1",
+      "linear_readout_v1",
+      "ordinary_density_v1",
+      "pace_cheb_exp_cos_uniform_cubic_hermite_v1",
+      "pace_complex_magnetic_y00_1",
+      "pace_linear_embedding_v1",
+      "symmetric_power_adjoint_v1",
+      "symmetric_power_forward_v1",
+      "virial_v1",
+      "yace_candidate_readout_v1",
+      "ye3t_execution_plan_v2"
+    ]
+  },
+  "compiler": {
+    "api": "ye3t.couplings.execution_plan_from_repeated_angular_blocks",
+    "coefficient_hash": "a032756c87247a2b1a5be6a67047ff4806ad0a03c8f80ef31558dd5698fd6706",
+    "convention_id": "o3:complex_condon_shortley_young_orthogonal_v1",
+    "execution_plan_schema": "ye3t_execution_plan_v2",
+    "plan_hash": "c5f5d91c0a33f52910808607a8b4ad605a5894378bf75e306afc33a74ed39d9b",
+    "ye3t": {
+      "dirty": true,
+      "revision": "81f84550948705d452eb634e85baf1067a2b8215",
+      "status_sha256": "085e586d3048af31ca549294f07ab0af99dc62158c3ea88a770c0a8045462052",
+      "tracked_patch_sha256": "eb2d76c4637f9a954d009f6178f0a98ead6eae60f82947c97b66662214765567"
+    },
+    "ye3t_ace": {
+      "dirty": true,
+      "revision": "6bab611ea3d67d0141134e241465faba9cb483ae",
+      "status_sha256": "5b81bcac422cc9b9ecb18e4d3287fdd4438fc019efa622e002e5b88598ba0b7f",
+      "tracked_patch_sha256": "8812e898de5a0bfcac1fd901926b6a35372a062b6b6749e20b7e2bc5d9adb904"
+    }
+  },
+  "conventions": {
+    "analysis_orientation": "conjugate_transpose",
+    "angular_source_basis": "pace_complex_magnetic_y00_1",
+    "angular_transform": {
+      "kind": "none",
+      "payload": null
+    },
+    "atomic_base_normalization": "none",
+    "byte_order": "little",
+    "factor_normalization": "none",
+    "linear_feature_transform": {
+      "kind": "none",
+      "payload": null
+    },
+    "radial_basis": "pace_cheb_exp_cos_uniform_cubic_hermite_v1",
+    "scalar_type": "float64"
+  },
+  "dispatch": {
+    "fallback_policy": "forbid_unlisted",
+    "requested_route": "ye3t_evaluator_candidate_vector_v1"
+  },
+  "inputs": {
+    "per_atom": []
+  },
+  "payloads": {
+    "execution_plan": {
+      "path": "execution_plan.json",
+      "schema": "ye3t_execution_plan_v2",
+      "sha256": "4c8b7d3ec2499f12feb97a3ac645878f4c84b7175f880fe24914209b195ce2c5"
+    },
+    "yace_function_map": {
+      "path": "yace_function_map.json",
+      "schema": "ye3t_yace_function_map_v3",
+      "sha256": "700bc9540bdee48e3e6ccc85449edc7a16f5d32f79ada6da77737ab9900787bf"
+    }
+  },
+  "schema": "ye3t_lammps_sidecar_v3",
+  "semantic_ledger": "task55_semantic_ledger_v1",
+  "source_yace": {
+    "compatibility_profile": "lammps_pace_linear_v1",
+    "lammps_units": "metal",
+    "ordered_elements": [
+      "Ta"
+    ],
+    "sha256": "a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56"
+  }
+}

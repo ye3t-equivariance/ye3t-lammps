@@ -1,0 +1,33 @@
+# Short deterministic NVE example for the physically qualified compact model.
+
+variable model index models/ta_l8_compact/model.yace
+variable plan index models/ta_l8_compact/manifest.json
+variable policy index auto
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+lattice bcc 3.3161146998079496
+region cell block 0 4 0 4 0 4 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+reset_atoms id sort yes
+displace_atoms all random 0.01 0.01 0.01 77123 units box
+velocity all create 300.0 89231 mom yes rot no dist gaussian
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t plan ${plan} block_policy ${policy} chunksize 256
+pair_coeff * * ${model} Ta
+
+timestep 0.001
+fix integrate all nve
+thermo 1
+thermo_style custom step atoms temp pe ke etotal press
+thermo_modify format float %.17g
+run 20

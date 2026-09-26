@@ -1,0 +1,45 @@
+# Bounded 300 K BCC NVE stability smoke for the fitted hybrid/overlay model.
+
+variable plugin_path index none
+variable plugin_setup index plugin.dynamic.inc
+variable ordinary_model index ordinary.yace
+variable lifted_model index model.ye3t.json
+variable source_realization index factorized
+variable pair_setup index none
+variable a index 3.33
+variable dt index 0.001
+variable steps index 100
+
+include ${plugin_setup}
+
+units metal
+atom_style atomic
+boundary p p p
+
+lattice bcc ${a}
+region cell block 0 4 0 4 0 4 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+newton on
+
+include ${pair_setup}
+
+velocity all create 300.0 1701 mom yes rot no dist gaussian
+fix integrator all nve
+timestep ${dt}
+
+thermo 10
+thermo_style custom step temp pe ke etotal press
+run 0
+variable initial_energy equal $(etotal:%.17g)
+run ${steps}
+print "YE3T_OVERLAY_NVE_ATOMS $(atoms:%.17g)"
+print "YE3T_OVERLAY_NVE_DT ${dt}"
+print "YE3T_OVERLAY_NVE_STEPS ${steps}"
+print "YE3T_OVERLAY_NVE_INITIAL_ETOTAL ${initial_energy}"
+print "YE3T_OVERLAY_NVE_FINAL_ETOTAL $(etotal:%.17g)"
+print "YE3T_OVERLAY_NVE_FINAL_TEMP $(temp:%.17g)"

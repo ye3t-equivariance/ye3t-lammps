@@ -1,0 +1,34 @@
+# BCC equation-of-state point for the fitted hybrid/overlay model.
+
+variable plugin_path index none
+variable plugin_setup index plugin.dynamic.inc
+variable ordinary_model index ordinary.yace
+variable lifted_model index model.ye3t.json
+variable source_realization index factorized
+variable pair_setup index none
+variable a index 3.3
+
+include ${plugin_setup}
+
+units metal
+atom_style atomic
+boundary p p p
+
+lattice bcc ${a}
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+newton on
+
+include ${pair_setup}
+
+thermo 1
+thermo_style custom step atoms pe press pxx pyy pzz
+run 0
+print "YE3T_OVERLAY_EOS_A ${a}"
+print "YE3T_OVERLAY_EOS_EPA $(pe/atoms:%.17g)"
+print "YE3T_OVERLAY_EOS_PRESS $(press:%.17g)"

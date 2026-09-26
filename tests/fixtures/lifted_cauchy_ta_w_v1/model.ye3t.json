@@ -1,0 +1,257 @@
+{
+  "central_species_order": [
+    "Ta",
+    "W"
+  ],
+  "compiler_artifact": {
+    "artifact_self_hash": "8beb0b46bed021ac8538c7ee54721b84155390de0ed0804c6355ac73883a7ae7",
+    "file": "compiled_lifted_cauchy.json",
+    "file_sha256": "e49da9d5a52ad98c6dbb12b65150f306dd425b14cf4823694b8133a24f9a58fe"
+  },
+  "conventions": {
+    "cutoff_support": "0_lt_r_lt_rc",
+    "edge_displacement": "R_neighbor_minus_R_center_plus_periodic_image",
+    "force_sign": "F_equals_minus_dE_dR",
+    "l1_component_order": [
+      "x",
+      "z",
+      "minus_y"
+    ],
+    "lammps_virial": "minus_strain_derivative",
+    "lammps_virial_component_order": [
+      "xx",
+      "yy",
+      "zz",
+      "xy",
+      "xz",
+      "yz"
+    ],
+    "precision": "binary64",
+    "real_basis_id": "ye3t_physical_real_tesseral_v1",
+    "real_pullback": "algebraic_transpose",
+    "self_interaction": "excluded",
+    "strain_derivative": "dE_d_epsilon"
+  },
+  "default_realization": "factored",
+  "default_source_realization": "factorized",
+  "fit_metadata": {
+    "publication_timing": false,
+    "purpose": "deterministic_multielement_native_correctness_fixture",
+    "training": "not_fitted"
+  },
+  "model_family": "linear_lifted_cauchy_scalar",
+  "native_runtime_reference": {
+    "file": "native_runtime.ye3t.json",
+    "file_sha256": "ce57d5ace65bbff64f7f7eefecede4b31b5d3265c987ba9b355cfbfc10163aab",
+    "format": "ye3t_lifted_cauchy_native_runtime_v1",
+    "plan_self_hash": "d7ad8efef6c3b0883cae1b3a92c81633ade34d521e3bebc9b0e4aa0be0195b77"
+  },
+  "ordinary_reference": null,
+  "readout": {
+    "coefficient_shape": [
+      2,
+      3
+    ],
+    "coefficients": [
+      [
+        -0.85,
+        0.09999999999999998,
+        1.05
+      ],
+      [
+        0.65,
+        -0.2499999999999999,
+        -1.15
+      ]
+    ],
+    "dtype": "float64",
+    "offset_shape": [
+      2
+    ],
+    "offsets": [
+      0.31,
+      -0.27
+    ]
+  },
+  "schema": "ye3t_lifted_cauchy_linear_bundle_v3",
+  "self_hash": "4c94c512d76edba6f3673b97579c2109c5766fc49e27963915c7a7947f538011",
+  "source": {
+    "angular_scope": "l=1_origin_regular_solid_harmonic",
+    "certificates": {
+      "cutoff_first_derivative": "zero_exact",
+      "cutoff_value": "zero_exact",
+      "factorized_forward": "A_Q=T*A_f",
+      "factorized_reverse": "bar_A_f=T^T*bar_A_Q",
+      "radial_source_gram": "identity_exact",
+      "runtime_gram_solve": false,
+      "source_span_dimension": "2*C_per_species"
+    },
+    "cutoff_A": 5.2,
+    "density_normalization": "none",
+    "envelope": "(1-x)^2",
+    "groups": [
+      {
+        "channel_indices": [
+          0
+        ],
+        "coordinate_order": "q=2*n+s",
+        "factorized_lowering": {
+          "binary64_matrix": [
+            [
+              25.099800796022265,
+              25.099800796022265
+            ],
+            [
+              -83.24662155306964,
+              83.24662155306964
+            ]
+          ],
+          "binary64_minimum_singular_value": 35.49647869859769,
+          "determinant_nonzero_exact": true,
+          "factor_order": "p_even_minus_p_odd,p_odd_by_n",
+          "forward_equation": "A_Q=T*A_f",
+          "reverse_equation": "bar_A_f=T^T*bar_A_Q",
+          "unnormalized_integer_determinant": "10",
+          "unnormalized_integer_rows": [
+            [
+              1,
+              1
+            ],
+            [
+              -5,
+              5
+            ]
+          ]
+        },
+        "l": 1,
+        "neighbor_species": "Ta",
+        "polynomials": [
+          {
+            "channel_radial_index": 0,
+            "jacobi_degree": 0,
+            "normalization_squared": {
+              "denominator": 1,
+              "numerator": 630
+            },
+            "q": 0,
+            "role_index": 0,
+            "shifted_jacobi_power_coefficients": [
+              1
+            ],
+            "total_radial_polynomial_degree": 3
+          },
+          {
+            "channel_radial_index": 0,
+            "jacobi_degree": 1,
+            "normalization_squared": {
+              "denominator": 5,
+              "numerator": 1386
+            },
+            "q": 1,
+            "role_index": 1,
+            "shifted_jacobi_power_coefficients": [
+              -5,
+              10
+            ],
+            "total_radial_polynomial_degree": 4
+          }
+        ],
+        "source_dimension": 2,
+        "source_family_id": "orthogonal_shifted_jacobi_l1_v1"
+      },
+      {
+        "channel_indices": [
+          1
+        ],
+        "coordinate_order": "q=2*n+s",
+        "factorized_lowering": {
+          "binary64_matrix": [
+            [
+              25.099800796022265,
+              25.099800796022265
+            ],
+            [
+              -83.24662155306964,
+              83.24662155306964
+            ]
+          ],
+          "binary64_minimum_singular_value": 35.49647869859769,
+          "determinant_nonzero_exact": true,
+          "factor_order": "p_even_minus_p_odd,p_odd_by_n",
+          "forward_equation": "A_Q=T*A_f",
+          "reverse_equation": "bar_A_f=T^T*bar_A_Q",
+          "unnormalized_integer_determinant": "10",
+          "unnormalized_integer_rows": [
+            [
+              1,
+              1
+            ],
+            [
+              -5,
+              5
+            ]
+          ]
+        },
+        "l": 1,
+        "neighbor_species": "W",
+        "polynomials": [
+          {
+            "channel_radial_index": 0,
+            "jacobi_degree": 0,
+            "normalization_squared": {
+              "denominator": 1,
+              "numerator": 630
+            },
+            "q": 0,
+            "role_index": 0,
+            "shifted_jacobi_power_coefficients": [
+              1
+            ],
+            "total_radial_polynomial_degree": 3
+          },
+          {
+            "channel_radial_index": 0,
+            "jacobi_degree": 1,
+            "normalization_squared": {
+              "denominator": 5,
+              "numerator": 1386
+            },
+            "q": 1,
+            "role_index": 1,
+            "shifted_jacobi_power_coefficients": [
+              -5,
+              10
+            ],
+            "total_radial_polynomial_degree": 4
+          }
+        ],
+        "source_dimension": 2,
+        "source_family_id": "orthogonal_shifted_jacobi_l1_v1"
+      }
+    ],
+    "neighbor_backend": "ase",
+    "periodic_image_mode": "all_images",
+    "radial_channel_semantics": "q=2*n+s",
+    "radial_coordinate": "x=r/r_c",
+    "radial_measure": "x^2_dx",
+    "role_dimension": 2,
+    "roles": [
+      {
+        "id": "even_shell_difference",
+        "index": 0
+      },
+      {
+        "id": "odd_shell",
+        "index": 1
+      }
+    ],
+    "schema": "ye3t_lifted_cauchy_joint_source_v2",
+    "source_family_id": "orthogonal_shifted_jacobi_l1_v1",
+    "source_plan_hash": "d386a41ea3d00ac21463530597d489c1969b038f6226e2c8a82be40a37f9ca31"
+  },
+  "source_plan_hash": "d386a41ea3d00ac21463530597d489c1969b038f6226e2c8a82be40a37f9ca31",
+  "type_map": {
+    "Ta": 2,
+    "W": 0
+  }
+}

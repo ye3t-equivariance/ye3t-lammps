@@ -1,0 +1,119 @@
+LAMMPS (22 Jul 2025 - Update 4)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread.
+  using 1 OpenMP thread(s) per MPI task
+# Short deterministic NVE example for the physically qualified compact model.
+
+variable model index models/ta_l8_compact/model.yace
+variable plan index models/ta_l8_compact/manifest.json
+variable policy index auto
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+lattice bcc 3.3161146998079496
+Lattice spacing in x,y,z = 3.3161147 3.3161147 3.3161147
+region cell block 0 4 0 4 0 4 units lattice
+create_box 1 cell
+Created orthogonal box = (0 0 0) to (13.264459 13.264459 13.264459)
+  1 by 1 by 1 MPI processor grid
+create_atoms 1 box
+Created 128 atoms
+  using lattice units in orthogonal box = (0 0 0) to (13.264459 13.264459 13.264459)
+  create_atoms CPU = 0.000 seconds
+mass 1 180.94788
+reset_atoms id sort yes
+Resetting atom IDs ...
+WARNING: Communication cutoff is 0.0. No ghost atoms will be generated. Energies and forces may be wrong and atoms may get lost. (src/comm_brick.cpp:212)
+displace_atoms all random 0.01 0.01 0.01 77123 units box
+Displacing atoms ...
+velocity all create 300.0 89231 mom yes rot no dist gaussian
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t plan ${plan} block_policy ${policy} chunksize 256
+pair_style ye3t plan models/ta_l8_compact/manifest.json block_policy ${policy} chunksize 256
+pair_style ye3t plan models/ta_l8_compact/manifest.json block_policy auto chunksize 256
+YE3T configuration: model_family yace, source_realization model_default, chunksize 256, block_policy auto, plan models/ta_l8_compact/manifest.json, auto_replay none
+pair_coeff * * ${model} Ta
+pair_coeff * * models/ta_l8_compact/model.yace Ta
+YE3T CPU dispatch: PACE-compatible spline/half-complex source with split-real harmonics, exact signed-m expansion/collapse, tiled split-real symmetric-power forward/adjoint, source_model a8da0b71a05bd8a4fb356216ba792ffb7af05db07916995dcaf5f114d392fd56, direct_logical_plan 7c86be4203d2aa73769ee77a6e850a3012c93c3bf09a8be740b0861b1b20960d
+YE3T CPU source schedule: complete environments in 8/16-center batches, soft cache target 1048576 bytes (819 edges), no source-table replay; chunksize is an outer packing limit, not a memory limit
+Loaded YE3T YACE potential models/ta_l8_compact/model.yace
+	Ta: 0 selected block routes and 0 selected coupled-product DAGs from 3 compiled candidate routes, 61 total candidates across 3/58 candidate/catalogue functions, 0 scalar-power routes, 0 symmetric-power blocks, 0 scalar bases, 0 scalar nodes, estimated operations 3425 -> 3425, planner exhaustive_candidate_vector_catalogue_v2 (cpu_structural_split_real_tile8_v1, selected, optimal, 8 scores), plan c5f5d91c0a33f52910808607a8b4ad605a5894378bf75e306afc33a74ed39d9b
+	Ta: evaluator portfolio bce65624e38dcbea808004371578db7a70c65685546e93820b8b408ec3eb1055
+	Ta: 78 full channels, 48 source channels, 514 shared monomials, 140 cached powers, 719 binary product-DAG nodes (balanced-reverse-channel-order), rank <= 8
+
+timestep 0.001
+fix integrate all nve
+thermo 1
+thermo_style custom step atoms temp pe ke etotal press
+thermo_modify format float %.17g
+run 20
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.97637
+  ghost atom cutoff = 4.97637
+  binsize = 2.488185, bins = 6 6 6
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair ye3t, perpetual
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 6.317 | 6.317 | 6.317 Mbytes
+   Step        Atoms         Temp          PotEng         KinEng         TotEng         Press     
+         0         128  299.99999999999977 -1517.1878140156346 4.9248115244999964 -1512.2630024911346 745.85394937630952
+         1         128  299.79648507579765 -1517.1844728104224 4.9214706156862684 -1512.2630021947361 751.19107761622604
+         2         128  299.27940989048454 -1517.1759847049557 4.9129822895807251 -1512.263002415375 768.89275140169048
+         3         128  298.44928254572477 -1517.1623564696836 4.8993548871998067 -1512.2630015824839 799.41098696633469
+         4         128  297.30741724603206 -1517.1436109538092 4.8806099825752955 -1512.2630009712339 841.9602728661996
+         5         128  295.85636739388048 -1517.1197861246594 4.8567894924602957 -1512.262996632199 892.78370525359901
+         6         128  294.09943168888168 -1517.0909409664803 4.8279475684343502 -1512.2629933980459 955.59878486233401
+         7         128  292.04031247595424 -1517.05713464325 4.7941449883338683 -1512.2629896549163 1031.1239539302433
+         8         128  289.68339706482413 -1517.0184382774898 4.7554537744038514 -1512.262984503086 1121.4873831696123
+         9         128  287.03391816396243 -1516.9749389417823 4.7119598269875738 -1512.2629791147947 1224.3233503897909
+        10         128  284.09819669244013 -1516.9267372969416 4.6637669105353234 -1512.2629703864063 1335.9572102833531
+        11         128  280.88394889224651 -1516.8739640400581 4.6110016951720159 -1512.2629623448861 1451.5574266727017
+        12         128  277.39951283803873 -1516.8167550735373 4.5538010590515299 -1512.2629540144858 1578.0235219914753
+        13         128  273.65345690158443 -1516.755249738394 4.4923056608939573 -1512.2629440775002 1714.4583118324072
+        14         128  269.65531875243312 -1516.6896054965894 4.426672071449012 -1512.2629334251403 1856.5533347258202
+        15         128  265.41545885987057 -1516.6199926951217 4.3570703685784871 -1512.2629223265433 2004.8701972292063
+        16         128  260.94483407910246 -1516.5465908893348 4.2836804204383476 -1512.2629104688965 2158.5347011112535
+        17         128  256.25501713275952 -1516.4695902486778 4.2066922052878635 -1512.2628980433899 2317.3590047663679
+        18         128  251.35820637205069 -1516.3891909904987 4.1263059717290824 -1512.2628850187696 2479.8076924544716
+        19         128  246.26711633919621 -1516.3056017483411 4.042730442175519 -1512.2628713061656 2646.8843456355894
+        20         128  240.99489616839836 -1516.2190388573506 3.9561814733193637 -1512.2628573840311 2817.5014919658397
+Loop time of 0.0157453 on 1 procs for 20 steps with 128 atoms
+
+Performance: 109.747 ns/day, 0.219 hours/ns, 1270.222 timesteps/s, 162.588 katom-step/s
+100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.015595   | 0.015595   | 0.015595   |   0.0 | 99.05
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 2.4159e-05 | 2.4159e-05 | 2.4159e-05 |   0.0 |  0.15
+Output  | 9.3942e-05 | 9.3942e-05 | 9.3942e-05 |   0.0 |  0.60
+Modify  | 1.5753e-05 | 1.5753e-05 | 1.5753e-05 |   0.0 |  0.10
+Other   |            | 1.633e-05  |            |       |  0.10
+
+Nlocal:            128 ave         128 max         128 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            544 ave         544 max         544 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:              0 ave           0 max           0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:         3328 ave        3328 max        3328 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 3328
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00

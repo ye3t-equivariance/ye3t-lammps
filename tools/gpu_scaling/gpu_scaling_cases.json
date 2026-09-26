@@ -1,0 +1,159 @@
+{
+  "cases": {
+    "compact": {
+      "auto_expectation": {
+        "active_families": "direct",
+        "calibration_hash": "not_applicable",
+        "decision_reason": "no_authorized_non_direct_profile_match",
+        "evaluator": "auto[direct]",
+        "planner_algorithm": "conservative_direct_fallback_v1",
+        "planner_profile": "kokkos_gpu_conservative_direct_v1",
+        "planner_status": "selected_direct_no_authorized_profile",
+        "require_direct_flat_plan_identity": true
+      },
+      "default_evaluators": [
+        "direct",
+        "block",
+        "auto"
+      ],
+      "description": "Fitted compact L8 model with certified symmetric-power block routes.",
+      "scientific_status": "fitted_matched_control",
+      "legal_evaluators": [
+        "direct",
+        "block",
+        "auto"
+      ],
+      "model_directory": "ta_l8_compact",
+      "pace_product": {
+        "supported": true
+      }
+    },
+    "full": {
+      "auto_expectation": {
+        "active_families": "direct",
+        "calibration_hash": "not_applicable",
+        "decision_reason": "no_authorized_non_direct_profile_match",
+        "evaluator": "auto[direct]",
+        "planner_algorithm": "conservative_direct_fallback_v1",
+        "planner_profile": "kokkos_gpu_conservative_direct_v1",
+        "planner_status": "selected_direct_no_authorized_profile",
+        "require_direct_flat_plan_identity": true
+      },
+      "default_evaluators": [
+        "direct",
+        "coupled_product",
+        "auto"
+      ],
+      "description": "Fitted full L8 model with a certified coupled-product candidate.",
+      "scientific_status": "fitted_primary_l8",
+      "legal_evaluators": [
+        "direct",
+        "coupled_product",
+        "auto"
+      ],
+      "model_directory": "ta_l8_full",
+      "pace_product": {
+        "supported": true
+      }
+    },
+    "h16": {
+      "auto_expectation": {
+        "active_families": "direct",
+        "calibration_hash": "not_applicable",
+        "decision_reason": "no_authorized_non_direct_profile_match",
+        "evaluator": "auto[direct]",
+        "planner_algorithm": "conservative_direct_fallback_v1",
+        "planner_profile": "kokkos_gpu_conservative_direct_v1",
+        "planner_status": "selected_direct_no_authorized_profile",
+        "require_direct_flat_plan_identity": true
+      },
+      "default_evaluators": [
+        "direct",
+        "block",
+        "scalar_power",
+        "auto"
+      ],
+      "description": "Fitted compact L8 control plus one tiny H16 execution sentinel.",
+      "scientific_status": "kernel_execution_sentinel_not_a_high_rank_fit",
+      "legal_evaluators": [
+        "direct",
+        "block",
+        "scalar_power",
+        "auto"
+      ],
+      "model_directory": "ta_l8_h16",
+      "pace_product": {
+        "supported": true
+      }
+    },
+    "h24": {
+      "auto_expectation": {
+        "active_families": "direct",
+        "calibration_hash": "not_applicable",
+        "decision_reason": "no_authorized_non_direct_profile_match",
+        "evaluator": "auto[direct]",
+        "planner_algorithm": "conservative_direct_fallback_v1",
+        "planner_profile": "kokkos_gpu_conservative_direct_v1",
+        "planner_status": "selected_direct_no_authorized_profile",
+        "require_direct_flat_plan_identity": true
+      },
+      "default_evaluators": [
+        "direct",
+        "block",
+        "scalar_power",
+        "auto"
+      ],
+      "description": "Fitted compact L8 control plus tiny H16/H24 execution sentinels.",
+      "scientific_status": "kernel_execution_sentinel_not_a_high_rank_fit",
+      "legal_evaluators": [
+        "direct",
+        "block",
+        "scalar_power",
+        "auto"
+      ],
+      "model_directory": "ta_l8_h16_h24",
+      "pace_product": {
+        "supported": true
+      }
+    },
+    "h32": {
+      "auto_expectation": {
+        "active_families": "direct",
+        "calibration_hash": "not_applicable",
+        "decision_reason": "no_authorized_non_direct_profile_match",
+        "evaluator": "auto[direct]",
+        "planner_algorithm": "conservative_direct_fallback_v1",
+        "planner_profile": "kokkos_gpu_conservative_direct_v1",
+        "planner_status": "selected_direct_no_authorized_profile",
+        "require_direct_flat_plan_identity": true
+      },
+      "default_evaluators": [
+        "direct",
+        "block",
+        "scalar_power",
+        "auto"
+      ],
+      "description": "Fitted compact L8 control plus tiny H16/H24/H32 execution sentinels; ML-PACE cannot load rank 32.",
+      "scientific_status": "kernel_execution_sentinel_not_a_high_rank_fit",
+      "legal_evaluators": [
+        "direct",
+        "block",
+        "scalar_power",
+        "auto"
+      ],
+      "model_directory": "ta_l8_h16_h24_h32",
+      "pace_product": {
+        "reason": "Pinned ML-PACE product rejects the rank-32 model during load.",
+        "supported": false
+      }
+    }
+  },
+  "evaluator_semantics": {
+    "auto": "Catalogue-global GPU planner over exact candidates; the current checked cases use a conservative direct fallback.",
+    "block": "Certified symmetric-power block construction, exact recoupling, and explicit direct residual rows.",
+    "coupled_product": "Compiler-owned shared coupled/Gram-DAG execution with an exact adjoint.",
+    "direct": "Explicit C-tilde product-DAG evaluation and adjoint.",
+    "scalar_power": "Homogeneous/decomposable scalar powers evaluated with division-free addition chains."
+  },
+  "schema": "ye3t_gpu_scaling_cases_v1"
+}

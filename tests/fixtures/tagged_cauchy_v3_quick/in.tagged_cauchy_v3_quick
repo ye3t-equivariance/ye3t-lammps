@@ -1,0 +1,59 @@
+# Tagged-Cauchy V3 static CPU/MPI correctness example.
+# The bundled two-feature model is a synthetic software fixture, not a
+# physically fitted tantalum potential. See README.md and THEORY.md.
+
+variable model index tagged_cauchy_v3_quick/tagged_cauchy_physical_image_v3.json
+variable dump_path index dump.tagged_cauchy_v3_quick
+
+units metal
+atom_style atomic
+boundary p p p
+atom_modify map yes sort 0 0.0
+newton on
+
+lattice bcc 3.3
+region cell block 0 3 0 3 0 3 units lattice
+create_box 1 cell
+create_atoms 1 box
+mass 1 180.94788
+reset_atoms id sort yes
+
+group displaced id 1
+displace_atoms displaced move 0.07 -0.03 0.02 units box
+
+neighbor 0.3 bin
+neigh_modify every 1 delay 0 check yes
+
+pair_style ye3t model_family tagged_cauchy chunksize 32 block_policy direct
+pair_coeff * * ${model} Ta
+
+compute atom_energy all pe/atom
+compute atom_stress all stress/atom NULL pair
+compute pair_pressure all pressure NULL pair
+
+thermo 1
+thermo_style custom step atoms vol pe c_pair_pressure[1] &
+  c_pair_pressure[2] c_pair_pressure[3] c_pair_pressure[4] &
+  c_pair_pressure[5] c_pair_pressure[6]
+thermo_modify format float %.17g
+run 0 post no
+
+write_dump all custom ${dump_path} id type proc x y z c_atom_energy &
+  c_atom_stress[1] c_atom_stress[2] c_atom_stress[3] &
+  c_atom_stress[4] c_atom_stress[5] c_atom_stress[6] fx fy fz &
+  modify sort id format float %.17g
+
+variable virial_xx equal c_pair_pressure[1]*vol/1.6021765e6
+variable virial_yy equal c_pair_pressure[2]*vol/1.6021765e6
+variable virial_zz equal c_pair_pressure[3]*vol/1.6021765e6
+variable virial_xy equal c_pair_pressure[4]*vol/1.6021765e6
+variable virial_xz equal c_pair_pressure[5]*vol/1.6021765e6
+variable virial_yz equal c_pair_pressure[6]*vol/1.6021765e6
+
+print "YE3T_TAGGED_V3_PE=$(pe:%.17g)"
+print "YE3T_TAGGED_V3_VIRIAL_XX=$(v_virial_xx:%.17g)"
+print "YE3T_TAGGED_V3_VIRIAL_YY=$(v_virial_yy:%.17g)"
+print "YE3T_TAGGED_V3_VIRIAL_ZZ=$(v_virial_zz:%.17g)"
+print "YE3T_TAGGED_V3_VIRIAL_XY=$(v_virial_xy:%.17g)"
+print "YE3T_TAGGED_V3_VIRIAL_XZ=$(v_virial_xz:%.17g)"
+print "YE3T_TAGGED_V3_VIRIAL_YZ=$(v_virial_yz:%.17g)"
