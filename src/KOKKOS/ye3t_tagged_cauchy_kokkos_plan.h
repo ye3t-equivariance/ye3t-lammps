@@ -126,6 +126,8 @@ template <class DeviceType> class TaggedCauchyKokkosPlan {
 
   void upload(const TaggedCauchyModel &model, std::size_t allocation_budget)
   {
+    if (model.deployment_kind == TaggedCauchyDeploymentKind::PhysicalImageV4)
+      throw std::runtime_error("Tagged V4 pair-specific sources and references require the CPU runtime");
     if (model.species_order.empty() || model.channels.empty() || model.feature_count <= 0 ||
         model.cutoff <= 0.0)
       throw std::invalid_argument("invalid tagged-Cauchy device model");

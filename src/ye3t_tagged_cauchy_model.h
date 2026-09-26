@@ -28,6 +28,7 @@ namespace YE3T_LAMMPS {
 enum class TaggedCauchyDeploymentKind {
   LegacyMomentV2,
   PhysicalImageV3,
+  PhysicalImageV4,
 };
 
 enum class TaggedCauchySourceRealization {
@@ -127,6 +128,14 @@ struct TaggedCauchyExecutionPortfolio {
   bool block_eligible = false;
 };
 
+// Artifact-bound pair reference; constants use LAMMPS metal units. The
+// additive C2 switch is precomputed at load, independently from its equations.
+struct TaggedCauchyZBLPair {
+  double inner = 0.0, outer = 0.0;
+  double screening_length = 0.0, amplitude = 0.0;
+  double cubic = 0.0, quartic = 0.0, constant = 0.0;
+};
+
 // A loaded, hash-verified `ye3t_tagged_cauchy_slice_v2` artifact, reduced to
 // exactly what the native real-arithmetic evaluator needs: the compiled
 // `real_moment_program` (already lowered to real tesseral components and
@@ -139,6 +148,8 @@ struct TaggedCauchyModel {
   static TaggedCauchyModel load(const std::string &path);
   double memory_usage() const;
   bool has_ordinary_backbone() const { return !ordinary_model_path.empty(); }
+  bool is_physical_image() const
+  { return deployment_kind != TaggedCauchyDeploymentKind::LegacyMomentV2; }
 
   std::string model_path;
   std::string self_hash;
@@ -161,6 +172,9 @@ struct TaggedCauchyModel {
 
   std::vector<std::string> species_order;
   double cutoff = 0.0;
+  // Dense [central species][neighbor species], distinct from host cutoff.
+  std::vector<double> pair_cutoffs;
+  std::vector<TaggedCauchyZBLPair> zbl_pairs;
   int tag_count = 0;
   int feature_count = 0;
 

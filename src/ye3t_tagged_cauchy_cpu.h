@@ -84,7 +84,7 @@ class TaggedCauchyCPUEvaluator {
   // over `model_->total_component_count`); `gradients` is
   // `[edge][component][3]` and is left empty when `need_gradient` is false.
   void compute_edge_components(std::int64_t edge_count, const int *edge_neighbor_species,
-                               const double *edge_vectors, bool need_gradient,
+                               const double *edge_vectors, const double *edge_cutoffs, bool need_gradient,
                                std::vector<double> &values, std::vector<double> &gradients);
 
   const TaggedCauchyModel *model_;
@@ -131,6 +131,7 @@ class TaggedCauchyCPUEvaluator {
   std::vector<double> component_gradients_;
   std::vector<double> source_batch_component_values_;
   std::vector<double> source_batch_component_gradients_;
+  std::vector<double> source_batch_cutoffs_;
   std::vector<double> component_values_transposed_;
 
   std::vector<double> density_;

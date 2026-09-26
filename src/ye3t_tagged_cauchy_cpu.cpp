@@ -386,7 +386,7 @@ void TaggedCauchyCPUEvaluator::freeze_auto_policy(TaggedCauchyExecutionPolicy po
 }
 
 void TaggedCauchyCPUEvaluator::compute_edge_components(
-    std::int64_t edge_count, const int *edge_neighbor_species, const double *edge_vectors,
+    std::int64_t edge_count, const int *edge_neighbor_species, const double *edge_vectors, const double *edge_cutoffs,
     bool need_gradient, std::vector<double> &values, std::vector<double> &gradients)
 {
   values.assign(static_cast<std::size_t>(edge_count) * static_cast<std::size_t>(total_components_),
@@ -415,7 +415,7 @@ void TaggedCauchyCPUEvaluator::compute_edge_components(
     unit_vectors_[e * 3] = dx / safe_radius;
     unit_vectors_[e * 3 + 1] = dy / safe_radius;
     unit_vectors_[e * 3 + 2] = dz / safe_radius;
-    if (model.deployment_kind == TaggedCauchyDeploymentKind::PhysicalImageV3 && radii_[e] == 0.0)
+    if (model.is_physical_image() && radii_[e] == 0.0)
       throw std::runtime_error("tagged-Cauchy V3 source rejects exact zero separation before "
                                "direction evaluation");
   }
@@ -538,7 +538,7 @@ void TaggedCauchyCPUEvaluator::compute_edge_components(
     double *gradient_row =
         need_gradient ? &gradients[e * static_cast<std::size_t>(total_components_) * 3] : nullptr;
     if (model.source_realization == TaggedCauchySourceRealization::ShiftedJacobiThreeTermV1) {
-      const double x = radii_[e] / model.cutoff;
+      const double x = radii_[e] / edge_cutoffs[e];
       for (std::size_t slot = 0; slot < l_list_.size(); ++slot) {
         const std::size_t offset = jacobi_offsets_by_slot_[slot];
         shifted_jacobi_ladder_with_derivative(jacobi_max_q_by_slot_[slot], l_list_[slot], x,
@@ -559,8 +559,8 @@ void TaggedCauchyCPUEvaluator::compute_edge_components(
           : nullptr;
       double R = 0.0;
       double dR = 0.0;
-      if (model.deployment_kind == TaggedCauchyDeploymentKind::PhysicalImageV3) {
-        const double x = radii_[e] / model.cutoff;
+      if (model.is_physical_image()) {
+        const double x = radii_[e] / edge_cutoffs[e];
         if (x < 1.0) {
           double polynomial = 0.0;
           double polynomial_dx = 0.0;
@@ -585,7 +585,7 @@ void TaggedCauchyCPUEvaluator::compute_edge_components(
           dR = scale *
               (envelope_dx * polynomial * x_l + envelope * polynomial_dx * x_l +
                envelope * polynomial * x_l_dx) /
-              model.cutoff;
+              edge_cutoffs[e];
         }
       } else {
         R = radial_values_[e * static_cast<std::size_t>(model.radial_count) +
@@ -635,8 +635,15 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
     const std::size_t source_edge_end = edge_offsets[static_cast<std::size_t>(source_batch_end)];
     const std::int64_t source_edge_count =
         static_cast<std::int64_t>(source_edge_end - source_edge_begin);
+    source_batch_cutoffs_.assign(static_cast<std::size_t>(source_edge_count), model.cutoff);
+    if (!model.pair_cutoffs.empty())
+      for (int center = source_batch_begin; center < source_batch_end; ++center)
+        for (std::size_t edge = edge_offsets[center]; edge < edge_offsets[center + 1]; ++edge)
+          source_batch_cutoffs_[edge - source_edge_begin] = model.pair_cutoffs[
+              static_cast<std::size_t>(central_species_indices[center]) * model.species_order.size() +
+              static_cast<std::size_t>(edge_neighbor_species[edge])];
     compute_edge_components(source_edge_count, edge_neighbor_species + source_edge_begin,
-                            edge_vectors + source_edge_begin * 3, true,
+                            edge_vectors + source_edge_begin * 3, source_batch_cutoffs_.data(), true,
                             source_batch_component_values_, source_batch_component_gradients_);
 
     for (int center = source_batch_begin; center < source_batch_end; ++center) {
@@ -1276,6 +1283,34 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
           edge_gradients[(begin + static_cast<std::size_t>(e)) * 3 + 2] = gz;
         }
       }
+      if (!model.zbl_pairs.empty()) {
+        const double weights[] = {0.18175, 0.50986, 0.28022, 0.02817};
+        const double rates[] = {3.19980, 0.94229, 0.40290, 0.20162};
+        for (std::size_t edge = begin; edge < end; ++edge) {
+          const auto &pair = model.zbl_pairs[species * model.species_order.size() +
+                                            static_cast<std::size_t>(edge_neighbor_species[edge])];
+          const double *delta = edge_vectors + 3 * edge;
+          const double r = std::sqrt(delta[0]*delta[0] + delta[1]*delta[1] + delta[2]*delta[2]);
+          if (r >= pair.outer) continue;
+          if (r <= 0.0) throw std::runtime_error("ZBL rejects coincident nuclei");
+          double phi = 0.0, first = 0.0;
+          for (int term = 0; term < 4; ++term) {
+            const double rate = rates[term]/pair.screening_length;
+            const double value = weights[term]*std::exp(-rate*r);
+            phi += value; first -= rate*value;
+          }
+          const double shift = std::max(0.0, r-pair.inner);
+          const double square = shift*shift;
+          const double value = pair.amplitude*phi/r + pair.constant +
+              pair.cubic*square*shift/3 + pair.quartic*square*square/4;
+          const double derivative = pair.amplitude*(first/r-phi/(r*r)) +
+              pair.cubic*square + pair.quartic*square*shift;
+          // Each centered full-list edge owns half of this pair reference.
+          atomic_energies[center] += 0.5*value;
+          for (int axis = 0; axis < 3; ++axis)
+            edge_gradients[edge*3+axis] += 0.5*derivative*delta[axis]/r;
+        }
+      }
     }
   }
 }
@@ -1315,6 +1350,7 @@ double TaggedCauchyCPUEvaluator::memory_usage() const
   bytes += component_gradients_.capacity() * sizeof(double);
   bytes += source_batch_component_values_.capacity() * sizeof(double);
   bytes += source_batch_component_gradients_.capacity() * sizeof(double);
+  bytes += source_batch_cutoffs_.capacity() * sizeof(double);
   bytes += component_values_transposed_.capacity() * sizeof(double);
   bytes += density_.capacity() * sizeof(double);
   bytes += density_adjoint_.capacity() * sizeof(double);

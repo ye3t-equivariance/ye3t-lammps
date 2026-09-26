@@ -52,6 +52,10 @@ Examples
    pair_coeff * * ye3t model.ye3t.json Cu
    pair_coeff * * zbl 29 29
 
+   # V4 model with artifact-bound atomic references and pair-specific ZBL:
+   pair_style ye3t model_family tagged_cauchy block_policy direct
+   pair_coeff * * model.ye3t.json H O K S
+
 Description
 """""""""""
 
@@ -83,6 +87,15 @@ instance of this pair style. For *lifted_cauchy* it is the
 the element name for each LAMMPS atom type in order, exactly as for
 :doc:`pair_style pace <pair_pace>`. Every species named by the model
 must be mapped by at least one atom type.
+
+Tagged V4 bundles support directed species-pair descriptor cutoffs and bound
+fixed atomic references plus pair-specific ZBL switches on the CPU. The same
+compiled polynomial and explicit adjoint used by Python training are consumed
+by the native evaluator. If ``readout_binding.payload.reference_terms``
+contains ZBL, it is included in energies, forces and virials: do not add an
+external ZBL overlay. The earlier overlay example is for residual-only legacy
+bundles without bound references. V4 is rejected by ``ye3t/kk`` until the
+pair-specific source/reference path is qualified on the device.
 
 The *plan* keyword names a compiled execution-plan manifest for a *yace*
 model. The plan is produced by the ``ye3t`` compiler together with the

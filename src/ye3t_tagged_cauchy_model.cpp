@@ -334,7 +334,30 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
 
   YAML::Node model;
   try {
-    model = YAML::LoadFile(model_path.string());
+    const std::string schema_hint = json_string_value(
+        canonical_json_root_member_value(supplied_path, "schema"), "model.schema");
+    if (schema_hint == "ye3t_tagged_cauchy_slice_v4") {
+      // V4 carries a large offline proof (parents, formal labels and exact
+      // reconstruction rows). Inference never traverses it. Materialize only
+      // the fields consumed below; every checksum still uses the complete
+      // original JSON, including that proof, through the canonical reader.
+      model = YAML::Node(YAML::NodeType::Map);
+      for (const char *member : {"schema", "self_hash", "compiler_artifact_hash",
+                                "deployment_identity_hash", "conventions",
+                                "source_binding", "schedule_binding", "readout_binding"})
+        model[member] = YAML::Load(canonical_json_root_member_value(supplied_path, member));
+      const std::string compiler_json =
+          canonical_json_root_member_value(supplied_path, "compiler_artifact");
+      const std::string compiler_payload_json =
+          canonical_json_value_root_member(compiler_json, "payload");
+      YAML::Node payload(YAML::NodeType::Map);
+      for (const char *member : {"catalogue_hash", "real_schedule_core_hash",
+                                "moment_schedules", "source_product_algebra"})
+        payload[member] = YAML::Load(canonical_json_value_root_member(compiler_payload_json, member));
+      model["compiler_artifact"]["payload"] = payload;
+    } else {
+      model = YAML::LoadFile(model_path.string());
+    }
   } catch (const YAML::Exception &exception) {
     fail(supplied_path, std::string("invalid JSON: ") + exception.what());
   }
@@ -389,7 +412,8 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     result.tagged_component_hash = tagged.second;
     return result;
   }
-  const bool physical_image_v3 = schema == "ye3t_tagged_cauchy_slice_v3";
+  const bool physical_image_v4 = schema == "ye3t_tagged_cauchy_slice_v4";
+  const bool physical_image_v3 = schema == "ye3t_tagged_cauchy_slice_v3" || physical_image_v4;
   if (!physical_image_v3 && schema != "ye3t_tagged_cauchy_slice_v2")
     fail("model.schema", "unsupported tagged-Cauchy schema");
 
@@ -402,6 +426,11 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
   result.self_hash = self_hash;
   result.deployment_kind = physical_image_v3 ? TaggedCauchyDeploymentKind::PhysicalImageV3
                                              : TaggedCauchyDeploymentKind::LegacyMomentV2;
+  if (physical_image_v4) result.deployment_kind = TaggedCauchyDeploymentKind::PhysicalImageV4;
+  const YAML::Node algebra = physical_image_v4 && model["compiler_artifact"]["payload"]["source_product_algebra"]
+      ? model["compiler_artifact"]["payload"]["source_product_algebra"]
+      : (physical_image_v3 ? model["compiler_artifact"]["plan"]["report"]["request"]["source_product_algebra"]
+                           : YAML::Node());
 
   YAML::Node source;
   YAML::Node program;
@@ -482,8 +511,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
              "compiler schedule ordering changed");
     }
 
-    const YAML::Node source_algebra =
-        model["compiler_artifact"]["plan"]["report"]["request"]["source_product_algebra"];
+    const YAML::Node source_algebra = algebra;
     require_mapping(source_algebra,
                     "model.compiler_artifact.plan.report.request.source_product_algebra");
     if (sha256_field(source["source_product_algebra_hash"],
@@ -563,14 +591,33 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
   result.cutoff = finite_number(
       source["cutoff"], physical_image_v3 ? "model.source_binding.payload.cutoff" : "model.cutoff");
   if (result.cutoff <= 0.0) fail("model.cutoff", "cutoff must be positive");
+  if (physical_image_v4) {
+    const std::size_t species_count = result.species_order.size();
+    result.pair_cutoffs.assign(species_count * species_count, result.cutoff);
+    if (source["pair_cutoffs_A"]) {
+      const YAML::Node pairs = source["pair_cutoffs_A"];
+      require_mapping(pairs, "source.pair_cutoffs_A");
+      if (pairs.size() != species_count * species_count)
+        fail("source.pair_cutoffs_A", "expected every directed species pair");
+      for (std::size_t left = 0; left < species_count; ++left)
+        for (std::size_t right = 0; right < species_count; ++right) {
+          const std::string key = result.species_order[left] + "-" + result.species_order[right];
+          const double value = finite_number(pairs[key], "source.pair_cutoffs_A." + key);
+          if (value <= 0.0 || value > result.cutoff)
+            fail("source.pair_cutoffs_A", "pair cutoff must be positive and within host cutoff");
+          result.pair_cutoffs[left * species_count + right] = value;
+        }
+    }
+  } else if (source["pair_cutoffs_A"]) {
+    fail("source.pair_cutoffs_A", "pair-specific sources require a V4 deployment");
+  }
 
   result.tag_count = integer(
       physical_image_v3 ? program["tag_count"] : model["tag_count"],
       physical_image_v3 ? "model.schedule_binding.payload.tag_count" : "model.tag_count", 0);
 
   if (physical_image_v3) {
-    const YAML::Node source_algebra =
-        model["compiler_artifact"]["plan"]["report"]["request"]["source_product_algebra"];
+    const YAML::Node source_algebra = algebra;
     require_mapping(source_algebra,
                     "model.compiler_artifact.plan.report.request.source_product_algebra");
     require_sequence(readout["species_order"], "model.readout_binding.payload.species_order");
@@ -706,6 +753,124 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     for (std::size_t index = 0; index < result.species_order.size(); ++index)
       if (!std::isfinite(result.offsets[index]))
         fail(path, "missing offset for species '" + result.species_order[index] + "'");
+  }
+
+  if (readout["reference_terms"]) {
+    if (!physical_image_v4) fail("readout.reference_terms", "bound references require V4");
+    const YAML::Node references = readout["reference_terms"];
+    require_mapping(references, "readout.reference_terms");
+    for (const auto &entry : references) {
+      const std::string key = scalar_string(entry.first, "reference term key");
+      if (key != "atomic_energies" && key != "zbl")
+        fail("readout.reference_terms", "unsupported reference component");
+    }
+    const YAML::Node atomic = references["atomic_energies"];
+    if (atomic) {
+      require_mapping(atomic, "reference atomic_energies");
+      if (atomic.size() != result.species_order.size())
+        fail("reference atomic_energies", "expected every species");
+      for (std::size_t species = 0; species < result.species_order.size(); ++species)
+        result.offsets[species] += finite_number(atomic[result.species_order[species]],
+                                                "reference atomic energy");
+    }
+    const YAML::Node zbl = references["zbl"];
+    if (zbl && !zbl.IsNull()) {
+      require_mapping(zbl, "reference zbl");
+      if (scalar_string(zbl["schema"], "zbl.schema") != "ye3t_portable_zbl_reference_v1" ||
+          scalar_string(zbl["engine"], "zbl.engine") != "numpy" ||
+          scalar_string(zbl["units"], "zbl.units") != "metal" ||
+          scalar_string(zbl["pair_style"], "zbl.pair_style") != "zbl" ||
+          scalar_string(zbl["switch"], "zbl.switch") != "additive_gromacs_C2" ||
+          finite_number(zbl["coulomb_constant_eV_A"], "zbl.coulomb_constant") != 14.399645)
+        fail("reference zbl", "unsupported ZBL convention");
+      const YAML::Node numbers = zbl["atomic_numbers"];
+      require_mapping(numbers, "zbl.atomic_numbers");
+      if (numbers.size() != result.species_order.size())
+        fail("zbl.atomic_numbers", "expected every species");
+      std::vector<int> charges;
+      for (const auto &species : result.species_order)
+        charges.push_back(integer(numbers[species], "zbl.atomic_numbers." + species, 1));
+      const YAML::Node pairs = zbl["pair_cutoffs_A"];
+      if (pairs) {
+        require_mapping(pairs, "zbl.pair_cutoffs_A");
+        if (pairs.size() != result.species_order.size() * (result.species_order.size() + 1) / 2)
+          fail("zbl.pair_cutoffs_A", "expected one canonical unordered entry per pair");
+        for (const auto &entry : pairs) {
+          const std::string key = scalar_string(entry.first, "ZBL pair key");
+          const auto dash = key.find('-');
+          if (dash == std::string::npos || species_index(key.substr(0, dash)) < 0 ||
+              species_index(key.substr(dash + 1)) < 0 || key.substr(0, dash) > key.substr(dash + 1))
+            fail("zbl.pair_cutoffs_A", "unknown species pair");
+        }
+      }
+      const std::string readout_json = canonical_json_nested_member_value(supplied_path, "readout_binding", "payload");
+      const std::string references_json = canonical_json_value_root_member(readout_json, "reference_terms");
+      const std::string zbl_json = canonical_json_value_root_member(references_json, "zbl");
+      std::set<std::string> fields = {"schema", "engine", "pair_style", "units", "atomic_numbers",
+                                     "coulomb_constant_eV_A", "switch"};
+      if (pairs) fields.insert("pair_cutoffs_A");
+      else { fields.insert("inner_cutoff_A"); fields.insert("outer_cutoff_A"); }
+      for (const auto &entry : zbl) {
+        const std::string key = scalar_string(entry.first, "ZBL metadata key");
+        if (key != "structure_count" && key != "semantic_sha256" && !fields.count(key))
+          fail("reference zbl", "unexpected numerical convention field");
+      }
+      std::string semantic_json = "{";
+      for (const auto &key : fields) {
+        if (semantic_json.size() > 1) semantic_json += ",";
+        semantic_json += "\"" + key + "\":" + canonical_json_value_root_member(zbl_json, key);
+      }
+      semantic_json += "}";
+      if (sha256_string(semantic_json) != sha256_field(zbl["semantic_sha256"], "zbl.semantic_sha256"))
+        fail("reference zbl", "semantic hash mismatch");
+      const std::size_t count = result.species_order.size();
+      result.zbl_pairs.resize(count * count);
+      // Independent evaluation of the published ZBL and additive GROMACS C2
+      // equations: https://docs.lammps.org/pair_zbl.html and pair_gromacs.html.
+      const double weights[] = {0.18175, 0.50986, 0.28022, 0.02817};
+      const double rates[] = {3.19980, 0.94229, 0.40290, 0.20162};
+      for (std::size_t left = 0; left < count; ++left)
+        for (std::size_t right = 0; right < count; ++right) {
+          auto &pair = result.zbl_pairs[left * count + right];
+          if (pairs) {
+            const std::string key = result.species_order[left] + "-" + result.species_order[right];
+            const std::string reverse = result.species_order[right] + "-" + result.species_order[left];
+            const YAML::Node values = pairs[key] ? pairs[key] : pairs[reverse];
+            require_sequence(values, "zbl.pair_cutoffs_A." + key);
+            if (values.size() != 2) fail("zbl.pair_cutoffs_A", "expected [inner, outer]");
+            pair.inner = finite_number(values[0], "ZBL inner cutoff");
+            pair.outer = finite_number(values[1], "ZBL outer cutoff");
+            if (pairs[key] && pairs[reverse] &&
+                (pair.inner != finite_number(pairs[reverse][0], "reverse ZBL inner") ||
+                 pair.outer != finite_number(pairs[reverse][1], "reverse ZBL outer")))
+              fail("zbl.pair_cutoffs_A", "ZBL pair switches must be symmetric");
+          } else {
+            pair.inner = finite_number(zbl["inner_cutoff_A"], "ZBL inner cutoff");
+            pair.outer = finite_number(zbl["outer_cutoff_A"], "ZBL outer cutoff");
+          }
+          if (!(0 < pair.inner && pair.inner < pair.outer))
+            fail("reference zbl", "cutoffs require 0 < inner < outer");
+          result.cutoff = std::max(result.cutoff, pair.outer);
+          pair.screening_length = 0.46850 / (std::pow(charges[left], 0.23) + std::pow(charges[right], 0.23));
+          pair.amplitude = 14.399645 * charges[left] * charges[right];
+          double phi = 0.0, first = 0.0, second = 0.0;
+          for (int term = 0; term < 4; ++term) {
+            const double rate = rates[term] / pair.screening_length;
+            const double value = weights[term] * std::exp(-rate * pair.outer);
+            phi += value; first -= rate * value; second += rate * rate * value;
+          }
+          const double r = pair.outer;
+          const double endpoint = pair.amplitude * phi / r;
+          const double derivative = pair.amplitude * (first / r - phi / (r*r));
+          const double curvature = pair.amplitude * (second / r - 2*first/(r*r) + 2*phi/(r*r*r));
+          const double width = pair.outer - pair.inner;
+          pair.cubic = (-3*derivative + width*curvature)/(width*width);
+          pair.quartic = (2*derivative - width*curvature)/(width*width*width);
+          pair.constant = -endpoint + width*derivative/2 - width*width*curvature/12;
+          if (!std::isfinite(pair.cubic) || !std::isfinite(pair.quartic) || !std::isfinite(pair.constant))
+            fail("reference zbl", "non-finite switch coefficients");
+        }
+    }
   }
 
   // radial_definition
@@ -898,8 +1063,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
       require_sequence(program_channels, "model.schedule_binding.payload.channels");
       if (program_channels.size() != node.size() || expected_v3_channels.size() != node.size())
         fail(channels_path, "compiler/source/schedule channel counts differ");
-      source_inventory = model["compiler_artifact"]["plan"]["report"]["request"]
-                              ["source_product_algebra"]["source_inventory"];
+      source_inventory = algebra["source_inventory"];
       require_sequence(source_inventory,
                        "model.compiler_artifact.plan.report.request."
                        "source_product_algebra.source_inventory");
@@ -1610,6 +1774,8 @@ double TaggedCauchyModel::memory_usage() const
   for (const auto &species : species_order) bytes += species.capacity() + 1;
   bytes += offsets.capacity() * sizeof(double);
   bytes += offset_mode.capacity() + 1;
+  bytes += pair_cutoffs.capacity() * sizeof(double);
+  bytes += zbl_pairs.capacity() * sizeof(TaggedCauchyZBLPair);
   bytes += beta.capacity() * sizeof(std::vector<double>);
   for (const auto &species_beta : beta) bytes += species_beta.capacity() * sizeof(double);
   bytes += real_forms.capacity() * sizeof(TaggedCauchyRealForm);

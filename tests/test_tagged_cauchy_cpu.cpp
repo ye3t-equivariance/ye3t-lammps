@@ -121,7 +121,7 @@ int run_fixture(const std::string &fixture_path)
                      edge_gradients.data());
 
   bool ok = true;
-  if (model.deployment_kind == YE3T_LAMMPS::TaggedCauchyDeploymentKind::PhysicalImageV3) {
+  if (model.is_physical_image()) {
     const std::vector<std::size_t> overlap_offsets = {0, 1};
     const std::vector<int> overlap_neighbor_species = {central_index};
     const std::vector<double> overlap_vector = {0.0, 0.0, 0.0};

@@ -4615,6 +4615,8 @@ template <class DeviceType> void PairYE3TKokkos<DeviceType>::initialize_lifted_b
 
 template <class DeviceType> void PairYE3TKokkos<DeviceType>::initialize_tagged_backend()
 {
+  if (tagged_cauchy_model().deployment_kind == YE3T_LAMMPS::TaggedCauchyDeploymentKind::PhysicalImageV4)
+    error->all(FLERR, "Tagged V4 pair-specific sources and bound references require CPU pair_style ye3t; Kokkos is not qualified");
   if (execution_space != Device)
     error->all(FLERR, "Pair style ye3t/kk requires a Kokkos device execution space");
   if (block_policy() != YE3T_LAMMPS::YACEBlockPolicy::DIRECT)

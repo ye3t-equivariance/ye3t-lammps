@@ -333,7 +333,7 @@ void PairYE3T::initialize_tagged_backend()
                      tagged_model_->ordinary_model_hash, tagged_model_->tagged_component_hash,
                      tagged_model_->composite_self_hash,
                      tagged_evaluator_->selected_evaluator_name());
-    if (tagged_model_->deployment_kind == YE3T_LAMMPS::TaggedCauchyDeploymentKind::PhysicalImageV3)
+    if (tagged_model_->is_physical_image())
       utils::logmesg(lmp,
                      "YE3T tagged-Cauchy CPU dispatch: compiler-owned physical-image "
                      "schedule, direct shifted-Jacobi source, division-free adjoint, "
@@ -467,15 +467,14 @@ void PairYE3T::coeff(int narg, char **arg)
           ? tagged_model_->composite_self_hash
           : YE3T_LAMMPS::sha256_file(tagged_model_->model_path);
       logical_direct_plan_hash_ =
-          tagged_model_->deployment_kind == YE3T_LAMMPS::TaggedCauchyDeploymentKind::PhysicalImageV3
+          tagged_model_->is_physical_image()
           ? tagged_model_->schedule_hash
           : tagged_model_->self_hash;
       semantic_selection_hash_ = tagged_model_->execution_portfolio.present
           ? YE3T_LAMMPS::sha256_string("ye3t_tagged_execution_selection_v1;" +
                                        tagged_model_->execution_portfolio.portfolio_hash + ";" +
                                        tagged_evaluator_->selected_evaluator_name())
-          : (tagged_model_->deployment_kind ==
-                     YE3T_LAMMPS::TaggedCauchyDeploymentKind::PhysicalImageV3
+          : (tagged_model_->is_physical_image()
                  ? tagged_model_->deployment_identity_hash
                  : tagged_model_->self_hash);
     } catch (const std::exception &exception) {

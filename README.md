@@ -68,6 +68,15 @@ value used during calibration.
 - a Kokkos-supported accelerator toolchain for `ye3t/kk`; CUDA is the
   currently validated device backend
 
+For the optional CMake plugin build (`ML_YE3T_BUILD_LAMMPS_PLUGIN=ON`),
+set `ML_YE3T_LAMMPS_SOURCE` to the exact host LAMMPS headers and match
+`ML_YE3T_LAMMPS_SIZES`. An MPI host additionally requires
+`ML_YE3T_LAMMPS_MPI=ON` and the same MPI implementation/toolchain as the host.
+The default `OFF` uses LAMMPS serial stubs; selecting `mpicxx` alone does not
+change that mode. The host must include the LAMMPS PLUGIN package. These
+options affect only the standalone plugin; the source-package installation
+inherits the host's build settings.
+
 For Debian or Ubuntu, a typical dependency installation is:
 
 ```bash
@@ -309,8 +318,8 @@ pair_coeff * * /path/to/model.ye3t.json Ta
 
 `ye3t_tagged_cauchy_composite_v1` manifests bind an ordinary `.yace` backbone
 and a tagged correction by SHA-256. Both are evaluated inside
-`pair_style ye3t`; no `pair_style pace` instance is required. When the fit uses
-a subtracted ZBL reference, add only that reference with
+`pair_style ye3t`; no `pair_style pace` instance is required. For legacy bundles
+without bound references, restore the subtracted ZBL reference with
 `pair_style hybrid/overlay ye3t ... zbl ...`; the fitted element models in
 `examples/PACKAGES/ye3t/cost_comparison` show the exact decks. Composite
 tagged execution is currently CPU-only; `ye3t/kk` rejects it explicitly
@@ -318,6 +327,13 @@ instead of silently omitting the ordinary component. The tagged Kokkos path
 for native bundles is a direct correctness reference with fixed `l<=8`,
 128-component, and 32-factors-per-term limits and has no block, AUTO,
 performance, or multi-GPU scaling claim.
+
+General `ye3t_tagged_cauchy_slice_v4` models support pair-specific descriptor
+cutoffs and artifact-bound atomic references/ZBL on the CPU. Use one
+`pair_style ye3t model_family tagged_cauchy block_policy direct`: **do not add
+a ZBL overlay** when `reference_terms.zbl` is present. The native V4 path
+includes its energy, forces, and virial. V4 is explicitly rejected by Kokkos
+until the pair-specific source/reference implementation is qualified there.
 
 The portable workflow that counts, fits, exports, and replays a tagged model
 lives in the `ye3t-ace` fitting package (not yet public). Models fitted to
@@ -470,7 +486,9 @@ fitting/export in `ye3t-ace`, and inference in this repository.
 - The shipped Ta controls passed bounded EOS, elasticity/Born, and NVE
   qualification but are not close-collision potentials. ZBL-reference models
   must be trained against `E-E_ZBL` and `F-F_ZBL`, then run with the exact
-  exported `hybrid/overlay ... zbl` settings.
+  exported reference definition. Legacy residual-only models use
+  `hybrid/overlay ... zbl`; V4 models with bound references already restore
+  ZBL internally and must not use an additional overlay.
 - Pair coefficients are not serialized to binary restart files. Restate
   `pair_style` and `pair_coeff` after `read_restart`.
 - The installed-runtime-prefix CMake route is experimental. The documented

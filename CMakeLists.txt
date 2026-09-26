@@ -11,6 +11,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 option(ML_YE3T_BUILD_CPU_RUNTIME "Build the standalone YE3T CPU model evaluator" ON)
 option(ML_YE3T_BUILD_LAMMPS_PLUGIN "Build the loadable PairYE3T CPU plugin" OFF)
+option(ML_YE3T_LAMMPS_MPI "Build the plugin for a real MPI LAMMPS host instead of serial stubs" OFF)
 option(
   ML_YE3T_ENABLE_NATIVE_CPU
   "Compile CPU kernels for the build host instead of a portable x86-64 baseline"
@@ -552,8 +553,13 @@ if(ML_YE3T_BUILD_LAMMPS_PLUGIN)
     ye3tplugin
     PRIVATE
     "${ML_YE3T_LAMMPS_SOURCE}"
-    "${ML_YE3T_LAMMPS_SOURCE}/STUBS"
   )
+  if(ML_YE3T_LAMMPS_MPI)
+    find_package(MPI REQUIRED COMPONENTS CXX)
+    target_link_libraries(ye3tplugin PRIVATE MPI::MPI_CXX)
+  else()
+    target_include_directories(ye3tplugin PRIVATE "${ML_YE3T_LAMMPS_SOURCE}/STUBS")
+  endif()
   if(ML_YE3T_LAMMPS_SIZES STREQUAL "smallbig")
     target_compile_definitions(ye3tplugin PRIVATE LAMMPS_SMALLBIG)
   elseif(ML_YE3T_LAMMPS_SIZES STREQUAL "bigbig")
@@ -562,6 +568,7 @@ if(ML_YE3T_BUILD_LAMMPS_PLUGIN)
     message(FATAL_ERROR "ML_YE3T_LAMMPS_SIZES must be smallbig or bigbig")
   endif()
   message(STATUS "PairYE3T plugin LAMMPS integer ABI: ${ML_YE3T_LAMMPS_SIZES}")
+  message(STATUS "PairYE3T plugin real MPI: ${ML_YE3T_LAMMPS_MPI}")
   target_link_libraries(ye3tplugin PRIVATE ml_ye3t_cpu)
   set_target_properties(
     ye3tplugin
