@@ -1,6 +1,6 @@
 # Authors
 
-`ye3t-lammps` is written and maintained by the YE3T authors:
+Copyright holder and author of `ye3t-lammps`:
 
 - James M. Goff (Sandia National Laboratories)
 

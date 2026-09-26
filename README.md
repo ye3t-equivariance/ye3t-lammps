@@ -549,6 +549,6 @@ output should remain outside this repository.
 
 `ye3t-lammps` is distributed under the GNU General Public License, version 2
 or (at your option) any later version (SPDX: `GPL-2.0-or-later`); the full
-license text is in `LICENSE`. Copyright (c) 2026 The YE3T authors; the authors
-are listed in `AUTHORS.md`. The separately distributed YE3T runtime is
+license text is in `LICENSE`. Copyright (c) 2026 James M. Goff; the authors are
+listed in `AUTHORS.md`. The separately distributed YE3T runtime is
 BSD-3-Clause.
