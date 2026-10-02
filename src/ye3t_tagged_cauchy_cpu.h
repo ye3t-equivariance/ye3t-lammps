@@ -53,7 +53,8 @@ class TaggedCauchyCPUEvaluator {
 
   void evaluate(int atom_count, const int *central_species_indices, const std::size_t *edge_offsets,
                 const int *edge_neighbor_species, const double *edge_vectors,
-                double *atomic_energies, double *edge_gradients);
+                double *atomic_energies, double *edge_gradients,
+                double *atomic_features = nullptr);
 
   double memory_usage() const;
   const char *selected_evaluator_name() const;

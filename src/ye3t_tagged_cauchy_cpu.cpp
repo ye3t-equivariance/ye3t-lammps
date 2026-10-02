@@ -612,7 +612,7 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
                                         const std::size_t *edge_offsets,
                                         const int *edge_neighbor_species,
                                         const double *edge_vectors, double *atomic_energies,
-                                        double *edge_gradients)
+                                        double *edge_gradients, double *atomic_features)
 {
   if (auto_requested() && !auto_calibrated_ && !auto_calibration_in_progress_)
     throw std::runtime_error("tagged-Cauchy AUTO must be calibrated and frozen before evaluation");
@@ -886,6 +886,22 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
         for (int p = 0; p <= maximum_term_p_; ++p)
           free_count_by_p_[static_cast<std::size_t>(p)] =
               falling_factorial(edge_count, p, model.tag_count);
+
+      if (atomic_features != nullptr) {
+        double *features = atomic_features +
+            static_cast<std::size_t>(center) * static_cast<std::size_t>(model.feature_count);
+        std::fill(features, features + model.feature_count, 0.0);
+        for (const TaggedCauchyTerm &term : model.terms) {
+          double product = term.coefficient;
+          for (const int density_index : term.density_factor_indices)
+            product *= density_[static_cast<std::size_t>(density_index)];
+          for (const int moment_index : term.moment_indices)
+            product *= moment_[static_cast<std::size_t>(moment_index)];
+          if (model.deployment_kind == TaggedCauchyDeploymentKind::LegacyMomentV2)
+            product *= free_count_by_p_[static_cast<std::size_t>(term.p)];
+          features[static_cast<std::size_t>(term.feature_index)] += product;
+        }
+      }
 
       const std::int64_t term_begin = species_term_offsets_[species];
       const std::int64_t term_end = species_term_offsets_[species + 1];

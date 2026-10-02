@@ -10,6 +10,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 option(ML_YE3T_BUILD_CPU_RUNTIME "Build the standalone YE3T CPU model evaluator" ON)
+option(ML_YE3T_BUILD_TAGGED_C_API "Build a shared tagged-Cauchy C ABI for ASE callers" OFF)
 option(ML_YE3T_BUILD_LAMMPS_PLUGIN "Build the loadable PairYE3T CPU plugin" OFF)
 option(ML_YE3T_LAMMPS_MPI "Build the plugin for a real MPI LAMMPS host instead of serial stubs" OFF)
 option(
@@ -250,6 +251,11 @@ if(ML_YE3T_BUILD_CPU_RUNTIME)
   )
   target_include_directories(ml_ye3t_cpu PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
   target_link_libraries(ml_ye3t_cpu PUBLIC ml_ye3t_runtime_core yaml-cpp::yaml-cpp)
+
+  if(ML_YE3T_BUILD_TAGGED_C_API)
+    add_library(ye3t_tagged_c_api SHARED src/ye3t_tagged_c_api.cpp)
+    target_link_libraries(ye3t_tagged_c_api PRIVATE ml_ye3t_cpu)
+  endif()
 
   if(BUILD_TESTING)
     find_program(ML_YE3T_BASH_EXECUTABLE bash)

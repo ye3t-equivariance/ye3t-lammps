@@ -344,7 +344,8 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
       model = YAML::Node(YAML::NodeType::Map);
       for (const char *member : {"schema", "self_hash", "compiler_artifact_hash",
                                 "deployment_identity_hash", "conventions",
-                                "source_binding", "schedule_binding", "readout_binding"})
+                                "source_binding", "schedule_binding", "readout_binding",
+                                "tagged_execution_portfolio"})
         model[member] = YAML::Load(canonical_json_root_member_value(supplied_path, member));
       const std::string compiler_json =
           canonical_json_root_member_value(supplied_path, "compiler_artifact");
@@ -1464,7 +1465,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     }
   }
 
-  if (!physical_image_v3 && model["tagged_execution_portfolio"]) {
+  if (model["tagged_execution_portfolio"]) {
     const YAML::Node portfolio = model["tagged_execution_portfolio"];
     const std::string path = "model.tagged_execution_portfolio";
     require_mapping(portfolio, path);
@@ -1481,8 +1482,9 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
       fail(path, "portfolio self-hash mismatch");
     result.execution_portfolio.program_hash =
         sha256_field(portfolio["program_hash"], path + ".program_hash");
-    const std::string program_json =
-        canonical_json_root_member_value(supplied_path, "real_moment_program");
+    const std::string program_json = physical_image_v3
+        ? canonical_json_nested_member_value(supplied_path, "schedule_binding", "payload")
+        : canonical_json_root_member_value(supplied_path, "real_moment_program");
     if (sha256_string(program_json) != result.execution_portfolio.program_hash)
       fail(path + ".program_hash", "portfolio program binding changed");
     result.execution_portfolio.readout_hash =
