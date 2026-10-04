@@ -403,6 +403,15 @@ if(ML_YE3T_BUILD_CPU_RUNTIME)
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/ta_radial_spline_v1.yace"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/ta_radial_spline_v1.env"
     )
+    add_test(
+      NAME ml_ye3t_reject_nonreal_yace
+      COMMAND
+        Python3::Interpreter
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_nonreal_yace_rejection.py"
+        "$<TARGET_FILE:ml_ye3t_cpu_evaluator_test>"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/ta_radial_spline_v1.yace"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/ta_radial_spline_v1.env"
+    )
     if(ML_YE3T_BLOCK_TEST_MODEL AND ML_YE3T_BLOCK_TEST_MANIFEST AND
        ML_YE3T_BLOCK_TEST_ENVIRONMENT)
       set(

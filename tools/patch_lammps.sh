@@ -125,6 +125,7 @@ ye3t_tagged_cauchy_cpu.h
 ye3t_tagged_cauchy_model.cpp
 ye3t_tagged_cauchy_model.h
 ye3t_tagged_cauchy_readout_plan.h
+ye3t_tagged_c_api.cpp
 ye3t_yace_model.cpp
 ye3t_yace_model.h'
 

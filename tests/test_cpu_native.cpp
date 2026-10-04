@@ -93,6 +93,10 @@ void test_model(YACEModel &m)
   for (int n : {0, 1, 7, 8, 9, 16, 17, 31, 129, 256}) {
     Batch b = make_batch(m, n);
     auto a = eval(automatic, b), r = eval(whole, b), t = eval(tiny, b);
+    require(automatic.maximum_imaginary_density() <= 1.0e-10 &&
+                whole.maximum_imaginary_density() <= 1.0e-10 &&
+                tiny.maximum_imaginary_density() <= 1.0e-10,
+            "native density has a material imaginary component");
     close(a.e, r.e, 2e-12, "whole energy");
     close(a.g, r.g, 2e-12, "whole gradient");
     close(a.e, t.e, 2e-12, "replay energy");

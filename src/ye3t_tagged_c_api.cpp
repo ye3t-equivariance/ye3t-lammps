@@ -1,3 +1,20 @@
+/* ----------------------------------------------------------------------
+   LAMMPS - Large-scale Atomic/Molecular Massively Parallel Simulator
+   https://www.lammps.org/, Sandia National Laboratories
+   LAMMPS development team: developers@lammps.org
+
+   Copyright (2003) Sandia Corporation.  Under the terms of Contract
+   DE-AC04-94AL85000 with Sandia Corporation, the U.S. Government retains
+   certain rights in this software.  This software is distributed under
+   the GNU General Public License.
+
+   See the README file in the top-level LAMMPS directory.
+------------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------
+   Contributing author: James M. Goff (Sandia National Laboratories)
+------------------------------------------------------------------------- */
+
 // C ABI for tagged-Cauchy and tagged-plus-ordinary ACE CPU models.
 // Both component evaluators and their sum match pair_style ye3t.
 
@@ -97,6 +114,29 @@ struct Handle {
   }
 };
 
+struct OrdinaryHandle {
+  YACEModel model;
+  YE3TCPUEvaluator evaluator;
+  std::vector<int> edge_centers;
+
+  explicit OrdinaryHandle(const char *path)
+      : model(YACEModel::load(path, std::string(), YACEBlockPolicy::DIRECT)), evaluator(&model) {}
+
+  void evaluate(int atom_count, const int *central_species, const std::size_t *edge_offsets,
+                const int *edge_neighbor_species, const double *edge_vectors,
+                double *atomic_energies, double *edge_gradients) {
+    if (edge_offsets[atom_count] > static_cast<std::size_t>(std::numeric_limits<int>::max()))
+      throw std::invalid_argument("Native edge count exceeds the int range.");
+    const int edge_count = static_cast<int>(edge_offsets[atom_count]);
+    edge_centers.resize(static_cast<std::size_t>(edge_count));
+    for (int center = 0; center < atom_count; ++center)
+      std::fill(edge_centers.begin() + static_cast<std::ptrdiff_t>(edge_offsets[center]),
+                edge_centers.begin() + static_cast<std::ptrdiff_t>(edge_offsets[center + 1]), center);
+    evaluator.evaluate(atom_count, central_species, edge_count, edge_centers.data(),
+                       edge_neighbor_species, edge_vectors, atomic_energies, edge_gradients);
+  }
+};
+
 void error_text(char *buffer, std::size_t capacity, const char *message) noexcept {
   if (buffer && capacity) std::snprintf(buffer, capacity, "%s", message);
 }
@@ -104,6 +144,64 @@ void error_text(char *buffer, std::size_t capacity, const char *message) noexcep
 }  // namespace
 
 extern "C" {
+
+void *ye3t_yace_open(const char *path, char *error, std::size_t error_capacity) noexcept {
+  try {
+    if (!path || !*path) throw std::invalid_argument("YACE model path is empty.");
+    return new OrdinaryHandle(path);
+  } catch (const std::exception &exception) {
+    error_text(error, error_capacity, exception.what());
+  } catch (...) {
+    error_text(error, error_capacity, "Unknown native YACE-model load error.");
+  }
+  return nullptr;
+}
+
+void ye3t_yace_close(void *handle) noexcept { delete static_cast<OrdinaryHandle *>(handle); }
+
+int ye3t_yace_species_count(void *handle) noexcept {
+  return handle ? static_cast<OrdinaryHandle *>(handle)->model.species_count() : -1;
+}
+
+const char *ye3t_yace_species_name(void *handle, int species_index) noexcept {
+  if (!handle) return nullptr;
+  const auto &model = static_cast<OrdinaryHandle *>(handle)->model;
+  if (species_index < 0 || species_index >= model.species_count()) return nullptr;
+  return model.species(species_index).element.c_str();
+}
+
+double ye3t_yace_maximum_cutoff(void *handle) noexcept {
+  return handle ? static_cast<OrdinaryHandle *>(handle)->model.maximum_cutoff() : 0.0;
+}
+
+int ye3t_yace_evaluate(void *handle, int atom_count, const int *central_species,
+                       const std::size_t *edge_offsets, const int *edge_neighbor_species,
+                       const double *edge_vectors, double *atomic_energies,
+                       double *edge_gradients, char *error,
+                       std::size_t error_capacity) noexcept {
+  try {
+    if (!handle || atom_count < 0 || !edge_offsets ||
+        (atom_count > 0 && (!central_species || !atomic_energies)))
+      throw std::invalid_argument("Invalid YACE evaluator array or atom count.");
+    if (edge_offsets[0] != 0)
+      throw std::invalid_argument("CSR edge offsets must start at zero.");
+    for (int center = 0; center < atom_count; ++center)
+      if (edge_offsets[center + 1] < edge_offsets[center])
+        throw std::invalid_argument("CSR edge offsets must be nondecreasing.");
+    if (edge_offsets[atom_count] &&
+        (!edge_neighbor_species || !edge_vectors || !edge_gradients))
+      throw std::invalid_argument("Nonempty edge list requires species, vectors, and gradients.");
+    static_cast<OrdinaryHandle *>(handle)->evaluate(
+        atom_count, central_species, edge_offsets, edge_neighbor_species,
+        edge_vectors, atomic_energies, edge_gradients);
+    return 0;
+  } catch (const std::exception &exception) {
+    error_text(error, error_capacity, exception.what());
+  } catch (...) {
+    error_text(error, error_capacity, "Unknown native YACE-evaluation error.");
+  }
+  return -1;
+}
 
 void *ye3t_tagged_open(const char *path, int automatic, char *error, std::size_t error_capacity) noexcept {
   try {
