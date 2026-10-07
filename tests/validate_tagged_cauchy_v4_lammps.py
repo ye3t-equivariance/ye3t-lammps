@@ -14,7 +14,7 @@ import time
 import numpy as np
 from ase.data import atomic_masses, atomic_numbers
 
-from ye3t_ace.tagged_cauchy_image import load_tagged_cauchy_image_model
+from ye3t_methods.atomistic.tagged_cauchy_image import load_tagged_cauchy_image_model
 
 
 parser = argparse.ArgumentParser(description=__doc__)

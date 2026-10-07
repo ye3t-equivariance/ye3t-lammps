@@ -3,7 +3,7 @@
 
 Builds one owned center's edge list by hand (no neighbor search, no ASE
 cell) and evaluates it directly with
-:class:`ye3t_ace.tagged_cauchy_linear.RealMomentEvaluator` -- the exact
+:class:`ye3t_methods.atomistic.tagged_cauchy_linear.RealMomentEvaluator` -- the exact
 real-arithmetic evaluator the native C++ loader/evaluator is required to
 match -- via ``torch`` autograd on the edge displacements themselves, so the
 exported ``edge_gradients_eV_per_A`` are ``dE/d(displacement)`` for that
@@ -27,10 +27,10 @@ import numpy as np
 import torch
 
 from ye3t.couplings.tagged_cauchy import pooled_feature_matrix, pooled_tagged_basis
-from ye3t_ace.equivariant_calc.angular_basis import ComplexSphericalHarmonicsBasis
-from ye3t_ace.equivariant_calc.radial_basis import _pace_cheb_exp_cos_table_with_derivative
-from ye3t_ace.lifted_cauchy_linear import _artifact_channels
-from ye3t_ace.tagged_cauchy_linear import RealMomentEvaluator, load_tagged_model
+from ye3t_methods.atomistic.equivariant_calc.angular_basis import ComplexSphericalHarmonicsBasis
+from ye3t_methods.atomistic.equivariant_calc.radial_basis import _pace_cheb_exp_cos_table_with_derivative
+from ye3t_methods.atomistic.lifted_cauchy_linear import _artifact_channels
+from ye3t_methods.atomistic.tagged_cauchy_linear import RealMomentEvaluator, load_tagged_model
 
 _ANGULAR_BASIS = ComplexSphericalHarmonicsBasis()
 
@@ -105,7 +105,7 @@ def main():
     displacements = torch.tensor(displacements_np, dtype=torch.float64, requires_grad=True)
 
     phi_complex = build_phi_complex(model, channels, displacements, edge_species_index)
-    from ye3t_ace.tagged_cauchy_linear import complex_to_artifact_real
+    from ye3t_methods.atomistic.tagged_cauchy_linear import complex_to_artifact_real
 
     phi_real = complex_to_artifact_real(phi_complex, model.compiled)
     A_real = phi_real.sum(dim=0, keepdim=True)

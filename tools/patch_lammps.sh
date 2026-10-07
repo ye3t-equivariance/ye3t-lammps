@@ -93,6 +93,8 @@ example_manifest=$example_dir/$example_manifest_name
 doc_source_file=$repo_root/doc/src/pair_ye3t.rst
 doc_dir=$lammps_root/doc/src
 doc_file=$doc_dir/pair_ye3t.rst
+property_doc_source_file=$repo_root/doc/src/compute_ye3t_property_atom.rst
+property_doc_file=$doc_dir/compute_ye3t_property_atom.rst
 
 if test ! -f "$lammps_root/src/lammps.cpp" || test ! -f "$cmake_file"; then
   echo "Not a supported LAMMPS source root: $lammps_root" >&2
@@ -101,6 +103,8 @@ fi
 
 source_files='pair_ye3t.cpp
 pair_ye3t.h
+compute_ye3t_property_atom.cpp
+compute_ye3t_property_atom.h
 ye3t_canonical_json_hash.cpp
 ye3t_canonical_json_hash.h
 ye3t_lifted_cauchy_cpu.cpp
@@ -108,6 +112,8 @@ ye3t_lifted_cauchy_cpu.h
 ye3t_lifted_cauchy_source.cpp
 ye3t_lifted_cauchy_model.cpp
 ye3t_lifted_cauchy_model.h
+ye3t_mean_property_cpu.cpp
+ye3t_mean_property_cpu.h
 ye3t_cpu_batching.h
 ye3t_gpu_dag_schedule.h
 ye3t_gpu_block_schedule.h
@@ -131,6 +137,9 @@ ye3t_yace_model.h'
 
 kokkos_source_files='pair_ye3t_kokkos.cpp
 pair_ye3t_kokkos.h
+compute_ye3t_property_atom_kokkos.cpp
+compute_ye3t_property_atom_kokkos.h
+ye3t_mean_property_kokkos_plan.h
 ye3t_lifted_cauchy_kokkos_plan.h
 ye3t_tagged_cauchy_kokkos_plan.h
 ye3t_kokkos_plan.h
@@ -206,7 +215,7 @@ manifest_paths()
       if (kind == "kokkos") {
         if (substr(path, 1, 10) != "../KOKKOS/") exit 42
         path = substr(path, 11)
-        if (path !~ /^(pair_ye3t|ye3t_)[A-Za-z0-9_.+-]*\.(cpp|h|hpp|cc|cxx)$/)
+        if (path !~ /^(pair_ye3t|compute_ye3t|ye3t_)[A-Za-z0-9_.+-]*\.(cpp|h|hpp|cc|cxx)$/)
           exit 42
       }
       if (path == "" || path ~ /^\// || path ~ /\/$/ ||
@@ -284,6 +293,7 @@ uninstall_package()
     printf '%s\n' "src/KOKKOS/$source_file" >> "$stage_dir/candidates"
   done
   printf '%s\n' cmake/Modules/Packages/ML-YE3T.cmake doc/src/pair_ye3t.rst \
+    doc/src/compute_ye3t_property_atom.rst \
     examples/PACKAGES/ye3t/YE3T_EXAMPLE_MANIFEST.sha256 >> "$stage_dir/candidates"
   if test -e "$manifest_file" || test -L "$manifest_file"; then
     manifest_paths "$manifest_file" package >> "$stage_dir/candidates"
@@ -514,6 +524,7 @@ if test "$cmake_state" = clean; then
     printf '%s\n' "src/KOKKOS/$source_file" >> "$stage_dir/install-destinations"
   done
   printf '%s\n' cmake/Modules/Packages/ML-YE3T.cmake doc/src/pair_ye3t.rst \
+    doc/src/compute_ye3t_property_atom.rst \
     examples/PACKAGES/ye3t/YE3T_EXAMPLE_MANIFEST.sha256 >> "$stage_dir/install-destinations"
   for example_file in $example_files; do
     printf '%s\n' "examples/PACKAGES/ye3t/$example_file" >> "$stage_dir/install-destinations"
@@ -572,6 +583,11 @@ else
     echo "Installed ML-YE3T documentation page is missing or differs: doc/src/pair_ye3t.rst" >&2
     exit 1
   fi
+  if test ! -f "$property_doc_file" ||
+     ! cmp -s "$property_doc_source_file" "$property_doc_file"; then
+    echo "Installed ML-YE3T documentation page is missing or differs: doc/src/compute_ye3t_property_atom.rst" >&2
+    exit 1
+  fi
   if test ! -d "$example_dir" || test ! -f "$example_manifest" ||
      ! cmp -s "$example_source_manifest" "$example_manifest"; then
     echo "Installed ML-YE3T public examples are incomplete or differ" >&2
@@ -621,6 +637,7 @@ done
 install -m 0644 "$repo_root/lammps_package/README" "$package_dir/README"
 install -m 0644 "$repo_root/cmake/ML-YE3T.cmake" "$module_file"
 install -m 0644 "$doc_source_file" "$doc_file"
+install -m 0644 "$property_doc_source_file" "$property_doc_file"
 mkdir -p "$example_dir"
 for example_file in $example_files; do
   destination=$example_dir/$example_file
@@ -664,7 +681,7 @@ printf '%s\n' "ye3t-lammps source integration" \
   "lammps_revision=$revision" \
   "ye3t_lammps_revision=$package_revision" \
   "examples=examples/PACKAGES/ye3t" \
-  "documentation=doc/src/pair_ye3t.rst" > "$install_record"
+  "documentation=doc/src/pair_ye3t.rst,doc/src/compute_ye3t_property_atom.rst" > "$install_record"
 
 echo "Installed ML-YE3T into $lammps_root"
 echo "Configure with -D PKG_ML-YE3T=yes and an explicit ML_YE3T_RUNTIME_SOURCE or ML_YE3T_RUNTIME_ROOT."

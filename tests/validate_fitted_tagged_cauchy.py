@@ -8,7 +8,7 @@ cpu.*`) the way `tests/validate_fitted_lifted_cauchy.py` /
 reusing their dump-parsing and LAMMPS-invocation conventions. Structure
 data (positions/cell/pbc) and reference energies/forces come from
 the reference JSON files (built from
-`ye3t_ace.tagged_cauchy_linear.energy_and_forces`, execution_strategy
+`ye3t_methods.atomistic.tagged_cauchy_linear.energy_and_forces`, execution_strategy
 `exact_moment_reduction`). Per-atom energies have no such precomputed
 reference, so this script also computes them itself from the same
 `exact_moment_reduction` evaluator (`TaggedCauchyModel.moment_evaluator.
@@ -282,19 +282,19 @@ def per_atom_energies_python(model, atoms):
     `compiled=None`) -- use `model.channels`/`model.evaluator_for(
     "real_moment_reduction")` instead, mirroring `cross_check_python`'s
     same `model.multi_content` branch. Per-atom beta selection mirrors
-    `ye3t_ace.tagged_cauchy_linear._energy_from_per_atom_features` (kept
+    `ye3t_methods.atomistic.tagged_cauchy_linear._energy_from_per_atom_features` (kept
     per-atom here, not summed, for this function's own per-atom-energy
     contract) so this is correct for both plain and per-species beta.
     """
     import torch
 
-    from ye3t_ace.tagged_cauchy_linear import ordinary_edge_primitives
+    from ye3t_methods.atomistic.tagged_cauchy_linear import ordinary_edge_primitives
 
     if model.multi_content:
         evaluator = model.evaluator_for("real_moment_reduction")
         channels = model.channels
     else:
-        from ye3t_ace.lifted_cauchy_linear import _artifact_channels
+        from ye3t_methods.atomistic.lifted_cauchy_linear import _artifact_channels
 
         evaluator = model.moment_evaluator
         channels = _artifact_channels(model.compiled)
@@ -322,7 +322,7 @@ def finite_strain_virial_ev(model, atoms, delta=1.0e-5):
     returned as virial = -dE/dstrain (eV), matching the LAMMPS/lifted-Cauchy
     "lammps_virial = minus_strain_derivative" convention. Requires a periodic cell."""
 
-    from ye3t_ace.tagged_cauchy_linear import energy_and_forces
+    from ye3t_methods.atomistic.tagged_cauchy_linear import energy_and_forces
 
     base_positions = np.asarray(atoms.get_positions(), dtype=np.float64)
     base_cell = np.asarray(atoms.cell.array, dtype=np.float64)
@@ -349,14 +349,14 @@ def finite_strain_virial_ev(model, atoms, delta=1.0e-5):
 
 
 def load_python_model(model_path):
-    from ye3t_ace.tagged_cauchy_linear import load_tagged_model
+    from ye3t_methods.atomistic.tagged_cauchy_linear import load_tagged_model
 
     return load_tagged_model(str(model_path))
 
 
 def cross_check_python(model_path, reference_structures):
     """Independent (of both LAMMPS and the reference JSON) sanity check: does
-    ye3t_ace.tagged_cauchy_linear.energy_and_forces itself reproduce the
+    ye3t_methods.atomistic.tagged_cauchy_linear.energy_and_forces itself reproduce the
     reference JSON's numbers? Guards against a stale/mismatched reference.
 
     Multi-content ("arm") models (`model.multi_content`) only expose
@@ -365,7 +365,7 @@ def cross_check_python(model_path, reference_structures):
     keep the original `exact_moment_reduction`.
     """
 
-    from ye3t_ace.tagged_cauchy_linear import energy_and_forces
+    from ye3t_methods.atomistic.tagged_cauchy_linear import energy_and_forces
 
     model = load_python_model(model_path)
     execution_strategy = "real_moment_reduction" if model.multi_content else "exact_moment_reduction"

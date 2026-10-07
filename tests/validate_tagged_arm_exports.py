@@ -200,14 +200,14 @@ def python_strain_virial(model, atoms, execution_strategy):
     this is itself an implicit self-consistency check, not asserted here).
     `model.channels`/`model.offsets`/`model.species_index` are populated
     identically for single- and multi-content models (confirmed by reading
-    `ye3t_ace.tagged_cauchy_linear`'s `TaggedCauchyModel.__init__` and
+    `ye3t_methods.atomistic.tagged_cauchy_linear`'s `TaggedCauchyModel.__init__` and
     `energy_and_forces`, which already uses `model.channels` directly, not
     `_artifact_channels(model.compiled)`), so this function needs no
     `model.multi_content` branch of its own.
     """
     import torch
 
-    from ye3t_ace.tagged_cauchy_linear import _energy_from_per_atom_features, ordinary_edge_primitives
+    from ye3t_methods.atomistic.tagged_cauchy_linear import _energy_from_per_atom_features, ordinary_edge_primitives
 
     evaluator = model.evaluator_for(execution_strategy)
     base_positions = torch.tensor(np.asarray(atoms.get_positions(), dtype=np.float64), dtype=torch.float64)

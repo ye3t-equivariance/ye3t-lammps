@@ -20,7 +20,7 @@ THIS_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(THIS_DIR))
 from test_lifted_cauchy_lammps import marker, read_dump  # noqa: E402
 
-from ye3t_ace.tagged_cauchy_image import load_tagged_cauchy_image_model
+from ye3t_methods.atomistic.tagged_cauchy_image import load_tagged_cauchy_image_model
 
 
 MASS_TA = 180.94788

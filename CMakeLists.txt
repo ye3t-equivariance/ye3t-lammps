@@ -11,7 +11,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 option(ML_YE3T_BUILD_CPU_RUNTIME "Build the standalone YE3T CPU model evaluator" ON)
 option(ML_YE3T_BUILD_TAGGED_C_API "Build a shared tagged-Cauchy C ABI for ASE callers" OFF)
-option(ML_YE3T_BUILD_LAMMPS_PLUGIN "Build the loadable PairYE3T CPU plugin" OFF)
+option(ML_YE3T_BUILD_LAMMPS_PLUGIN "Build the loadable YE3T pair and property-compute CPU plugin" OFF)
 option(ML_YE3T_LAMMPS_MPI "Build the plugin for a real MPI LAMMPS host instead of serial stubs" OFF)
 option(
   ML_YE3T_ENABLE_NATIVE_CPU
@@ -82,6 +82,8 @@ set(ML_YE3T_CANDIDATE_TEST_MANIFEST "" CACHE FILEPATH "Optional candidate-vector
 set(ML_YE3T_CANDIDATE_TEST_REORDERED_MANIFEST "" CACHE FILEPATH "Optional reordered candidate-vector manifest")
 set(ML_YE3T_CANDIDATE_TEST_ENVIRONMENT "" CACHE FILEPATH "Optional candidate-vector test environment")
 set(ML_YE3T_CANDIDATE_TEST_VALIDATOR "" CACHE FILEPATH "Optional strict candidate-vector sidecar validator")
+set(ML_YE3T_LAMMPS_TEST_EXECUTABLE "" CACHE FILEPATH
+    "Optional pinned plugin-enabled LAMMPS executable for property-compute integration")
 set(ML_YE3T_CANDIDATE_TEST_EXPECTED_ROUTES 5 CACHE STRING "Expected selected candidate readout terms")
 set(ML_YE3T_CANDIDATE_TEST_EXPECTED_PLANS 7 CACHE STRING "Expected selected candidate block plans")
 set(ML_YE3T_CANDIDATE_TEST_EXPECTED_CANDIDATES 7 CACHE STRING "Expected compiler-certified block candidates")
@@ -242,6 +244,7 @@ if(ML_YE3T_BUILD_CPU_RUNTIME)
     src/ye3t_lifted_cauchy_model.cpp
     src/ye3t_lifted_cauchy_cpu.cpp
     src/ye3t_lifted_cauchy_source.cpp
+    src/ye3t_mean_property_cpu.cpp
     src/ye3t_sha256.cpp
     src/ye3t_tagged_cauchy_model.cpp
     src/ye3t_tagged_cauchy_cpu.cpp
@@ -315,6 +318,27 @@ if(ML_YE3T_BUILD_CPU_RUNTIME)
       tests/test_tagged_cauchy_cpu.cpp
     )
     target_link_libraries(ml_ye3t_tagged_cauchy_cpu_test PRIVATE ml_ye3t_cpu)
+    add_executable(ml_ye3t_mean_property_cpu_test tests/test_mean_property_cpu.cpp)
+    target_link_libraries(ml_ye3t_mean_property_cpu_test PRIVATE ml_ye3t_cpu)
+    foreach(name tagged_l1_ni tagged_l1_tag1 tagged_l1_two_species tagged_l1_uneven tagged_l1_rank3_mixed tagged_l2_l2_ni tagged_l2_tag2_periodic tagged_l2_tag2_one_neighbor density_l1_two_species density_l2_angular density_l2_periodic density_l2_rank3_multipath)
+      add_test(NAME ml_ye3t_mean_property_cpu_${name}
+        COMMAND ml_ye3t_mean_property_cpu_test
+          "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/mean_property/${name}.fixture.json")
+    endforeach()
+    add_test(NAME ml_ye3t_mean_property_tamper
+      COMMAND Python3::Interpreter "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_mean_property_tamper.py"
+        "$<TARGET_FILE:ml_ye3t_mean_property_cpu_test>"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/mean_property/tagged_l2_tag2_periodic.ye3t.json")
+    add_test(NAME ml_ye3t_density_mean_property_tamper
+      COMMAND Python3::Interpreter "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_density_mean_property_tamper.py"
+        "$<TARGET_FILE:ml_ye3t_mean_property_cpu_test>"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/mean_property/density_l2_periodic.ye3t.json")
+    set(ML_YE3T_MEAN_PROPERTY_TEST_FIXTURE "" CACHE FILEPATH
+        "Optional external tagged full-M mean-property CPU fixture")
+    if(ML_YE3T_MEAN_PROPERTY_TEST_FIXTURE)
+      add_test(NAME ml_ye3t_mean_property_cpu_external
+        COMMAND ml_ye3t_mean_property_cpu_test "${ML_YE3T_MEAN_PROPERTY_TEST_FIXTURE}")
+    endif()
     add_test(NAME ml_ye3t_sha256 COMMAND ml_ye3t_sha256_test)
     add_test(
       NAME ml_ye3t_lifted_cauchy_cpu
@@ -563,6 +587,7 @@ if(ML_YE3T_BUILD_LAMMPS_PLUGIN)
     MODULE
     src/ye3t_plugin.cpp
     src/pair_ye3t.cpp
+    src/compute_ye3t_property_atom.cpp
   )
   target_include_directories(
     ye3tplugin
@@ -582,8 +607,8 @@ if(ML_YE3T_BUILD_LAMMPS_PLUGIN)
   else()
     message(FATAL_ERROR "ML_YE3T_LAMMPS_SIZES must be smallbig or bigbig")
   endif()
-  message(STATUS "PairYE3T plugin LAMMPS integer ABI: ${ML_YE3T_LAMMPS_SIZES}")
-  message(STATUS "PairYE3T plugin real MPI: ${ML_YE3T_LAMMPS_MPI}")
+  message(STATUS "YE3T plugin LAMMPS integer ABI: ${ML_YE3T_LAMMPS_SIZES}")
+  message(STATUS "YE3T plugin real MPI: ${ML_YE3T_LAMMPS_MPI}")
   target_link_libraries(ye3tplugin PRIVATE ml_ye3t_cpu)
   set_target_properties(
     ye3tplugin
@@ -591,6 +616,20 @@ if(ML_YE3T_BUILD_LAMMPS_PLUGIN)
     PREFIX ""
     SUFFIX ".so"
   )
+  if(BUILD_TESTING AND ML_YE3T_LAMMPS_TEST_EXECUTABLE)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    add_test(NAME ml_ye3t_mean_property_lammps_single
+      COMMAND Python3::Interpreter "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_mean_property_lammps.py"
+        "${ML_YE3T_LAMMPS_TEST_EXECUTABLE}" "$<TARGET_FILE:ye3tplugin>"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/mean_property" single)
+    if(ML_YE3T_LAMMPS_MPI AND MPIEXEC_EXECUTABLE)
+      add_test(NAME ml_ye3t_mean_property_lammps_mpi2
+        COMMAND Python3::Interpreter "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_mean_property_lammps.py"
+          "${ML_YE3T_LAMMPS_TEST_EXECUTABLE}" "$<TARGET_FILE:ye3tplugin>"
+          "${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/mean_property" mpi2
+          "${MPIEXEC_EXECUTABLE}")
+    endif()
+  endif()
 endif()
 
 if(ML_YE3T_BUILD_PACE_ORACLE)

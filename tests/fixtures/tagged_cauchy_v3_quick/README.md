@@ -54,7 +54,7 @@ pressure units (bar) and, after multiplication by volume, in eV.  Numerical
 differentiation is a correctness check and should not be included in timing.
 
 The model generator is `tests/generate_tagged_cauchy_v3_fixture.py`.
-Regeneration requires installed `ye3t` and `ye3t-ace` (not yet public);
+Regeneration requires installed `ye3t` and `ye3t-methods`;
 running this LAMMPS example does not. The two JSON files here are
 byte-identical copies of `tests/fixtures/tagged_cauchy_physical_image_v3.json`
 and `tests/fixtures/tagged_cauchy_physical_image_v3.fixture.json`. The

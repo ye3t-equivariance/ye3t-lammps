@@ -19,6 +19,7 @@
 #define LMP_YE3T_CANONICAL_JSON_HASH_H
 
 #include <string>
+#include <vector>
 
 namespace YE3T_LAMMPS {
 
@@ -45,6 +46,8 @@ std::string canonical_json_value_hash_without_root_member(const std::string &jso
 
 std::string canonical_json_value_root_member(const std::string &json_value,
                                              const std::string &member);
+
+std::vector<std::string> canonical_json_value_array_items(const std::string &json_value);
 
 }    // namespace YE3T_LAMMPS
 

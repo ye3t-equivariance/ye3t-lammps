@@ -2,7 +2,7 @@
 """Synthetic two-species tagged-Cauchy fixture (written before any real
 multi-species export exists).
 
-Requires installed ``ye3t`` and ``ye3t-ace`` (not yet public).
+Requires installed ``ye3t`` and ``ye3t-methods``.
 
 `ye3t.couplings.first_lifted_cauchy_scalar_request` already accepts an
 `elements` tuple (not just a single `element`) and lays out one channel per
@@ -10,7 +10,7 @@ Requires installed ``ye3t`` and ``ye3t-ace`` (not yet public).
 element -- the radial definition is one ChebExpCos parameter set for all
 pairs. This script calls that real
 compiler pipeline (`count`/`plan`/`compile`) directly with
-`elements=("Ta","W")` (bypassing `ye3t_ace.tagged_cauchy_linear.
+`elements=("Ta","W")` (bypassing `ye3t_methods.atomistic.tagged_cauchy_linear.
 compile_tagged_cauchy_artifact`, which only exposes a single `element`), so
 the resulting `CompiledLiftedCauchyScalar` is a genuine, fully self-
 consistent multi-species artifact (correct resource report, internal
@@ -19,7 +19,7 @@ hand-patched approximation of one.
 
 `beta` is then written as the per-species `{species: [feature_count doubles]}`
 mapping (two independently-random vectors), and `real_moment_program` is the
-real `ye3t_ace.tagged_cauchy_linear.real_moment_program` exact-sympy
+real `ye3t_methods.atomistic.tagged_cauchy_linear.real_moment_program` exact-sympy
 lowering of that compiled artifact (so its own zero-imaginary-residual proof
 covers the construction).
 
@@ -43,10 +43,10 @@ from ye3t.couplings import count as count_coupling
 from ye3t.couplings import first_lifted_cauchy_scalar_request
 from ye3t.couplings import plan as plan_coupling
 from ye3t.execution_plan import compile_tagged_moment_execution_portfolio
-from ye3t_ace.equivariant_calc.angular_basis import ComplexSphericalHarmonicsBasis
-from ye3t_ace.equivariant_calc.radial_basis import _pace_cheb_exp_cos_table_with_derivative
-from ye3t_ace.lifted_cauchy_linear import _artifact_channels
-from ye3t_ace.tagged_cauchy_linear import (
+from ye3t_methods.atomistic.equivariant_calc.angular_basis import ComplexSphericalHarmonicsBasis
+from ye3t_methods.atomistic.equivariant_calc.radial_basis import _pace_cheb_exp_cos_table_with_derivative
+from ye3t_methods.atomistic.lifted_cauchy_linear import _artifact_channels
+from ye3t_methods.atomistic.tagged_cauchy_linear import (
     DEFAULT_TA_FAMILIES,
     TA_CUTOFF,
     TA_RADIAL_CONFIG,

@@ -36,7 +36,7 @@ Orthogonality is with respect to the declared symmetric-Fock compiler metric,
 not the empirical distribution of atomic environments.
 
 YE3T compiles and hash-commits the exact real moment schedule, real-form maps,
-and division-free transpose adjoint.  `ye3t-ace` binds that compiler-owned
+and division-free transpose adjoint.  `ye3t-methods` binds that compiler-owned
 schedule to the source and fitted readout and exports it without re-deriving
 the coefficients.  LAMMPS reads only the serialized binary64 schedule and
 source coefficients: it performs no symbolic compilation, Gram construction,
@@ -66,5 +66,5 @@ References:
 - NIST Digital Library of Mathematical Functions, Sections 18.1 and 18.3,
   for Jacobi polynomials and their orthogonality conventions, and Section
   34.3(vii), for spherical-harmonic products and Wigner 3j symbols.
-- The full project derivation and scope statement are in the `ye3t-ace`
-  package (not yet public).
+- The full project derivation and scope statement are in the `ye3t-methods`
+  package.

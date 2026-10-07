@@ -2,7 +2,7 @@
 // Loads a `ye3t_tagged_cauchy_slice_v2` model plus a
 // fixture JSON produced by `tests/generate_tagged_cauchy_fixture.py` (one
 // owned center's hand-specified edge list, evaluated in Python via
-// `ye3t_ace.tagged_cauchy_linear.RealMomentEvaluator`), evaluates the same
+// `ye3t_methods.atomistic.tagged_cauchy_linear.RealMomentEvaluator`), evaluates the same
 // center/edges through `YE3T_LAMMPS::TaggedCauchyCPUEvaluator`, and compares
 // energy and per-edge dE/d(displacement) gradients to 1e-10 absolute.
 //

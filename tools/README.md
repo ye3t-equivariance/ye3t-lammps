@@ -10,15 +10,16 @@ tools/patch_lammps.sh --uninstall [--dry-run] --lammps-source /path/to/lammps
 
 `--check` validates the target tree without changing it. `--apply` installs
 the CPU sources in `src/ML-YE3T` (including the package `README`), the Kokkos
-sources in `src/KOKKOS`, the CMake package module, the documentation page
-`doc/src/pair_ye3t.rst`, and the examples in `examples/PACKAGES/ye3t` with
+sources in `src/KOKKOS`, the CMake package module, the documentation pages
+`doc/src/pair_ye3t.rst` and `doc/src/compute_ye3t_property_atom.rst`, and the
+examples in `examples/PACKAGES/ye3t` with
 their checksum manifests, and writes an install record. It is idempotent for
 an identical installation and refuses partial, modified, or conflicting
 files. The installer verifies the example checksum manifest, so after editing
 anything under `examples/PACKAGES/ye3t` run `tools/refresh_example_manifest.py`.
 
 `--uninstall` removes the installed CPU files, the YE3T-only Kokkos files,
-the CMake module, the documentation page, the integrity records, and the
+the CMake module, the documentation pages, the integrity records, and the
 manifest-listed example files by explicit filename. It uses the installed
 manifests, so retired filenames are removed even when the package revision
 has changed, and file contents need not match their old checksums: locally
@@ -57,6 +58,7 @@ source-package route above does not use it.
 | `ML_YE3T_LAMMPS_SOURCE` | | LAMMPS `src` directory whose headers the plugin compiles against |
 | `ML_YE3T_LAMMPS_SIZES` | | `smallbig` or `bigbig`, matching the host LAMMPS build |
 | `ML_YE3T_LAMMPS_MPI` | `OFF` | build the plugin for an MPI LAMMPS host instead of the serial stubs |
+| `ML_YE3T_LAMMPS_TEST_EXECUTABLE` | unset | enable focused per-atom property integration tests against this plugin-capable LAMMPS host |
 | `ML_YE3T_ENABLE_NATIVE_CPU` | `OFF` | compile for the build machine's CPU |
 | `ML_YE3T_ENABLE_IPO` | `OFF` | enable interprocedural optimization |
 | `ML_YE3T_BUILD_PACE_ORACLE` | `OFF` | build the PACE oracle used by the comparison tests; requires `ML_YE3T_PACE_SOURCE` (a clean `lammps-user-pace` checkout) and `ML_YE3T_PACE_REVISION` (its expected git revision) |

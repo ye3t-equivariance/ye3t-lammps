@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate an independent Python reference for the fitted Ta CPU fixture.
 
-Requires installed ``ye3t`` and ``ye3t-ace`` (not yet public).
+Requires installed ``ye3t`` and ``ye3t-methods``.
 """
 
 import argparse
@@ -12,7 +12,7 @@ import numpy as np
 import torch
 from ase import Atoms
 
-from ye3t_ace import load_lifted_cauchy_linear_bundle
+from ye3t_methods.atomistic import load_lifted_cauchy_linear_bundle
 
 
 def main():

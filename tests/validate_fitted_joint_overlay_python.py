@@ -8,8 +8,8 @@ from pathlib import Path
 import numpy as np
 from ase import Atoms
 
-from ye3t_ace import load_linear_ace_calculator
-from ye3t_ace import load_lifted_cauchy_linear_bundle
+from ye3t_methods.atomistic import load_linear_ace_calculator
+from ye3t_methods.atomistic import load_lifted_cauchy_linear_bundle
 
 
 METAL_NKTV2P = 1.6021765e6

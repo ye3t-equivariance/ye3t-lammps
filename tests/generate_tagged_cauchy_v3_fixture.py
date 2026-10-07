@@ -2,7 +2,7 @@
 
 This is a deterministic compiler/runtime parity fixture, not a fitted
 publication potential.  Run it from installed/source checkouts with both
-``ye3t`` and ``ye3t-ace`` importable.
+``ye3t`` and ``ye3t-methods`` importable.
 """
 
 import argparse
@@ -20,7 +20,7 @@ from ye3t.couplings import (
     ORTHOGONAL_SHIFTED_JACOBI_SOURCE_FAMILY,
     build_radial_species_product_record,
 )
-from ye3t_ace.tagged_cauchy_image import (
+from ye3t_methods.atomistic.tagged_cauchy_image import (
     TaggedCauchyImageEvaluator,
     TaggedCauchyImageLinearModel,
     export_tagged_cauchy_image_model,

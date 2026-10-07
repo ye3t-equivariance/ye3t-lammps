@@ -72,7 +72,7 @@ nontrivial permutation intermediates (tagged-Cauchy and lifted-Cauchy
 families) that have no ``.yace`` representation.
 
 Models are trained and exported outside LAMMPS with the ``ye3t`` and
-``ye3t-ace`` packages. LAMMPS performs inference only: it reads the
+``ye3t-methods`` packages. LAMMPS performs inference only: it reads the
 exported potential, validates every hash-bound sidecar once during
 :doc:`pair_coeff <pair_coeff>`, and then evaluates the model without any
 further file parsing or hashing during the run.

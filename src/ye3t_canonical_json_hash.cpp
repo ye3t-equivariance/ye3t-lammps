@@ -93,6 +93,27 @@ namespace {
       return compact_.substr(entry->value_begin, entry->value_end - entry->value_begin);
     }
 
+    std::vector<std::string> array_items()
+    {
+      punctuation('[');
+      std::vector<std::string> items;
+      skip_whitespace();
+      if (peek() != ']') {
+        while (true) {
+          const std::size_t begin = compact_.size();
+          parse_value(1);
+          items.push_back(compact_.substr(begin, compact_.size() - begin));
+          skip_whitespace();
+          if (peek() == ']') break;
+          punctuation(',');
+        }
+      }
+      punctuation(']');
+      skip_whitespace();
+      if (position_ != source_.size()) fail("trailing content after array");
+      return items;
+    }
+
    private:
     [[noreturn]] void fail(const std::string &message) const
     {
@@ -377,6 +398,11 @@ std::string canonical_json_value_root_member(const std::string &json_value,
                                              const std::string &member)
 {
   return CanonicalJSONScanner(json_value).root_member_value(member);
+}
+
+std::vector<std::string> canonical_json_value_array_items(const std::string &json_value)
+{
+  return CanonicalJSONScanner(json_value).array_items();
 }
 
 }    // namespace YE3T_LAMMPS

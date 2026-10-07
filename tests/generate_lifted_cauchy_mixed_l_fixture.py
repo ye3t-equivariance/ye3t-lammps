@@ -1,6 +1,6 @@
 """Regenerate the deterministic mixed-l lifted-Cauchy native fixture.
 
-Requires installed ``ye3t`` and ``ye3t-ace`` (not yet public).
+Requires installed ``ye3t`` and ``ye3t-methods``.
 """
 
 import argparse
@@ -13,8 +13,8 @@ from ase import Atoms
 
 from ye3t.couplings import compile as compile_coupling
 from ye3t.couplings import lifted_cauchy_fixed_content_scalar_request
-from ye3t_ace import YE3TDescriptors, export_lifted_cauchy_linear_bundle
-from ye3t_ace.lifted_cauchy_linear import (
+from ye3t_methods.atomistic import YE3TDescriptors, export_lifted_cauchy_linear_bundle
+from ye3t_methods.atomistic.lifted_cauchy_linear import (
     LIFTED_CAUCHY_MIXED_L_SOURCE_FAMILY,
     lifted_cauchy_model_from_descriptor,
 )

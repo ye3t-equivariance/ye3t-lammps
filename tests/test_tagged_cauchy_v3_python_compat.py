@@ -3,10 +3,10 @@ from pathlib import Path
 import pytest
 
 pytest.importorskip("ye3t", reason="requires the ye3t package")
-pytest.importorskip("ye3t_ace", reason="requires the unreleased ye3t-ace package")
+pytest.importorskip("ye3t_methods.atomistic", reason="requires ye3t-methods")
 
 from ye3t.couplings import compile as compile_coupling
-from ye3t_ace.tagged_cauchy_image import load_tagged_cauchy_image_model
+from ye3t_methods.atomistic.tagged_cauchy_image import load_tagged_cauchy_image_model
 
 
 def test_committed_preselector_v3_plan_recompiles():

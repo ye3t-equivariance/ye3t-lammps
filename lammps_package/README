@@ -8,8 +8,13 @@ by pair_style pace), optional compiled execution plans for those potentials,
 and native YE3T bundles whose basis functions carry nontrivial permutation
 intermediates (tagged-Cauchy and lifted-Cauchy families).
 
+The CPU compute ye3t/property/atom evaluates L=1/L=2 real-tesseral
+per-atom mean properties from compiler-bound tagged or ordinary-density full-M v2 models exported
+by ye3t-methods. It is independent of the pair style and does not compute
+forces or posterior uncertainty. See doc/src/compute_ye3t_property_atom.rst.
+
 The package is inference-only. Coupling compilation, model fitting, and
-export belong to the ye3t and ye3t-ace Python packages. Hash-bound plans and
+export belong to the ye3t and ye3t-methods Python packages. Hash-bound plans and
 composite manifests are validated once during pair_coeff; no JSON parsing or
 hashing happens during a timestep.
 

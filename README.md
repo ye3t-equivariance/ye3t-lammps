@@ -9,9 +9,58 @@ intermediates and have no `.yace` representation. Both styles support
 multi-element type maps, MPI domain decomposition, and per-atom energy and
 virial.
 
-Models are fitted and exported outside LAMMPS with `ye3t` and `ye3t-ace`;
-LAMMPS performs inference only. `ye3t-ace` is not yet publicly released, and
-every shipped example runs from its pre-exported model files without it.
+The CPU `compute ye3t/property/atom` evaluates real-tesseral L=1 and L=2
+per-atom mean properties from compiler-bound tagged or ordinary-density full-M
+v2 models exported by `ye3t-methods`. It supports explicit element/`NULL` type maps and an
+independent compute group. Its syntax and limits are in
+[doc/src/compute_ye3t_property_atom.rst](doc/src/compute_ye3t_property_atom.rst).
+An experimental tagged full-M Kokkos device compute has matched CPU output
+on single-rank and two-rank cases; ordinary-density full-M currently uses
+the CPU compute.
+
+Models are fitted and exported outside LAMMPS with `ye3t` and
+`ye3t-methods`, which retains a small `ye3t_ace` saved-model import shim. LAMMPS
+performs inference only; shipped examples run from pre-exported model files.
+
+## First calculation
+
+After building the package into LAMMPS as described below, run the shipped
+fitted Ta model from its example directory:
+
+```bash
+cd ye3t-lammps/examples/PACKAGES/ye3t
+/absolute/path/to/lmp -in in.ye3t.direct
+```
+
+The input constructs a bcc Ta cell, displaces one atom, loads the bundled
+`.yace` model with `pair_style ye3t`, and writes per-atom energy, stress,
+and forces. Change `variable model` and the element in `pair_coeff` to use a
+compatible exported model. For a model fitted in Python, start with the
+[`ye3t-methods` representation → basis → model examples](https://github.com/ye3t-equivariance/ye3t-methods/tree/main/examples/quickstart)
+and its [deployment guide](https://github.com/ye3t-equivariance/ye3t-methods/blob/main/docs/deployment.rst).
+The [example README](examples/PACKAGES/ye3t/README.md) lists the CPU, GPU,
+MPI, finite-difference, and paper comparison runs.
+
+## Per-atom property calculation from ASE
+
+The `ye3t-methods` [vector quickstart](https://github.com/ye3t-equivariance/ye3t-methods/blob/main/examples/quickstart/per_atom_vector_to_lammps.py)
+constructs an ASE Cu cell, fits an ordinary-density `L=1` per-atom model,
+and writes `model.ye3t.json`, `atoms.data`, `in.property`, and Python
+reference values. From the `ye3t-methods` checkout with both Python packages
+installed, run:
+
+```bash
+python examples/quickstart/per_atom_vector_to_lammps.py
+cd ../ye3t-workflows/quickstart_linear/cu_site_vector
+/absolute/path/to/lmp -in in.property
+```
+
+The LAMMPS input uses `pair_style zero` for neighbor lists and
+`compute ye3t/property/atom` for the fitted property. The dump columns are
+in the model's saved real-tesseral order. The analytic vector target is a
+workflow demonstration, not a measured Cu property. This CPU route accepts
+qualified natural-parity `L=1` and `L=2` density models; Python supports
+higher `L` subject to its configured source and compiler limits.
 
 The pair-style keywords (`model_family`, `plan`, `block_policy`,
 `auto_replay`, `chunksize`, `source_realization`), their defaults, and the
@@ -58,7 +107,7 @@ git clone https://github.com/ye3t-equivariance/ye3t-lammps.git
 ```
 
 `--apply` installs the package sources in `lammps/src/ML-YE3T`, the CMake
-module, the documentation page, and the runnable examples in
+module, the documentation pages, and the runnable examples in
 `lammps/examples/PACKAGES/ye3t`, together with their checksum manifests. It
 is idempotent for an identical installation and refuses partial, modified,
 or conflicting files. To update the package, uninstall and apply again on the
@@ -266,7 +315,7 @@ plan, GPU class, and Kokkos layout. Each script documents its command line.
 
 ```text
 ye3t representation/coupling plan
-        -> ye3t-ace descriptor construction and linear fit
+        -> ye3t-methods descriptor construction and linear fit
         -> standard .yace plus optional compiled plan bundle
         -> pair_style ye3t
 ```
