@@ -82,7 +82,7 @@ These additions also require a Kokkos-enabled build and are not part of the
 default ctest run. Neither executable instantiates the complete pair style; the
 normal LAMMPS build remains essential.
 
-The current replay ABI is `ye3t_kokkos_candidate_runtime_v2`, and the block scratch
+The replay ABI is `ye3t_kokkos_candidate_runtime_v2`, and the block scratch
 layout is `monomial_tile16_lane_fast_v2`. Regenerate replay files rather than
 editing their ABI/hash fields. Host duration of a `YE3T::*` profiling region is
 not GPU elapsed time; regions deliberately contain no extra fences.

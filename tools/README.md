@@ -40,8 +40,8 @@ Uninstall is repeatable and needs neither the YE3T runtime nor the current
 package sources. It changes the source integration only: build directories,
 installed executables, and runtime dependencies are untouched, so reconfigure
 and rebuild afterwards. Do not run it concurrently with a build or another
-installer. Deletion is not atomic, but inventories remain until payload
-removal and the CMake edit succeed, so a partial failure can be retried.
+installer. Inventories remain available during the non-atomic removal until
+the payload and CMake edits succeed, so a partial failure can be retried.
 
 ## Standalone CMake project
 
@@ -86,7 +86,7 @@ and to `tests/test_patch_lammps.sh`.
 - `refresh_example_manifest.py`: regenerate
   `examples/PACKAGES/ye3t/YE3T_EXAMPLE_MANIFEST.sha256`.
 - `verify_cost_comparison_bundle.py`: verify every model byte of the
-  cost-comparison examples against the promoted results bundle; run from the
+  cost-comparison examples against the results directory; run from the
   repository root as shown in `examples/PACKAGES/ye3t/cost_comparison/README.md`.
 - `gpu_scaling/`: GPU calibration, replay generation, and 1/2/4-GPU scaling
   runs (`run_gpu_scaling.py`, `gpu_rank_wrapper.py`, `calibrate_kokkos_auto.py`,

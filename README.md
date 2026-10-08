@@ -1,13 +1,13 @@
 # ye3t-lammps
 
-`ye3t-lammps` is the `ML-YE3T` source package for LAMMPS. It provides the CPU
-`pair_style ye3t` and the FP64 Kokkos `pair_style ye3t/kk` for linear
-Young-E(3)-tensor (YE3T) potentials: standard PACE-compatible `.yace` models,
-optionally with a compiler-certified execution plan, and native tagged-Cauchy
-and lifted-Cauchy bundles whose basis functions carry nontrivial permutation
-intermediates and have no `.yace` representation. Both styles support
-multi-element type maps, MPI domain decomposition, and per-atom energy and
-virial.
+`ye3t-lammps` adds the `ML-YE3T` package to LAMMPS. The CPU
+`pair_style ye3t` and FP64 Kokkos `pair_style ye3t/kk` evaluate linear
+Young-E(3)-tensor (YE3T) potentials. Both accept PACE-compatible `.yace`
+models, with an optional validated compiler execution plan. They also accept
+native tagged-Cauchy and lifted-Cauchy bundles with nontrivial permutation
+intermediates; those models have no `.yace` representation. Both styles
+support multi-element type maps, MPI domain decomposition, and per-atom
+energy and virial.
 
 The CPU `compute ye3t/property/atom` evaluates real-tesseral L=1 and L=2
 per-atom mean properties from compiler-bound tagged or ordinary-density full-M
@@ -19,13 +19,15 @@ on single-rank and two-rank cases; ordinary-density full-M currently uses
 the CPU compute.
 
 Models are fitted and exported outside LAMMPS with `ye3t` and
-`ye3t-methods`, which retains a small `ye3t_ace` saved-model import shim. LAMMPS
+`ye3t-methods`, which loads older saved models through a `ye3t_ace` import shim. LAMMPS
 performs inference only; shipped examples run from pre-exported model files.
+For a new checkout, follow [Install into LAMMPS](#install-into-lammps) before
+running the examples below.
 
 ## First calculation
 
-After building the package into LAMMPS as described below, run the shipped
-fitted Ta model from its example directory:
+From the directory containing the `ye3t-lammps` checkout, run the bundled
+Ta model after building LAMMPS:
 
 ```bash
 cd ye3t-lammps/examples/PACKAGES/ye3t
@@ -51,16 +53,23 @@ installed, run:
 
 ```bash
 python examples/quickstart/per_atom_vector_to_lammps.py
-cd ../ye3t-workflows/quickstart_linear/cu_site_vector
+```
+
+The script prints `lammps_input`, whose parent is the output directory set by
+`metadata.output_path` in the example config. Run LAMMPS from that directory:
+
+```bash
+cd /path/to/output-directory
 /absolute/path/to/lmp -in in.property
 ```
 
 The LAMMPS input uses `pair_style zero` for neighbor lists and
 `compute ye3t/property/atom` for the fitted property. The dump columns are
 in the model's saved real-tesseral order. The analytic vector target is a
-workflow demonstration, not a measured Cu property. This CPU route accepts
-qualified natural-parity `L=1` and `L=2` density models; Python supports
-higher `L` subject to its configured source and compiler limits.
+workflow demonstration, not a measured Cu property. This CPU route supports
+natural-parity `L=1` and `L=2` density models under the input and normalization
+limits in [the compute documentation](doc/src/compute_ye3t_property_atom.rst).
+Python supports higher `L` subject to its configured source and compiler limits.
 
 The pair-style keywords (`model_family`, `plan`, `block_policy`,
 `auto_replay`, `chunksize`, `source_realization`), their defaults, and the
@@ -92,8 +101,7 @@ sudo apt-get install -y build-essential cmake ninja-build ccache \
 ## Install into LAMMPS
 
 The package is tested against the LAMMPS stable release
-`stable_22Jul2025_update4`. The installer refuses layouts it does not
-recognize instead of modifying them.
+`stable_22Jul2025_update4`. The installer changes only recognized layouts.
 
 ```bash
 git clone https://github.com/lammps/lammps.git
@@ -263,7 +271,7 @@ linear examples use the tagged basis or ordinary density-projected features.
 After patching, the examples are in `lammps/examples/PACKAGES/ye3t`
 ([README](examples/PACKAGES/ye3t/README.md)):
 
-- two physically qualified Ta rank-through-8 models (58 and 61 functions)
+- two fitted Ta rank-through-8 models (58 and 61 functions)
   with `direct`, `block`, `auto`, and coupled-product execution, same-model
   `pace product` and `pace recursive` comparisons, one- and multi-rank MPI
   checks, finite-difference force and virial checks, a fixed-position replay
@@ -296,7 +304,7 @@ residuals are recorded in
 
 ## Performance evidence
 
-Performance is hardware- and model-specific. The retained six-element CPU
+Performance is hardware- and model-specific. The six-element CPU
 comparison of PACE `product`, YE3T-symmetric AUTO on byte-identical `.yace`
 files, and YE3T-mixed tagged models, with the conditions of every timing, is
 in
@@ -332,10 +340,13 @@ in the `ye3t` repository compiles representative plans.
 tests/test_patch_lammps.sh "$PWD"
 python3 tests/test_patch_lammps_uninstall.py -v
 python3 tests/test_source_contracts.py
+python -m pytest tests
 ```
 
-[tests/README.md](tests/README.md) lists the full source-package test, the
-native-CPU ctest route, and the CUDA/Kokkos test scripts;
+The pytest suite excludes command-line integration drivers invoked by CTest
+and a separate manual CPU/device comparison. [tests/README.md](tests/README.md)
+lists those routes, the full source-package test, the native-CPU CTest route,
+and the CUDA/Kokkos test scripts;
 [CONTRIBUTING.md](CONTRIBUTING.md) states the source conventions.
 
 ## License and authors

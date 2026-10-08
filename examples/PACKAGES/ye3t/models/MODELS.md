@@ -46,7 +46,7 @@ payload hashes are:
   `700bc9540bdee48e3e6ccc85449edc7a16f5d32f79ada6da77737ab9900787bf`.
 
 The full-model plan bundle retains the explicit direct route for every
-function and adds one compiler-certified coupled-product alternative. Forced
+function and adds one compiler-validated coupled-product alternative. Forced
 `coupled_product` therefore evaluates that eligible row with its coupled DAG
 and the remaining rows through the exact direct residual. Its payload hashes
 are:
@@ -67,6 +67,6 @@ dataset.
 |---|---|---|---|
 | `ta_l8_h16` | 16 | `f9391945097d24bb5992c9dbc4fb7ea52c019727245e5349c1d665929af3657f` | `af92cab5e1c5831672a8d3979821e214fbfa26eb4067f3cbc1d5433a423fa8a5` |
 
-Its plan uses compiler-certified homogeneous symmetric-power relations, so
+Its plan uses compiler-validated homogeneous symmetric-power relations, so
 direct and block execution are expected to agree within floating-point
 tolerance. Do not use this bundle for material MD or accuracy claims.

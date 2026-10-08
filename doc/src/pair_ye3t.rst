@@ -26,9 +26,9 @@ Syntax
            file = compiled execution-plan manifest for a *yace* model
          *block_policy* value = *direct* or *block* or *scalar_power* or *coupled_product* or *auto*
            direct = evaluate every basis function through the exact product DAG
-           block = force the compiler-certified block/symmetric-power schedule
-           scalar_power = force the compiler-certified homogeneous scalar-power schedule
-           coupled_product = force the compiler-certified coupled-product schedule
+           block = force the compiler-validated block/symmetric-power schedule
+           scalar_power = force the compiler-validated homogeneous scalar-power schedule
+           coupled_product = force the compiler-validated coupled-product schedule
            auto = choose one exact schedule for the active backend at pair_coeff time
          *auto_replay* value = file
            file = calibrated GPU AUTO replay record (*ye3t/kk* with *block_policy auto* only)
@@ -55,6 +55,75 @@ Examples
    # V4 model with artifact-bound atomic references and pair-specific ZBL:
    pair_style ye3t model_family tagged_cauchy block_policy direct
    pair_coeff * * model.ye3t.json H O K S
+
+**Complete NVE input.** The source package includes a fitted Ta model and
+the matching execution plan in
+``examples/PACKAGES/ye3t/models/ta_l8_compact``. From
+``examples/PACKAGES/ye3t`` in the patched LAMMPS tree, run
+``lmp -in in.ye3t.md``. The complete input is:
+
+.. code-block:: LAMMPS
+
+   variable model index models/ta_l8_compact/model.yace
+   variable plan index models/ta_l8_compact/manifest.json
+   variable policy index auto
+
+   units metal
+   atom_style atomic
+   boundary p p p
+   atom_modify map yes sort 0 0.0
+   newton on
+
+   lattice bcc 3.3161146998079496
+   region cell block 0 4 0 4 0 4 units lattice
+   create_box 1 cell
+   create_atoms 1 box
+   mass 1 180.94788
+   reset_atoms id sort yes
+   displace_atoms all random 0.01 0.01 0.01 77123 units box
+   velocity all create 300.0 89231 mom yes rot no dist gaussian
+
+   neighbor 0.3 bin
+   neigh_modify every 1 delay 0 check yes
+
+   pair_style ye3t plan ${plan} block_policy ${policy} chunksize 256
+   pair_coeff * * ${model} Ta
+
+   timestep 0.001
+   fix integrate all nve
+   thermo 1
+   thermo_style custom step atoms temp pe ke etotal press
+   thermo_modify format float %.17g
+   run 20
+
+The output lists potential, kinetic, and total energy at every step. Change
+the model, element type map, lattice, temperature, and run length for a new
+system. Export a fitted potential with ``ye3t-methods`` before using a
+different model file; ``pair_style ye3t`` performs inference in LAMMPS.
+
+**From an ASE fit to LAMMPS.** For a supported scalar tagged model already
+fitted and saved by ``ye3t-methods``, export its native bundle with the public
+model object:
+
+.. code-block:: python
+
+   from ye3t_methods import LinearModel
+
+   model = LinearModel.read("fitted_tagged.ye3t.json")
+   deployed = model.export_lammps("deployed.ye3t.json")
+   print(deployed)
+
+Use the printed path in ``pair_coeff`` and list one model element for each
+LAMMPS atom type, in atom-type order:
+
+.. code-block:: LAMMPS
+
+   pair_style ye3t model_family tagged_cauchy block_policy direct
+   pair_coeff * * deployed.ye3t.json Ta
+
+The ``ye3t-methods`` ASE fitting and export examples show how to create the
+saved model. Ordinary scalar density models that meet the PACE export
+requirements produce a ``.yace`` file and use the first syntax example above.
 
 Description
 """""""""""
@@ -93,8 +162,8 @@ fixed atomic references plus pair-specific ZBL switches on the CPU. The same
 compiled polynomial and explicit adjoint used by Python training are consumed
 by the native evaluator. If ``readout_binding.payload.reference_terms``
 contains ZBL, it is included in energies, forces and virials: do not add an
-external ZBL overlay. The earlier overlay example is for residual-only legacy
-bundles without bound references. V4 bundles are rejected by ``ye3t/kk``;
+external ZBL overlay. Residual-only bundles without bound references use a
+separate ZBL overlay. V4 bundles are rejected by ``ye3t/kk``;
 run them with the CPU pair style.
 
 The *plan* keyword names a compiled execution-plan manifest for a *yace*
@@ -108,7 +177,7 @@ a plan that does not match the potential hash is rejected.
 The *block_policy* keyword selects the schedule. *direct* is the reference
 route that mirrors the product evaluator of :doc:`pair_style pace <pair_pace>`
 and needs no plan. The forced policies *block*, *scalar_power*, and
-*coupled_product* require a plan that certifies the requested route and
+*coupled_product* require a plan that validates the requested route and
 fail otherwise. *auto* scores the candidates in the plan for the active
 backend during :doc:`pair_coeff <pair_coeff>` and freezes one exact
 schedule before the run; the selection, its reason, and the plan identity
@@ -129,7 +198,7 @@ records.
 At :doc:`pair_coeff <pair_coeff>` time the pair style prints the model
 identity, the selected schedule, and (for *ye3t/kk*) the device plan probe
 results. Any mismatch between the potential, a plan, a composite
-component, or a replay record is an error rather than a silent fallback.
+component, or a replay record raises an error.
 
 ----------
 

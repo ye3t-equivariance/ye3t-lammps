@@ -12,6 +12,9 @@ pytest tests/test_public_example_verifier.py
 
 `pytest tests/` runs the Python suite; tests that need the `ye3t` or
 `ye3t-methods` packages skip when they are not installed.
+CTest runs four command-line integration drivers;
+`test_mean_property_saved_parity.py` is a manual comparison of saved CPU and
+device rows after the corresponding runs.
 
 ## Full source-package test
 
@@ -31,8 +34,8 @@ The evaluator and the production spline/DAG compilation helpers are tested
 without LAMMPS through the standalone CMake project; see
 `tests/native_cpu/README.md` for the configure, build, and `ctest` commands.
 
-The full-M tagged and ordinary-density per-atom property tests use the small retained models in
-`tests/fixtures/mean_property/`. After building the standalone native test
+The full-M tagged and ordinary-density per-atom property tests use the bundled
+models in `tests/fixtures/mean_property/`. After building the standalone native test
 target, run `ctest -R ml_ye3t_mean_property --output-on-failure`. Supplying
 `ML_YE3T_LAMMPS_TEST_EXECUTABLE` when configuring the plugin build also
 enables the single-rank and two-rank LAMMPS integration cases. The optional

@@ -37,9 +37,9 @@ build-native-tests/ml_ye3t_cpu_native_benchmark \
 ```
 
 Benchmark-only schedules `replay` and `whole` access the private test friend.
-`replay` selects the former cache-budget edge-recomputation schedule; `whole`
-retains a complete outer batch's tables. They both use the current angular
-and readout kernels, so neither alone reconstructs an earlier source revision.
+`replay` recomputes edge values within a cache budget; `whole` keeps a complete
+outer batch's tables. Both use the same angular and readout kernels, isolating
+the scheduling cost.
 There is no production `pair_style` input for these controls.
 
 The native benchmark uses repeated deterministically distorted BCC environments

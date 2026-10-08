@@ -32,7 +32,7 @@ All selected tag counts are reduced together at fixed `N`.  Exact
 Gram--Schmidt in the realized free-moment algebra removes an explicit `s=1`
 duplicate and produces two orthonormal image coordinates from three raw rows.
 This is not a numerical pivot basis and does not use a sampled design matrix.
-Orthogonality is with respect to the declared symmetric-Fock compiler metric,
+Orthogonality is with respect to the specified symmetric-Fock compiler metric,
 not the empirical distribution of atomic environments.
 
 YE3T compiles and hash-commits the exact real moment schedule, real-form maps,
@@ -46,7 +46,7 @@ accepting the model.
 
 The V3 loader rejects an exact zero separation before evaluating a direction.
 The current native spherical-harmonic kernel clamps its unit-vector denominator
-to `1e-12 A`, so literal Python/native source-and-derivative parity is certified
+to `1e-12 A`, so literal Python/native source-and-derivative parity is validated
 here for `r>1e-12 A`; all distances in this fixture are much larger.  An exact
 regular-solid-harmonic continuation below that bound remains a production
 origin-semantics task, not a claim of this software fixture.

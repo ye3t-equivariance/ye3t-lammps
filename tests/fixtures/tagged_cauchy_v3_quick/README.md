@@ -1,6 +1,6 @@
 # Tagged-Cauchy V3 CPU/MPI/Kokkos quick example
 
-This directory is a self-contained correctness example for the first
+This directory is a self-contained correctness example for the
 hash-bound tagged-Cauchy physical-image model format.  The bundled model is a
 two-feature, tensor-order-4 (`N=4`) Ta software fixture with tag counts
 `s=0,1,2`.  It was produced by a tiny deterministic ridge solve so that the
@@ -8,7 +8,7 @@ compiler, Python runtime, and native LAMMPS implementation can be compared.
 
 It is **not** a physically fitted Ta potential and must not be used for model
 accuracy, molecular-dynamics stability, or timing claims.  `THEORY.md`
-describes the exact bounded construction and its current scope.
+describes the exact construction and its supported limits.
 
 Run the static 54-atom periodic BCC check from the `tests/fixtures` directory
 of this repository (the directory is not installed into the LAMMPS examples
@@ -35,8 +35,8 @@ A CUDA/Kokkos LAMMPS build runs the byte-identical model with:
 The log must report `evaluator physical_image_v3_direct` and qualification
 `experimental_reference_unqualified`. This is an unoptimized direct
 correctness path, not timing or performance evidence. It intentionally rejects
-legacy source-plan V1 models and currently retains fixed `l<=8`, 128-component,
-and 32-factors-per-term limits.
+source-plan V1 models and enforces `l<=8`, 128-component, and
+32-factors-per-term limits.
 
 For a force and strain-virial finite-difference check, build LAMMPS with
 `PKG_EXTRA-FIX=ON` and run:
