@@ -121,6 +121,28 @@ int run_fixture(const std::string &fixture_path)
                      edge_gradients.data());
 
   bool ok = true;
+  // Descriptor columns are independent of the fitted energy weights. In
+  // particular, an all-zero readout must retain all moment contributions.
+  std::vector<double> full_features(static_cast<std::size_t>(model.feature_count));
+  std::vector<double> zero_features(full_features.size());
+  evaluator.evaluate(1, central_species_indices.data(), edge_offsets.data(),
+                     edge_neighbor_species.data(), edge_vectors.data(), &atomic_energy,
+                     edge_gradients.data(), full_features.data());
+  auto zero_model = model;
+  for (auto &weights : zero_model.beta)
+    for (double &weight : weights) weight = 0.0;
+  YE3T_LAMMPS::TaggedCauchyCPUEvaluator zero_evaluator(&zero_model);
+  double zero_energy = 0.0;
+  std::vector<double> zero_gradients(edge_gradients.size());
+  zero_evaluator.evaluate(1, central_species_indices.data(), edge_offsets.data(),
+                          edge_neighbor_species.data(), edge_vectors.data(), &zero_energy,
+                          zero_gradients.data(), zero_features.data());
+  for (std::size_t feature = 0; feature < full_features.size(); ++feature)
+    check_close(full_features[feature], zero_features[feature],
+                "zero-readout descriptor " + std::to_string(feature), ok);
+  check_close(zero_model.offsets[central_index], zero_energy, "zero-readout energy", ok);
+  for (const double gradient : zero_gradients)
+    check_close(0.0, gradient, "zero-readout gradient", ok);
   if (model.is_physical_image()) {
     const std::vector<std::size_t> overlap_offsets = {0, 1};
     const std::vector<int> overlap_neighbor_species = {central_index};

@@ -178,6 +178,10 @@ struct TaggedCauchyModel {
   int tag_count = 0;
   int feature_count = 0;
 
+  // Per feature, a union of minimum species-occurrence counts. Empty legacy
+  // metadata keeps the existing V2 execution. Counts refer to atom-image edges.
+  std::vector<std::vector<std::vector<int>>> occurrence_support;
+
   std::vector<double> offsets;    // one per species_order index, eV
   std::string offset_mode;        // "fitted_species_offsets" or "composition_fixed";
                                   // both are one-value-per-species,

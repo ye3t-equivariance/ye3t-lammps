@@ -93,25 +93,35 @@ namespace {
       return compact_.substr(entry->value_begin, entry->value_end - entry->value_begin);
     }
 
-    std::vector<std::string> array_items()
+    std::vector<std::string> array_values()
     {
+      std::vector<std::string> result;
       punctuation('[');
-      std::vector<std::string> items;
       skip_whitespace();
       if (peek() != ']') {
         while (true) {
           const std::size_t begin = compact_.size();
           parse_value(1);
-          items.push_back(compact_.substr(begin, compact_.size() - begin));
+          result.push_back(compact_.substr(begin));
+          compact_.clear();
           skip_whitespace();
           if (peek() == ']') break;
           punctuation(',');
+          compact_.clear();
         }
       }
       punctuation(']');
       skip_whitespace();
       if (position_ != source_.size()) fail("trailing content after array");
-      return items;
+      return result;
+    }
+
+    std::vector<std::string> root_member_names()
+    {
+      scan_root();
+      std::vector<std::string> result;
+      for (const auto &entry : root_members_) result.push_back(entry.key);
+      return result;
     }
 
    private:
@@ -135,11 +145,14 @@ namespace {
 
     void scan_root()
     {
+      if (scanned_) return;
       skip_whitespace();
       if (peek() != '{') fail("root must be an object");
       parse_object(0, true);
       skip_whitespace();
       if (position_ != source_.size()) fail("trailing content after root");
+      scanned_ = true;
+      std::string().swap(source_);
     }
 
     void skip_whitespace()
@@ -351,6 +364,7 @@ namespace {
     std::size_t position_ = 0;
     std::string compact_;
     std::vector<ObjectMember> root_members_;
+    bool scanned_ = false;
   };
 
   std::string read_file(const std::string &path)
@@ -363,6 +377,35 @@ namespace {
   }
 
 }    // namespace
+
+struct CanonicalJSONDocument::Impl {
+  explicit Impl(std::string source) : scanner(std::move(source)) {}
+  CanonicalJSONScanner scanner;
+};
+
+CanonicalJSONDocument::CanonicalJSONDocument(const std::string &input, bool json_value)
+    : impl_(std::make_shared<Impl>(json_value ? input : read_file(input))) {}
+
+std::string CanonicalJSONDocument::root_member_value(const std::string &member) const
+{
+  return impl_->scanner.root_member_value(member);
+}
+
+std::vector<std::string> CanonicalJSONDocument::root_member_names() const
+{
+  return impl_->scanner.root_member_names();
+}
+
+std::string CanonicalJSONDocument::nested_member_value(const std::string &object_member,
+                                                       const std::string &member) const
+{
+  return CanonicalJSONScanner(root_member_value(object_member)).root_member_value(member);
+}
+
+std::string CanonicalJSONDocument::hash_without_root_member(const std::string &member) const
+{
+  return impl_->scanner.hash_without_root_member(member);
+}
 
 CanonicalExecutionPlanHashes canonical_execution_plan_hashes(const std::string &path)
 {
@@ -400,9 +443,14 @@ std::string canonical_json_value_root_member(const std::string &json_value,
   return CanonicalJSONScanner(json_value).root_member_value(member);
 }
 
+std::vector<std::string> canonical_json_array_values(const std::string &json_value)
+{
+  return CanonicalJSONScanner(json_value).array_values();
+}
+
 std::vector<std::string> canonical_json_value_array_items(const std::string &json_value)
 {
-  return CanonicalJSONScanner(json_value).array_items();
+  return canonical_json_array_values(json_value);
 }
 
 }    // namespace YE3T_LAMMPS

@@ -39,6 +39,7 @@ struct TaggedCauchyReadoutPlan {
 
   std::vector<std::int64_t> species_term_offsets;
   std::vector<int> term_p;
+  std::vector<int> term_feature_index;
   std::vector<double> term_coefficient;
   std::vector<std::int64_t> term_density_offsets;
   std::vector<int> term_density_flat;
@@ -64,6 +65,7 @@ inline TaggedCauchyReadoutPlan compile_tagged_cauchy_readout(const TaggedCauchyM
 {
   struct CompiledTerm {
     int p = 0;
+    int feature_index = 0;
     std::vector<int> density;
     std::vector<int> moment;
     double coefficient = 0.0;
@@ -91,6 +93,7 @@ inline TaggedCauchyReadoutPlan compile_tagged_cauchy_readout(const TaggedCauchyM
 
       CompiledTerm candidate;
       candidate.p = term.p;
+      candidate.feature_index = term.feature_index;
       candidate.density = term.density_factor_indices;
       candidate.moment = term.moment_indices;
       candidate.coefficient = coefficient;
@@ -114,6 +117,7 @@ inline TaggedCauchyReadoutPlan compile_tagged_cauchy_readout(const TaggedCauchyM
       if (term.coefficient == 0.0) continue;
       plan.maximum_term_p = std::max(plan.maximum_term_p, term.p);
       plan.term_p.push_back(term.p);
+      plan.term_feature_index.push_back(term.feature_index);
       plan.term_coefficient.push_back(term.coefficient);
       plan.term_density_flat.insert(plan.term_density_flat.end(), term.density.begin(),
                                     term.density.end());

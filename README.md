@@ -24,6 +24,13 @@ performs inference only; shipped examples run from pre-exported model files.
 For a new checkout, follow [Install into LAMMPS](#install-into-lammps) before
 running the examples below.
 
+The CPU tagged loader shares the indexed JSON reader used by `ye3t-methods`.
+Each load reuses its captured document for integrity checks and extracts the
+V4 runtime schedule without expanding unused compiler proof records. Model
+schemas, coefficients and pair-style inputs are unchanged; rebuild the runtime
+or plugin to use the loader update. See the
+[loader migration and validation notes](doc/loader_migration_20261113.md).
+
 ## First calculation
 
 From the directory containing the `ye3t-lammps` checkout, run the bundled

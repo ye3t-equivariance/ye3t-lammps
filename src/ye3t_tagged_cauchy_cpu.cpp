@@ -16,6 +16,7 @@
 ------------------------------------------------------------------------- */
 
 #include "ye3t_tagged_cauchy_cpu.h"
+#include <type_traits>
 
 #include "ye3t_runtime_core.h"
 #include "ye3t_shifted_jacobi.h"
@@ -130,10 +131,16 @@ TaggedCauchyCPUEvaluator::TaggedCauchyCPUEvaluator(const TaggedCauchyModel *mode
   jacobi_derivatives_.resize(jacobi_offsets_by_slot_.back());
 
   TaggedCauchyReadoutPlan readout = compile_tagged_cauchy_readout(*model_);
+  all_features_occurrence_counts_.assign(model_->species_order.size(), 0);
+  for (const auto &alternatives : model_->occurrence_support)
+    for (const auto &counts : alternatives)
+      for (std::size_t kind = 0; kind < counts.size(); ++kind)
+        all_features_occurrence_counts_[kind] = std::max(all_features_occurrence_counts_[kind], counts[kind]);
   density_key_count_ = readout.density_key_count;
   maximum_term_p_ = readout.maximum_term_p;
   species_term_offsets_ = std::move(readout.species_term_offsets);
   term_p_ = std::move(readout.term_p);
+  term_feature_index_ = std::move(readout.term_feature_index);
   term_coefficient_ = std::move(readout.term_coefficient);
   term_density_offsets_ = std::move(readout.term_density_offsets);
   term_density_flat_ = std::move(readout.term_density_flat);
@@ -151,6 +158,20 @@ TaggedCauchyCPUEvaluator::TaggedCauchyCPUEvaluator(const TaggedCauchyModel *mode
   moment_node_factor_ = std::move(readout.moment_node_factor);
   moment_node_terminal_offsets_ = std::move(readout.moment_node_terminal_offsets);
   moment_node_terminal_moments_ = std::move(readout.moment_node_terminal_moments);
+  // The energy readout may prune moments whose fitted weights vanish.
+  // Descriptor output must still evaluate every compiler feature, independently
+  // of those weights. Prepare the complementary moment indices once.
+  descriptor_missing_moments_.resize(model_->species_order.size());
+  for (std::size_t species = 0; species < model_->species_order.size(); ++species) {
+    std::vector<bool> live(model_->real_moment_keys.size(), false);
+    for (auto index = species_live_moment_offsets_[species];
+         index < species_live_moment_offsets_[species + 1]; ++index)
+      live[static_cast<std::size_t>(species_live_moments_[static_cast<std::size_t>(index)])] = true;
+    for (std::size_t moment = 0; moment < live.size(); ++moment)
+      if (!live[moment]) descriptor_missing_moments_[species].push_back(static_cast<int>(moment));
+  }
+  // Free-tag factors also belong to zero-weight feature terms.
+  for (const auto &term : model_->terms) maximum_term_p_ = std::max(maximum_term_p_, term.p);
   free_count_by_p_.resize(static_cast<std::size_t>(maximum_term_p_ + 1), 1.0);
   moment_node_values_.resize(moment_node_parent_.size());
   moment_node_adjoint_.resize(moment_node_parent_.size());
@@ -663,6 +684,32 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
                   component_count * 3, component_gradients_.data());
       const std::size_t species =
           static_cast<std::size_t>(central_species_indices[static_cast<std::size_t>(center)]);
+      bool all_supported = true;
+      if (!model.occurrence_support.empty()) {
+        occurrence_counts_.assign(model.species_order.size(), 0);
+        for (std::size_t edge = begin; edge < end; ++edge) {
+          const double cutoff = source_batch_cutoffs_[edge - source_edge_begin];
+          if (radii_[edge - source_edge_begin] < cutoff)
+            ++occurrence_counts_[static_cast<std::size_t>(edge_neighbor_species[edge])];
+        }
+        // The common populated case needs only one bound per species.
+        // Evaluate individual alternatives only when this sufficient test fails.
+        for (std::size_t kind = 0; kind < occurrence_counts_.size(); ++kind)
+          all_supported = all_supported && occurrence_counts_[kind] >= all_features_occurrence_counts_[kind];
+        if (!all_supported) {
+          feature_available_.assign(static_cast<std::size_t>(model.feature_count), false);
+          all_supported = true;
+          for (std::size_t feature = 0; feature < model.occurrence_support.size(); ++feature) {
+            for (const auto &counts : model.occurrence_support[feature]) {
+              bool available = true;
+              for (std::size_t kind = 0; kind < counts.size(); ++kind)
+                if (occurrence_counts_[kind] < counts[kind]) { available = false; break; }
+              if (available) { feature_available_[feature] = true; break; }
+            }
+            all_supported = all_supported && feature_available_[feature];
+          }
+        }
+      }
       std::fill(density_.begin(), density_.end(), 0.0);
       const std::int64_t live_begin = species_live_moment_offsets_[species];
       const std::int64_t live_end = species_live_moment_offsets_[species + 1];
@@ -670,11 +717,14 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
       const std::int64_t moment_node_end = species_moment_node_offsets_[species + 1];
       const std::size_t moment_node_count =
           static_cast<std::size_t>(moment_node_end - moment_node_begin);
-      const bool use_binary_moments =
+      // Folded portfolios can merge different features. An empty assignment
+      // requires their individual compiler terms, before readout contraction.
+      const bool use_binary_moments = all_supported && (
           selected_policy_ == TaggedCauchyExecutionPolicy::SYMMETRIC_POWER ||
-          selected_policy_ == TaggedCauchyExecutionPolicy::BLOCK;
-      const bool use_binary_outer = selected_policy_ == TaggedCauchyExecutionPolicy::GENERIC_DAG ||
-          selected_policy_ == TaggedCauchyExecutionPolicy::BLOCK;
+          selected_policy_ == TaggedCauchyExecutionPolicy::BLOCK);
+      const bool use_binary_outer = all_supported && (
+          selected_policy_ == TaggedCauchyExecutionPolicy::GENERIC_DAG ||
+          selected_policy_ == TaggedCauchyExecutionPolicy::BLOCK);
       const std::size_t maximum_cached_values = kMomentNodeCacheBytes / sizeof(double);
       const std::size_t binary_moment_node_count =
           use_binary_moments ? model_->execution_portfolio.moment_plan.nodes.size() : 0;
@@ -881,17 +931,35 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
 
       std::fill(density_adjoint_.begin(), density_adjoint_.end(), 0.0);
       std::fill(moment_adjoint_.begin(), moment_adjoint_.end(), 0.0);
-      double energy = model.offsets[species];
+      // Scalar image coordinates can contain large cancelling moment terms.
+      // Keep the readout accumulator wider than the public FP64 result.
+      long double energy = model.offsets[species];
       if (model.deployment_kind == TaggedCauchyDeploymentKind::LegacyMomentV2)
         for (int p = 0; p <= maximum_term_p_; ++p)
           free_count_by_p_[static_cast<std::size_t>(p)] =
               falling_factorial(edge_count, p, model.tag_count);
 
       if (atomic_features != nullptr) {
+        if (!use_binary_moments) {
+          for (const int moment : descriptor_missing_moments_[species]) {
+            double sum = 0.0;
+            const auto &factors = model.real_moment_flat_indices[static_cast<std::size_t>(moment)];
+            for (std::int64_t edge = 0; edge < edge_count; ++edge) {
+              double product = 1.0;
+              for (const int factor : factors)
+                product *= component_values_[static_cast<std::size_t>(edge) *
+                    static_cast<std::size_t>(total_components_) + static_cast<std::size_t>(factor)];
+              sum += product;
+            }
+            moment_[static_cast<std::size_t>(moment)] = sum;
+          }
+        }
         double *features = atomic_features +
             static_cast<std::size_t>(center) * static_cast<std::size_t>(model.feature_count);
         std::fill(features, features + model.feature_count, 0.0);
         for (const TaggedCauchyTerm &term : model.terms) {
+          if (!all_supported && !feature_available_[static_cast<std::size_t>(term.feature_index)])
+            continue;
           double product = term.coefficient;
           for (const int density_index : term.density_factor_indices)
             product *= density_[static_cast<std::size_t>(density_index)];
@@ -1014,28 +1082,36 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
       } else {
         // V3 retains compiler forward order and uses its separately certified
         // division-free adjoint schedule below.
-        for (std::int64_t term = term_begin; term < term_end; ++term) {
-          const std::size_t t = static_cast<std::size_t>(term);
-          double product = term_coefficient_[t];
-          for (std::int64_t index = term_density_offsets_[t]; index < term_density_offsets_[t + 1];
-               ++index)
-            product *= density_[static_cast<std::size_t>(
-                term_density_flat_[static_cast<std::size_t>(index)])];
-          for (std::int64_t index = term_moment_offsets_[t]; index < term_moment_offsets_[t + 1];
-               ++index)
-            product *= moment_[static_cast<std::size_t>(
-                term_moment_flat_[static_cast<std::size_t>(index)])];
-          energy += product;
-        }
-        const std::vector<double> &folded_adjoint = folded_adjoint_coefficient_[species];
-        for (std::size_t t = 0; t < adjoint_source_index_.size(); ++t) {
-          double product = folded_adjoint[t];
-          for (std::int64_t index = adjoint_remaining_offsets_[t];
-               index < adjoint_remaining_offsets_[t + 1]; ++index)
-            product *= density_[static_cast<std::size_t>(
-                adjoint_remaining_flat_[static_cast<std::size_t>(index)])];
-          density_adjoint_[static_cast<std::size_t>(adjoint_source_index_[t])] += product;
-        }
+        const auto accumulate = [&](auto check_support) {
+          for (std::int64_t term = term_begin; term < term_end; ++term) {
+            const std::size_t t = static_cast<std::size_t>(term);
+            if constexpr (decltype(check_support)::value)
+              if (!feature_available_[static_cast<std::size_t>(term_feature_index_[t])]) continue;
+            long double product = term_coefficient_[t];
+            for (std::int64_t index = term_density_offsets_[t]; index < term_density_offsets_[t + 1];
+                 ++index)
+              product *= density_[static_cast<std::size_t>(
+                  term_density_flat_[static_cast<std::size_t>(index)])];
+            for (std::int64_t index = term_moment_offsets_[t]; index < term_moment_offsets_[t + 1];
+                 ++index)
+              product *= moment_[static_cast<std::size_t>(
+                  term_moment_flat_[static_cast<std::size_t>(index)])];
+            energy += product;
+          }
+          const std::vector<double> &folded_adjoint = folded_adjoint_coefficient_[species];
+          for (std::size_t t = 0; t < adjoint_source_index_.size(); ++t) {
+            if constexpr (decltype(check_support)::value)
+              if (!feature_available_[static_cast<std::size_t>(model.adjoint_terms[t].feature_index)]) continue;
+            double product = folded_adjoint[t];
+            for (std::int64_t index = adjoint_remaining_offsets_[t];
+                 index < adjoint_remaining_offsets_[t + 1]; ++index)
+              product *= density_[static_cast<std::size_t>(
+                  adjoint_remaining_flat_[static_cast<std::size_t>(index)])];
+            density_adjoint_[static_cast<std::size_t>(adjoint_source_index_[t])] += product;
+          }
+        };
+        if (all_supported) accumulate(std::false_type{});
+        else accumulate(std::true_type{});
       }
       if (!std::isfinite(energy))
         throw std::runtime_error("tagged-Cauchy evaluator produced a non-finite atomic energy");
@@ -1396,6 +1472,10 @@ double TaggedCauchyCPUEvaluator::memory_usage() const
   bytes += term_moment_offsets_.capacity() * sizeof(std::int64_t);
   bytes += term_moment_flat_.capacity() * sizeof(int);
   bytes += term_p_.capacity() * sizeof(int);
+  bytes += term_feature_index_.capacity() * sizeof(int);
+  bytes += occurrence_counts_.capacity() * sizeof(int);
+  bytes += all_features_occurrence_counts_.capacity() * sizeof(int);
+  bytes += feature_available_.capacity() * sizeof(char);
   bytes += term_coefficient_.capacity() * sizeof(double);
   bytes += term_product_node_.capacity() * sizeof(int);
   bytes += free_count_by_p_.capacity() * sizeof(double);
@@ -1407,6 +1487,9 @@ double TaggedCauchyCPUEvaluator::memory_usage() const
   bytes += species_live_moment_offsets_.capacity() * sizeof(std::int64_t);
   bytes += species_live_moments_.capacity() * sizeof(int);
   bytes += species_live_moment_nodes_.capacity() * sizeof(int);
+  bytes += descriptor_missing_moments_.capacity() * sizeof(std::vector<int>);
+  for (const auto &moments : descriptor_missing_moments_)
+    bytes += moments.capacity() * sizeof(int);
   bytes += adjoint_remaining_offsets_.capacity() * sizeof(std::int64_t);
   bytes += adjoint_remaining_flat_.capacity() * sizeof(int);
   bytes += adjoint_source_index_.capacity() * sizeof(int);

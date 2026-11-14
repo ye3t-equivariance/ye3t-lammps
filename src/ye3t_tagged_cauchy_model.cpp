@@ -133,7 +133,7 @@ namespace {
     return {real, imag};
   }
 
-  YAML::Node verified_binding(const YAML::Node &model, const std::string &model_path,
+  YAML::Node verified_binding(const YAML::Node &model, const CanonicalJSONDocument &document,
                               const std::string &member)
   {
     const YAML::Node binding = model[member];
@@ -143,7 +143,7 @@ namespace {
       fail(path, "binding must contain exactly payload and hash");
     const std::string expected = sha256_field(binding["hash"], path + ".hash");
     const std::string payload_json =
-        canonical_json_nested_member_value(model_path, member, "payload");
+        document.nested_member_value(member, "payload");
     if (sha256_string(payload_json) != expected) fail(path, "payload hash mismatch");
     require_mapping(binding["payload"], path + ".payload");
     return binding["payload"];
@@ -332,10 +332,16 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
   if (size == 0 || size > MAX_MODEL_BYTES)
     fail(supplied_path, "file size is outside the supported bound");
 
+  const CanonicalJSONDocument document(supplied_path);
+  std::unique_ptr<CanonicalJSONDocument> compiler_document;
+  std::unique_ptr<CanonicalJSONDocument> compiler_payload_document;
+  std::vector<std::string> forward_records;
+  std::vector<std::string> adjoint_records;
+
   YAML::Node model;
   try {
     const std::string schema_hint = json_string_value(
-        canonical_json_root_member_value(supplied_path, "schema"), "model.schema");
+        document.root_member_value("schema"), "model.schema");
     if (schema_hint == "ye3t_tagged_cauchy_slice_v4") {
       // V4 carries a large offline proof (parents, formal labels and exact
       // reconstruction rows). Inference never traverses it. Materialize only
@@ -344,17 +350,45 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
       model = YAML::Node(YAML::NodeType::Map);
       for (const char *member : {"schema", "self_hash", "compiler_artifact_hash",
                                 "deployment_identity_hash", "conventions",
-                                "source_binding", "schedule_binding", "readout_binding",
+                                "source_binding", "readout_binding",
                                 "tagged_execution_portfolio"})
-        model[member] = YAML::Load(canonical_json_root_member_value(supplied_path, member));
+        model[member] = YAML::Load(document.root_member_value(member));
+      const CanonicalJSONDocument schedule_binding(
+          document.root_member_value("schedule_binding"), true);
+      const CanonicalJSONDocument schedule_program(
+          schedule_binding.root_member_value("payload"), true);
+      YAML::Node program(YAML::NodeType::Map);
+      for (const auto &member : schedule_program.root_member_names())
+        if (member != "terms" && member != "adjoint_terms")
+          program[member] = YAML::Load(schedule_program.root_member_value(member));
+      forward_records = canonical_json_array_values(schedule_program.root_member_value("terms"));
+      adjoint_records = canonical_json_array_values(schedule_program.root_member_value("adjoint_terms"));
+      model["schedule_binding"]["payload"] = program;
+      model["schedule_binding"]["hash"] = YAML::Load(schedule_binding.root_member_value("hash"));
       const std::string compiler_json =
-          canonical_json_root_member_value(supplied_path, "compiler_artifact");
+          document.root_member_value("compiler_artifact");
+      compiler_document = std::make_unique<CanonicalJSONDocument>(compiler_json, true);
       const std::string compiler_payload_json =
-          canonical_json_value_root_member(compiler_json, "payload");
+          compiler_document->root_member_value("payload");
+      compiler_payload_document =
+          std::make_unique<CanonicalJSONDocument>(compiler_payload_json, true);
       YAML::Node payload(YAML::NodeType::Map);
       for (const char *member : {"catalogue_hash", "real_schedule_core_hash",
-                                "moment_schedules", "source_product_algebra"})
-        payload[member] = YAML::Load(canonical_json_value_root_member(compiler_payload_json, member));
+                                "source_product_algebra"})
+        payload[member] = YAML::Load(compiler_payload_document->root_member_value(member));
+      // Only schedule identities and physical generators are consumed below.
+      // Keep complete original bytes in the document for every hash check;
+      // avoid expanding unused exact reconstruction rows into YAML nodes.
+      YAML::Node schedules(YAML::NodeType::Sequence);
+      for (const auto &json : canonical_json_array_values(
+               compiler_payload_document->root_member_value("moment_schedules"))) {
+        const CanonicalJSONDocument schedule(json, true);
+        YAML::Node projected(YAML::NodeType::Map);
+        for (const char *member : {"schedule_hash", "source_generators"})
+          projected[member] = YAML::Load(schedule.root_member_value(member));
+        schedules.push_back(projected);
+      }
+      payload["moment_schedules"] = schedules;
       model["compiler_artifact"]["payload"] = payload;
     } else {
       model = YAML::LoadFile(model_path.string());
@@ -367,7 +401,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
   const std::string schema = scalar_string(model["schema"], "model.schema");
   if (schema == "ye3t_tagged_cauchy_composite_v1") {
     const std::string composite_self_hash = sha256_field(model["self_hash"], "model.self_hash");
-    if (canonical_json_hash_without_root_member(model_path.string(), "self_hash") !=
+    if (document.hash_without_root_member("self_hash") !=
         composite_self_hash)
       fail(model_path.string(), "composite model self-hash mismatch");
 
@@ -419,7 +453,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     fail("model.schema", "unsupported tagged-Cauchy schema");
 
   const std::string self_hash = sha256_field(model["self_hash"], "model.self_hash");
-  if (canonical_json_hash_without_root_member(model_path.string(), "self_hash") != self_hash)
+  if (document.hash_without_root_member("self_hash") != self_hash)
     fail(model_path.string(), "model self-hash mismatch");
 
   TaggedCauchyModel result;
@@ -437,9 +471,9 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
   YAML::Node program;
   YAML::Node readout;
   if (physical_image_v3) {
-    source = verified_binding(model, supplied_path, "source_binding");
-    program = verified_binding(model, supplied_path, "schedule_binding");
-    readout = verified_binding(model, supplied_path, "readout_binding");
+    source = verified_binding(model, document, "source_binding");
+    program = verified_binding(model, document, "schedule_binding");
+    readout = verified_binding(model, document, "readout_binding");
 
     result.compiler_artifact_hash =
         sha256_field(model["compiler_artifact_hash"], "model.compiler_artifact_hash");
@@ -453,22 +487,24 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
         sha256_field(model["deployment_identity_hash"], "model.deployment_identity_hash");
 
     const std::string compiler_json =
-        canonical_json_root_member_value(supplied_path, "compiler_artifact");
+        document.root_member_value("compiler_artifact");
+    if (!compiler_document)
+      compiler_document = std::make_unique<CanonicalJSONDocument>(compiler_json, true);
     const std::string compiler_self =
-        json_string_value(canonical_json_value_root_member(compiler_json, "self_hash"),
+        json_string_value(compiler_document->root_member_value("self_hash"),
                           "model.compiler_artifact.self_hash");
-    if (canonical_json_value_hash_without_root_member(compiler_json, "self_hash") != compiler_self)
+    if (compiler_document->hash_without_root_member("self_hash") != compiler_self)
       fail("model.compiler_artifact", "compiler artifact self-hash mismatch");
     if (compiler_self != result.compiler_artifact_hash)
       fail("model.compiler_artifact_hash", "compiler artifact hash does not match its payload");
 
     const std::string source_json =
-        canonical_json_nested_member_value(supplied_path, "source_binding", "payload");
+        document.nested_member_value("source_binding", "payload");
     if (canonical_json_value_hash_without_root_member(source_json, "source_plan_hash") !=
         result.source_plan_hash)
       fail("model.source_binding.payload", "source-plan self-hash mismatch");
     const std::string schedule_json =
-        canonical_json_nested_member_value(supplied_path, "schedule_binding", "payload");
+        document.nested_member_value("schedule_binding", "payload");
     if (canonical_json_value_hash_without_root_member(schedule_json, "program_hash") !=
         result.schedule_hash)
       fail("model.schedule_binding.payload", "schedule self-hash mismatch");
@@ -476,12 +512,15 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     const YAML::Node compiler_payload = model["compiler_artifact"]["payload"];
     require_mapping(compiler_payload, "model.compiler_artifact.payload");
     const std::string compiler_payload_json =
-        canonical_json_value_root_member(compiler_json, "payload");
+        compiler_document->root_member_value("payload");
+    if (!compiler_payload_document)
+      compiler_payload_document =
+          std::make_unique<CanonicalJSONDocument>(compiler_payload_json, true);
     const std::string committed_schedule_hash =
         sha256_field(compiler_payload["real_schedule_core_hash"],
                      "model.compiler_artifact.payload.real_schedule_core_hash");
     const std::string compiler_schedule_core_json =
-        canonical_json_value_root_member(compiler_payload_json, "real_schedule_core");
+        compiler_payload_document->root_member_value("real_schedule_core");
     if (sha256_string(compiler_schedule_core_json) != committed_schedule_hash)
       fail("model.compiler_artifact.payload.real_schedule_core",
            "compiler real-schedule commitment hash mismatch");
@@ -524,7 +563,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
            "source-product algebra binding changed");
 
     const std::string compiler_forms_json =
-        canonical_json_value_root_member(compiler_payload_json, "real_forms");
+        compiler_payload_document->root_member_value("real_forms");
     const std::string source_forms_json =
         canonical_json_value_root_member(source_json, "real_forms");
     if (compiler_forms_json != source_forms_json)
@@ -536,7 +575,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
       fail("model.compiler_artifact_hash", "source compiler binding changed");
 
     const std::string conventions_json =
-        canonical_json_root_member_value(supplied_path, "conventions");
+        document.root_member_value("conventions");
     const std::string identity_json = "{\"compiler_artifact_hash\":\"" +
         result.compiler_artifact_hash + "\",\"conventions\":" + conventions_json +
         ",\"readout_hash\":\"" + result.readout_hash + "\",\"schedule_hash\":\"" +
@@ -696,6 +735,10 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
                           "source_product_algebra.normalized_support.support_id"))
       fail("model.source_binding.payload",
            "source family or support differs from the compiler artifact");
+    // TODO(LINEAR-CHEB-C2): bind the existing C2 Chebyshev family, cubic envelope
+    // and recurrence/derivatives through this reader and the CPU evaluator.
+    // Keep Jacobi artifacts intact; qualify the matching LAMMPS export too.
+    // Require force/stress agreement, empty-support zeros and matched timings.
     if (scalar_string(source["radial_coordinate"],
                       "model.source_binding.payload.radial_coordinate") != "x=r/r_c" ||
         scalar_string(source["radial_measure"], "model.source_binding.payload.radial_measure") !=
@@ -704,9 +747,13 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
       fail("model.source_binding.payload", "unsupported radial coordinate, measure, or envelope");
     const YAML::Node source_certificate = source["certificate"];
     require_mapping(source_certificate, "model.source_binding.payload.certificate");
-    if (source_certificate.size() != 4)
+    const bool has_occurrence_support = static_cast<bool>(source["occurrence_support"]);
+    if (source_certificate.size() != (has_occurrence_support ? 5 : 4))
       fail("model.source_binding.payload.certificate",
            "expected the complete V3 source certificate");
+    if (has_occurrence_support && !boolean_value(source_certificate["distinct_occurrence_support"],
+            "model.source_binding.payload.certificate.distinct_occurrence_support"))
+      fail("model.source_binding.payload.certificate", "uncertified occurrence support");
     if (!boolean_value(source_certificate["passed"],
                        "model.source_binding.payload.certificate.passed") ||
         !boolean_value(source_certificate["cutoff_value_and_first_derivative_zero_exact"],
@@ -804,7 +851,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
             fail("zbl.pair_cutoffs_A", "unknown species pair");
         }
       }
-      const std::string readout_json = canonical_json_nested_member_value(supplied_path, "readout_binding", "payload");
+      const std::string readout_json = document.nested_member_value("readout_binding", "payload");
       const std::string references_json = canonical_json_value_root_member(readout_json, "reference_terms");
       const std::string zbl_json = canonical_json_value_root_member(references_json, "zbl");
       std::set<std::string> fields = {"schema", "engine", "pair_style", "units", "atomic_numbers",
@@ -1243,6 +1290,35 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
                                                      : "model.real_moment_program";
 
   result.feature_count = integer(program["feature_count"], program_path + ".feature_count", 0);
+  if (physical_image_v3 && source["occurrence_support"]) {
+    const std::string path = "model.source_binding.payload.occurrence_support";
+    const YAML::Node support = source["occurrence_support"];
+    if (scalar_string(support["schema"], path + ".schema") != "ye3t_distinct_occurrence_support_v1")
+      fail(path, "unsupported occurrence-support schema");
+    require_sequence(support["species_order"], path + ".species_order");
+    if (support["species_order"].size() != result.species_order.size())
+      fail(path, "occurrence-support species width differs");
+    for (std::size_t index = 0; index < result.species_order.size(); ++index)
+      if (scalar_string(support["species_order"][index], path) != result.species_order[index])
+        fail(path, "occurrence-support species order differs");
+    const YAML::Node rows = support["alternatives_per_feature"];
+    require_sequence(rows, path + ".alternatives_per_feature");
+    if (rows.size() != static_cast<std::size_t>(result.feature_count))
+      fail(path, "occurrence-support feature width differs");
+    for (const auto &alternatives : rows) {
+      require_sequence(alternatives, path);
+      if (alternatives.size() == 0) fail(path, "a feature has no occurrence alternative");
+      std::vector<std::vector<int>> feature;
+      for (const auto &row : alternatives) {
+        require_sequence(row, path);
+        if (row.size() != result.species_order.size()) fail(path, "invalid occurrence-count width");
+        std::vector<int> counts;
+        for (const auto &count : row) counts.push_back(integer(count, path, 0));
+        feature.push_back(std::move(counts));
+      }
+      result.occurrence_support.push_back(std::move(feature));
+    }
+  }
   const int program_tag_count = integer(program["tag_count"], program_path + ".tag_count", 0);
   if (program_tag_count != result.tag_count)
     fail(program_path + ".tag_count", "tag_count differs from the top-level model.tag_count");
@@ -1384,25 +1460,27 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
 
   // terms
   {
-    require_sequence(program["terms"], program_path + ".terms");
+    if (!physical_image_v4) require_sequence(program["terms"], program_path + ".terms");
     const YAML::Node node = program["terms"];
-    for (std::size_t index = 0; index < node.size(); ++index) {
+    const std::size_t count = physical_image_v4 ? forward_records.size() : node.size();
+    for (std::size_t index = 0; index < count; ++index) {
       const std::string path = program_path + ".terms[" + std::to_string(index) + "]";
-      require_mapping(node[index], path);
+      const YAML::Node record = physical_image_v4 ? YAML::Load(forward_records[index]) : node[index];
+      require_mapping(record, path);
       TaggedCauchyTerm term;
-      term.feature_index = integer(node[index]["feature_index"], path + ".feature_index", 0,
+      term.feature_index = integer(record["feature_index"], path + ".feature_index", 0,
                                    result.feature_count - 1);
-      term.coefficient = finite_number(node[index]["coefficient"], path + ".coefficient");
-      term.p = integer(node[index]["p"], path + ".p", 0, result.tag_count);
+      term.coefficient = finite_number(record["coefficient"], path + ".coefficient");
+      term.p = integer(record["p"], path + ".p", 0, result.tag_count);
       if (physical_image_v3 && term.p != 0)
         fail(path + ".p", "V3 physical-image terms must use p=0");
-      require_sequence(node[index]["density_factor_indices"], path + ".density_factor_indices");
-      for (const auto &value : node[index]["density_factor_indices"])
+      require_sequence(record["density_factor_indices"], path + ".density_factor_indices");
+      for (const auto &value : record["density_factor_indices"])
         term.density_factor_indices.push_back(
             integer(value, path + ".density_factor_indices[*]", 0,
                     static_cast<int>(result.real_density_keys.size()) - 1));
-      require_sequence(node[index]["moment_indices"], path + ".moment_indices");
-      for (const auto &value : node[index]["moment_indices"])
+      require_sequence(record["moment_indices"], path + ".moment_indices");
+      for (const auto &value : record["moment_indices"])
         term.moment_indices.push_back(
             integer(value, path + ".moment_indices[*]", 0,
                     static_cast<int>(result.real_moment_keys.size()) - 1));
@@ -1413,19 +1491,21 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
   }
 
   if (physical_image_v3) {
-    require_sequence(program["adjoint_terms"], program_path + ".adjoint_terms");
+    if (!physical_image_v4) require_sequence(program["adjoint_terms"], program_path + ".adjoint_terms");
     const YAML::Node node = program["adjoint_terms"];
-    for (std::size_t index = 0; index < node.size(); ++index) {
+    const std::size_t count = physical_image_v4 ? adjoint_records.size() : node.size();
+    for (std::size_t index = 0; index < count; ++index) {
       const std::string path = program_path + ".adjoint_terms[" + std::to_string(index) + "]";
-      require_mapping(node[index], path);
+      const YAML::Node record = physical_image_v4 ? YAML::Load(adjoint_records[index]) : node[index];
+      require_mapping(record, path);
       TaggedCauchyAdjointTerm term;
-      term.feature_index = integer(node[index]["feature_index"], path + ".feature_index", 0,
+      term.feature_index = integer(record["feature_index"], path + ".feature_index", 0,
                                    result.feature_count - 1);
-      term.source_index = integer(node[index]["source_index"], path + ".source_index", 0,
+      term.source_index = integer(record["source_index"], path + ".source_index", 0,
                                   static_cast<int>(result.real_density_keys.size()) - 1);
-      term.coefficient = finite_number(node[index]["coefficient"], path + ".coefficient");
-      require_sequence(node[index]["remaining_source_indices"], path + ".remaining_source_indices");
-      for (const auto &value : node[index]["remaining_source_indices"])
+      term.coefficient = finite_number(record["coefficient"], path + ".coefficient");
+      require_sequence(record["remaining_source_indices"], path + ".remaining_source_indices");
+      for (const auto &value : record["remaining_source_indices"])
         term.remaining_source_indices.push_back(
             integer(value, path + ".remaining_source_indices[*]", 0,
                     static_cast<int>(result.real_density_keys.size()) - 1));
@@ -1474,7 +1554,7 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     if (!legacy_portfolio && portfolio_schema != "ye3t_tagged_moment_execution_portfolio_v2")
       fail(path + ".schema", "unsupported tagged execution portfolio");
     const std::string portfolio_json =
-        canonical_json_root_member_value(supplied_path, "tagged_execution_portfolio");
+        document.root_member_value("tagged_execution_portfolio");
     result.execution_portfolio.portfolio_hash =
         sha256_field(portfolio["portfolio_hash"], path + ".portfolio_hash");
     if (canonical_json_value_hash_without_root_member(portfolio_json, "portfolio_hash") !=
@@ -1483,8 +1563,8 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     result.execution_portfolio.program_hash =
         sha256_field(portfolio["program_hash"], path + ".program_hash");
     const std::string program_json = physical_image_v3
-        ? canonical_json_nested_member_value(supplied_path, "schedule_binding", "payload")
-        : canonical_json_root_member_value(supplied_path, "real_moment_program");
+        ? document.nested_member_value("schedule_binding", "payload")
+        : document.root_member_value("real_moment_program");
     if (sha256_string(program_json) != result.execution_portfolio.program_hash)
       fail(path + ".program_hash", "portfolio program binding changed");
     result.execution_portfolio.readout_hash =
@@ -1780,6 +1860,11 @@ double TaggedCauchyModel::memory_usage() const
   bytes += zbl_pairs.capacity() * sizeof(TaggedCauchyZBLPair);
   bytes += beta.capacity() * sizeof(std::vector<double>);
   for (const auto &species_beta : beta) bytes += species_beta.capacity() * sizeof(double);
+  bytes += occurrence_support.capacity() * sizeof(std::vector<std::vector<int>>);
+  for (const auto &alternatives : occurrence_support) {
+    bytes += alternatives.capacity() * sizeof(std::vector<int>);
+    for (const auto &counts : alternatives) bytes += counts.capacity() * sizeof(int);
+  }
   bytes += real_forms.capacity() * sizeof(TaggedCauchyRealForm);
   for (const auto &form : real_forms) {
     bytes += form.real_form_id.capacity() + 1;

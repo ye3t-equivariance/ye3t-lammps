@@ -19,6 +19,7 @@
 #define LMP_YE3T_CANONICAL_JSON_HASH_H
 
 #include <string>
+#include <memory>
 #include <vector>
 
 namespace YE3T_LAMMPS {
@@ -26,6 +27,22 @@ namespace YE3T_LAMMPS {
 struct CanonicalExecutionPlanHashes {
   std::string coefficient_hash;
   std::string plan_hash;
+};
+
+// One immutable parse for all integrity checks performed during one model load.
+// The compact bytes and root index are released when the document leaves scope.
+class CanonicalJSONDocument {
+ public:
+  explicit CanonicalJSONDocument(const std::string &input, bool json_value = false);
+  std::string root_member_value(const std::string &member) const;
+  std::vector<std::string> root_member_names() const;
+  std::string nested_member_value(const std::string &object_member,
+                                  const std::string &member) const;
+  std::string hash_without_root_member(const std::string &omitted_member) const;
+
+ private:
+  struct Impl;
+  std::shared_ptr<Impl> impl_;
 };
 
 CanonicalExecutionPlanHashes canonical_execution_plan_hashes(const std::string &path);
@@ -47,6 +64,9 @@ std::string canonical_json_value_hash_without_root_member(const std::string &jso
 std::string canonical_json_value_root_member(const std::string &json_value,
                                              const std::string &member);
 
+std::vector<std::string> canonical_json_array_values(const std::string &json_value);
+
+// Preserve the existing mean-property loader interface using the shared reader.
 std::vector<std::string> canonical_json_value_array_items(const std::string &json_value);
 
 }    // namespace YE3T_LAMMPS

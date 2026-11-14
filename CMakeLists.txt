@@ -308,6 +308,18 @@ if(ML_YE3T_BUILD_CPU_RUNTIME)
     target_link_libraries(ml_ye3t_cpu_evaluator_test PRIVATE ml_ye3t_cpu)
     add_executable(ml_ye3t_sha256_test tests/test_sha256.cpp)
     target_link_libraries(ml_ye3t_sha256_test PRIVATE ml_ye3t_cpu)
+    add_executable(ml_ye3t_canonical_json_test tests/test_canonical_json.cpp)
+    target_link_libraries(ml_ye3t_canonical_json_test PRIVATE ml_ye3t_cpu)
+    add_test(NAME ml_ye3t_canonical_json
+      COMMAND ml_ye3t_canonical_json_test "${CMAKE_CURRENT_BINARY_DIR}/canonical-json-test.json")
+    set(ML_YE3T_TAGGED_V4_TEST_MODEL "" CACHE FILEPATH
+        "Optional compiler-exported V4 model for projected-loader integrity tests")
+    if(ML_YE3T_BUILD_TAGGED_C_API AND ML_YE3T_TAGGED_V4_TEST_MODEL)
+      add_test(NAME ml_ye3t_tagged_cauchy_v4_loading
+        COMMAND Python3::Interpreter "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_tagged_cauchy_v4_loading.py"
+          "$<TARGET_FILE:ye3t_tagged_c_api>" "${ML_YE3T_TAGGED_V4_TEST_MODEL}")
+      set_tests_properties(ml_ye3t_tagged_cauchy_v4_loading PROPERTIES TIMEOUT 120)
+    endif()
     add_executable(
       ml_ye3t_lifted_cauchy_cpu_test
       tests/test_lifted_cauchy_cpu.cpp

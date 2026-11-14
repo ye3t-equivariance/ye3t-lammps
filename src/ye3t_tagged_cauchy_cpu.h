@@ -133,6 +133,9 @@ class TaggedCauchyCPUEvaluator {
   std::vector<double> source_batch_component_values_;
   std::vector<double> source_batch_component_gradients_;
   std::vector<double> source_batch_cutoffs_;
+  std::vector<int> occurrence_counts_;
+  std::vector<int> all_features_occurrence_counts_;
+  std::vector<char> feature_available_;
   std::vector<double> component_values_transposed_;
 
   std::vector<double> density_;
@@ -174,6 +177,7 @@ class TaggedCauchyCPUEvaluator {
   std::vector<std::int64_t> term_moment_offsets_;
   std::vector<int> term_moment_flat_;
   std::vector<int> term_p_;
+  std::vector<int> term_feature_index_;
   std::vector<double> term_coefficient_;
   std::vector<int> term_product_node_;
   int maximum_term_p_ = 0;
@@ -195,6 +199,8 @@ class TaggedCauchyCPUEvaluator {
   std::vector<std::int64_t> species_live_moment_offsets_;
   std::vector<int> species_live_moments_;
   std::vector<int> species_live_moment_nodes_;
+  // Additional moments needed only when every descriptor column is requested.
+  std::vector<std::vector<int>> descriptor_missing_moments_;
 
   // V3 compiler-emitted division-free reverse schedule, flattened and
   // readout-folded at construction time just like the forward terms.

@@ -128,6 +128,9 @@ template <class DeviceType> class TaggedCauchyKokkosPlan {
   {
     if (model.deployment_kind == TaggedCauchyDeploymentKind::PhysicalImageV4)
       throw std::runtime_error("Tagged V4 pair-specific sources and references require the CPU runtime");
+    if (!model.occurrence_support.empty())
+      throw std::runtime_error("Tagged exact occurrence-support schedules require the CPU runtime; "
+                               "Kokkos support for this source-plan extension is not implemented");
     if (model.species_order.empty() || model.channels.empty() || model.feature_count <= 0 ||
         model.cutoff <= 0.0)
       throw std::invalid_argument("invalid tagged-Cauchy device model");
