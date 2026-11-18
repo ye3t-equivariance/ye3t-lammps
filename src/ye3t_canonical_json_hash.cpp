@@ -54,35 +54,27 @@ namespace {
       if (plan_hash == nullptr || tables == nullptr)
         fail("execution-plan root omits plan_hash or synthesis_tables");
 
-      std::string plan_payload{"{"};
-      bool first = true;
-      for (const auto &entry : root_members_) {
-        if (entry.key == "plan_hash") continue;
-        if (!first) plan_payload.push_back(',');
-        first = false;
-        plan_payload.append(compact_, entry.member_begin, entry.member_end - entry.member_begin);
-      }
-      plan_payload.push_back('}');
-
-      return {sha256_string(
-                  compact_.substr(tables->value_begin, tables->value_end - tables->value_begin)),
-              sha256_string(plan_payload)};
+      SHA256Builder table_hash;
+      table_hash.update(compact_.data() + tables->value_begin,
+                        tables->value_end - tables->value_begin);
+      return {table_hash.finish(), hash_without_root_member("plan_hash")};
     }
 
     std::string hash_without_root_member(const std::string &omitted_member)
     {
       scan_root();
       if (member(omitted_member) == nullptr) fail("root omits member " + omitted_member);
-      std::string payload{"{"};
+      SHA256Builder payload;
+      payload.update("{", 1);
       bool first = true;
       for (const auto &entry : root_members_) {
         if (entry.key == omitted_member) continue;
-        if (!first) payload.push_back(',');
+        if (!first) payload.update(",", 1);
         first = false;
-        payload.append(compact_, entry.member_begin, entry.member_end - entry.member_begin);
+        payload.update(compact_.data() + entry.member_begin, entry.member_end - entry.member_begin);
       }
-      payload.push_back('}');
-      return sha256_string(payload);
+      payload.update("}", 1);
+      return payload.finish();
     }
 
     std::string root_member_value(const std::string &key)

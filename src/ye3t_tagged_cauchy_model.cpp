@@ -486,10 +486,9 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     result.deployment_identity_hash =
         sha256_field(model["deployment_identity_hash"], "model.deployment_identity_hash");
 
-    const std::string compiler_json =
-        document.root_member_value("compiler_artifact");
     if (!compiler_document)
-      compiler_document = std::make_unique<CanonicalJSONDocument>(compiler_json, true);
+      compiler_document = std::make_unique<CanonicalJSONDocument>(
+          document.root_member_value("compiler_artifact"), true);
     const std::string compiler_self =
         json_string_value(compiler_document->root_member_value("self_hash"),
                           "model.compiler_artifact.self_hash");
@@ -511,11 +510,9 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
 
     const YAML::Node compiler_payload = model["compiler_artifact"]["payload"];
     require_mapping(compiler_payload, "model.compiler_artifact.payload");
-    const std::string compiler_payload_json =
-        compiler_document->root_member_value("payload");
     if (!compiler_payload_document)
       compiler_payload_document =
-          std::make_unique<CanonicalJSONDocument>(compiler_payload_json, true);
+          std::make_unique<CanonicalJSONDocument>(compiler_document->root_member_value("payload"), true);
     const std::string committed_schedule_hash =
         sha256_field(compiler_payload["real_schedule_core_hash"],
                      "model.compiler_artifact.payload.real_schedule_core_hash");
@@ -569,6 +566,8 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     if (compiler_forms_json != source_forms_json)
       fail("model.source_binding.payload.real_forms",
            "source real forms differ from the compiler artifact");
+    compiler_payload_document.reset();
+    compiler_document.reset();
     if (sha256_field(source["compiler_artifact_hash"],
                      "model.source_binding.payload.compiler_artifact_hash") !=
         result.compiler_artifact_hash)
@@ -704,11 +703,13 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     } else {
       fail("model.source_binding.payload.schema", "unsupported V3 source-plan schema");
     }
+    const std::string readout_schema = scalar_string(readout["schema"], "model.readout_binding.payload.schema");
     if (scalar_string(program["schema"], "model.schedule_binding.payload.schema") !=
             "ye3t_tagged_cauchy_real_schedule_v1" ||
-        scalar_string(readout["schema"], "model.readout_binding.payload.schema") !=
-            "ye3t_tagged_cauchy_readout_v1")
+        (readout_schema != "ye3t_tagged_cauchy_readout_v1" && readout_schema != "ye3t_tagged_cauchy_readout_v2"))
       fail("model", "unsupported V3 schedule or readout schema");
+    if (readout_schema == "ye3t_tagged_cauchy_readout_v1" && readout["support_groups"])
+      fail("model", "supported readout requires the v2 schema");
     if (scalar_string(program["core_schema"], "model.schedule_binding.payload.core_schema") !=
             "ye3t_tagged_cauchy_real_schedule_core_v1" ||
         scalar_string(program["lowering_convention"],
@@ -1414,6 +1415,46 @@ TaggedCauchyModel TaggedCauchyModel::load(const std::string &supplied_path)
     }
   }
 
+  if (physical_image_v3 && scalar_string(readout["schema"], "readout.schema") == "ye3t_tagged_cauchy_readout_v2") {
+    const std::string path = "model.readout_binding.payload.support_groups";
+    const YAML::Node groups = readout["support_groups"];
+    require_sequence(groups, path);
+    if (result.occurrence_support.empty()) fail(path, "source occurrence support is required");
+    std::vector<std::vector<double>> folded(result.species_order.size(),
+                                            std::vector<double>(result.feature_count, 0.0));
+    for (const auto &node : groups) {
+      require_mapping(node, path);
+      if (node.size() != 3) fail(path, "expected center_index, alternatives and terms");
+      TaggedCauchySupportGroup group;
+      group.center_index = integer(node["center_index"], path + ".center_index", 0);
+      if (static_cast<std::size_t>(group.center_index) >= result.species_order.size())
+        fail(path, "invalid center index");
+      require_sequence(node["alternatives"], path);
+      if (node["alternatives"].size() == 0) fail(path, "empty occurrence alternatives");
+      for (const auto &row : node["alternatives"]) {
+        require_sequence(row, path);
+        if (row.size() != result.species_order.size()) fail(path, "invalid occurrence-count width");
+        std::vector<int> counts;
+        for (const auto &count : row) counts.push_back(integer(count, path, 0));
+        group.alternatives.push_back(std::move(counts));
+      }
+      require_sequence(node["terms"], path);
+      std::set<int> seen;
+      for (const auto &term : node["terms"]) {
+        require_sequence(term, path);
+        if (term.size() != 2) fail(path, "expected feature index and coefficient");
+        const int feature = integer(term[0], path, 0);
+        if (feature >= result.feature_count || !seen.insert(feature).second)
+          fail(path, "invalid or repeated feature index");
+        const double coefficient = finite_number(term[1], path);
+        group.terms.emplace_back(feature, coefficient);
+        folded[group.center_index][feature] += coefficient;
+      }
+      result.support_groups.push_back(std::move(group));
+    }
+    if (folded != result.beta) fail(path, "support groups disagree with folded coefficients");
+  }
+
   // real_density_keys
   {
     require_sequence(program["real_density_keys"], program_path + ".real_density_keys");
@@ -1861,6 +1902,12 @@ double TaggedCauchyModel::memory_usage() const
   bytes += beta.capacity() * sizeof(std::vector<double>);
   for (const auto &species_beta : beta) bytes += species_beta.capacity() * sizeof(double);
   bytes += occurrence_support.capacity() * sizeof(std::vector<std::vector<int>>);
+  bytes += support_groups.capacity() * sizeof(TaggedCauchySupportGroup);
+  for (const auto &group : support_groups) {
+    bytes += group.terms.capacity() * sizeof(std::pair<int, double>);
+    bytes += group.alternatives.capacity() * sizeof(std::vector<int>);
+    for (const auto &row : group.alternatives) bytes += row.capacity() * sizeof(int);
+  }
   for (const auto &alternatives : occurrence_support) {
     bytes += alternatives.capacity() * sizeof(std::vector<int>);
     for (const auto &counts : alternatives) bytes += counts.capacity() * sizeof(int);

@@ -77,6 +77,11 @@ class TaggedCauchyCPUEvaluator {
   void freeze_auto_policy(TaggedCauchyExecutionPolicy policy);
 
  private:
+  template <bool SupportedReadout>
+  void evaluate_impl(int atom_count, const int *central_species_indices, const std::size_t *edge_offsets,
+                     const int *edge_neighbor_species, const double *edge_vectors,
+                     double *atomic_energies, double *edge_gradients, double *atomic_features);
+
   // Evaluate every channel's real component (and, if requested, its
   // Cartesian gradient with respect to the raw edge vector) for a batch of
   // edges. The source calculation is edge-local, so one batch may contain
@@ -218,6 +223,8 @@ class TaggedCauchyCPUEvaluator {
   // edge's species trivially has channels, but real for multi-species
   // artifacts where some species pairs have none).
   std::vector<bool> species_has_channel_;
+  std::vector<double> supported_beta_;
+  std::vector<bool> readout_group_available_;
 };
 
 }    // namespace YE3T_LAMMPS

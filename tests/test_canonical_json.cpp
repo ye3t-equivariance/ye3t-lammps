@@ -49,6 +49,15 @@ int main(int argc, char **argv)
               "streamed array records changed");
     }
     require(YE3T_LAMMPS::canonical_json_array_values("[]").empty(), "empty array");
+    const std::string large_value(1024 * 1024, 'x');
+    const std::string payload = "{\"data\":\"" + large_value + "\"}";
+    const auto payload_hash = YE3T_LAMMPS::sha256_string(payload);
+    require(CanonicalJSONDocument("{\"data\":\"" + large_value +
+                "\",\"self_hash\":\"test\"}", true).hash_without_root_member("self_hash") == payload_hash,
+            "streamed large-payload hash changed");
+    require(CanonicalJSONDocument(R"({"self_hash":"only"})", true)
+                .hash_without_root_member("self_hash") == YE3T_LAMMPS::sha256_string("{}"),
+            "streamed empty-payload hash changed");
     bool missing_rejected = false;
     try { document.root_member_value("missing"); }
     catch (const std::runtime_error &) { missing_rejected = true; }

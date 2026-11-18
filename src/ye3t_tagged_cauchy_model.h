@@ -144,6 +144,12 @@ struct TaggedCauchyZBLPair {
 // PACE ChebExpCos radial definition. `moment_program` (complex) and
 // `execution_strategy` are intentionally not read; only the real program is
 // implemented natively.
+struct TaggedCauchySupportGroup {
+  int center_index = 0;
+  std::vector<std::vector<int>> alternatives;
+  std::vector<std::pair<int, double>> terms;
+};
+
 struct TaggedCauchyModel {
   static TaggedCauchyModel load(const std::string &path);
   double memory_usage() const;
@@ -222,6 +228,7 @@ struct TaggedCauchyModel {
   std::vector<TaggedCauchyTerm> terms;
   std::vector<TaggedCauchyAdjointTerm> adjoint_terms;
   TaggedCauchyExecutionPortfolio execution_portfolio;
+  std::vector<TaggedCauchySupportGroup> support_groups;
 };
 
 }    // namespace YE3T_LAMMPS

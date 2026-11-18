@@ -635,6 +635,23 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
                                         const double *edge_vectors, double *atomic_energies,
                                         double *edge_gradients, double *atomic_features)
 {
+  // Dispatch once per call. Compile the existing unselected loop without
+  // optional group state, so selected-source support has no per-center cost.
+  if (model_->support_groups.empty())
+    evaluate_impl<false>(atom_count, central_species_indices, edge_offsets, edge_neighbor_species,
+                         edge_vectors, atomic_energies, edge_gradients, atomic_features);
+  else
+    evaluate_impl<true>(atom_count, central_species_indices, edge_offsets, edge_neighbor_species,
+                        edge_vectors, atomic_energies, edge_gradients, atomic_features);
+}
+
+template <bool SupportedReadout>
+void TaggedCauchyCPUEvaluator::evaluate_impl(int atom_count, const int *central_species_indices,
+                                        const std::size_t *edge_offsets,
+                                        const int *edge_neighbor_species,
+                                        const double *edge_vectors, double *atomic_energies,
+                                        double *edge_gradients, double *atomic_features)
+{
   if (auto_requested() && !auto_calibrated_ && !auto_calibration_in_progress_)
     throw std::runtime_error("tagged-Cauchy AUTO must be calibrated and frozen before evaluation");
   if (atom_count < 0)
@@ -708,6 +725,30 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
             }
             all_supported = all_supported && feature_available_[feature];
           }
+        }
+      }
+      const bool features_supported = all_supported;
+      bool readout_supported = true;
+      if constexpr (SupportedReadout) {
+        readout_group_available_.assign(model.support_groups.size(), false);
+        for (std::size_t index = 0; index < model.support_groups.size(); ++index) {
+          const auto &group = model.support_groups[index];
+          if (static_cast<std::size_t>(group.center_index) != species) continue;
+          for (const auto &counts : group.alternatives) {
+            bool available = true;
+            for (std::size_t kind = 0; kind < counts.size(); ++kind)
+              if (occurrence_counts_[kind] < counts[kind]) { available = false; break; }
+            if (available) { readout_group_available_[index] = true; break; }
+          }
+          readout_supported = readout_supported && readout_group_available_[index];
+        }
+        if (!readout_supported) {
+          supported_beta_.assign(static_cast<std::size_t>(model.feature_count), 0.0);
+          for (std::size_t index = 0; index < model.support_groups.size(); ++index)
+            if (readout_group_available_[index])
+              for (const auto &term : model.support_groups[index].terms)
+                supported_beta_[static_cast<std::size_t>(term.first)] += term.second;
+          all_supported = false;
         }
       }
       std::fill(density_.begin(), density_.end(), 0.0);
@@ -958,7 +999,7 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
             static_cast<std::size_t>(center) * static_cast<std::size_t>(model.feature_count);
         std::fill(features, features + model.feature_count, 0.0);
         for (const TaggedCauchyTerm &term : model.terms) {
-          if (!all_supported && !feature_available_[static_cast<std::size_t>(term.feature_index)])
+          if (!features_supported && !feature_available_[static_cast<std::size_t>(term.feature_index)])
             continue;
           double product = term.coefficient;
           for (const int density_index : term.density_factor_indices)
@@ -1078,6 +1119,27 @@ void TaggedCauchyCPUEvaluator::evaluate(int atom_count, const int *central_speci
             moment_adjoint_[static_cast<std::size_t>(variable - density_key_count_)] +=
                 seed * prefix;
           if (parent >= 0) readout_node_adjoint_[static_cast<std::size_t>(parent)] += seed * factor;
+        }
+      } else if (SupportedReadout && !readout_supported) {
+        // Selected coordinate groups keep their support before contraction.
+        // Reuse the compiler terms, including terms whose all-supported
+        // readout cancels. No coupling or normalization is reconstructed here.
+        for (const auto &term : model.terms) {
+          const std::size_t feature = static_cast<std::size_t>(term.feature_index);
+          if (!features_supported && !feature_available_[feature]) continue;
+          if (supported_beta_[feature] == 0.0) continue;
+          long double product = supported_beta_[feature] * term.coefficient;
+          for (const int index : term.density_factor_indices) product *= density_[static_cast<std::size_t>(index)];
+          for (const int index : term.moment_indices) product *= moment_[static_cast<std::size_t>(index)];
+          energy += product;
+        }
+        for (const auto &term : model.adjoint_terms) {
+          const std::size_t feature = static_cast<std::size_t>(term.feature_index);
+          if (!features_supported && !feature_available_[feature]) continue;
+          if (supported_beta_[feature] == 0.0) continue;
+          double product = supported_beta_[feature] * term.coefficient;
+          for (const int index : term.remaining_source_indices) product *= density_[static_cast<std::size_t>(index)];
+          density_adjoint_[static_cast<std::size_t>(term.source_index)] += product;
         }
       } else {
         // V3 retains compiler forward order and uses its separately certified
@@ -1474,6 +1536,8 @@ double TaggedCauchyCPUEvaluator::memory_usage() const
   bytes += term_p_.capacity() * sizeof(int);
   bytes += term_feature_index_.capacity() * sizeof(int);
   bytes += occurrence_counts_.capacity() * sizeof(int);
+  bytes += supported_beta_.capacity() * sizeof(double);
+  bytes += (readout_group_available_.capacity() + 7) / 8;
   bytes += all_features_occurrence_counts_.capacity() * sizeof(int);
   bytes += feature_available_.capacity() * sizeof(char);
   bytes += term_coefficient_.capacity() * sizeof(double);

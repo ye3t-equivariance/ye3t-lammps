@@ -84,12 +84,17 @@ inline TaggedCauchyReadoutPlan compile_tagged_cauchy_readout(const TaggedCauchyM
   std::vector<std::vector<int>> moment_node_terminals;
 
   for (std::size_t species = 0; species < model.beta.size(); ++species) {
+    std::vector<bool> group_live(static_cast<std::size_t>(model.feature_count), false);
+    for (const auto &group : model.support_groups)
+      if (static_cast<std::size_t>(group.center_index) == species)
+        for (const auto &term : group.terms)
+          if (term.second != 0.0) group_live[static_cast<std::size_t>(term.first)] = true;
     std::vector<CompiledTerm> compiled;
     std::map<TermKey, std::size_t> positions;
     for (const TaggedCauchyTerm &term : model.terms) {
       const double coefficient =
           model.beta[species][static_cast<std::size_t>(term.feature_index)] * term.coefficient;
-      if (coefficient == 0.0) continue;
+      if (coefficient == 0.0 && !group_live[static_cast<std::size_t>(term.feature_index)]) continue;
 
       CompiledTerm candidate;
       candidate.p = term.p;
@@ -114,7 +119,7 @@ inline TaggedCauchyReadoutPlan compile_tagged_cauchy_readout(const TaggedCauchyM
     std::vector<bool> live_moments(model.real_moment_keys.size(), false);
     std::map<std::pair<int, int>, int> readout_nodes;
     for (const CompiledTerm &term : compiled) {
-      if (term.coefficient == 0.0) continue;
+      if (term.coefficient == 0.0 && !group_live[static_cast<std::size_t>(term.feature_index)]) continue;
       plan.maximum_term_p = std::max(plan.maximum_term_p, term.p);
       plan.term_p.push_back(term.p);
       plan.term_feature_index.push_back(term.feature_index);
